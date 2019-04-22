@@ -9,7 +9,7 @@ from pxr import Usd
 from pxr import UsdGeom
 
 
-def create_basic_scene(path):
+def create_basic_stage(path):
     stage = Usd.Stage.CreateNew(path)
     sphere = UsdGeom.Sphere(stage.DefinePrim('/SomeSphere', 'Sphere'))
 
@@ -55,7 +55,7 @@ def create_override_stage(path):
 
 def main():
     with tempfile.NamedTemporaryFile(delete=False, suffix='.usda') as handle:
-        create_basic_scene(handle.name)
+        create_basic_stage(handle.name)
         stage = create_override_stage(handle.name)
         print(stage.GetRootLayer().ExportToString())
 
