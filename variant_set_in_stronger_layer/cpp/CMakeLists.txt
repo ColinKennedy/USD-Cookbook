@@ -33,5 +33,6 @@ variant_set
 	${USD_LIB_DIR}/libusdGeom.so
 	${USD_LIB_DIR}/libtf.so
 	${USD_LIB_DIR}/libsdf.so
+	${USD_LIB_DIR}/libvt.so
 	${PYTHON_LIBRARY}
 )
