@@ -1,0 +1,7 @@
+#usda 1.0
+
+over "SomeSphere" {
+	over "some_variant" {
+	}
+    delete variantSets = "some_variant"
+}
