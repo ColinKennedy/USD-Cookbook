@@ -29,10 +29,11 @@ PUBLIC
 target_link_libraries(
 variant_set
 	${USD_LIB_DIR}/libboost_python.so
+	${USD_LIB_DIR}/libgf.so
+	${USD_LIB_DIR}/libsdf.so
+	${USD_LIB_DIR}/libtf.so
 	${USD_LIB_DIR}/libusd.so
 	${USD_LIB_DIR}/libusdGeom.so
-	${USD_LIB_DIR}/libtf.so
-	${USD_LIB_DIR}/libsdf.so
 	${USD_LIB_DIR}/libvt.so
 	${PYTHON_LIBRARY}
 )

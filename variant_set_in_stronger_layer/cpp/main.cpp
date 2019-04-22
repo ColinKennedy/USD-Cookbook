@@ -4,6 +4,7 @@
 
 // IMPORT THIRD-PARTY LIBRARIES
 #include "pxr/usd/sdf/layer.h"
+#include "pxr/usd/sdf/types.h"
 #include "pxr/usd/usd/editContext.h"
 #include "pxr/usd/usd/stage.h"
 #include "pxr/usd/usd/variantSets.h"
@@ -52,8 +53,8 @@ void create_basic_stage(std::string const &path) {
     }
 
     // XXX: We set this attribute just to show that "variant_name_3" isn't still active
-    sphere.GetExtentAttr().Set(5);
-    pxr::VtFloatArray<pxr::
+    pxr::VtArray<pxr::GfVec3f> extent {{3.0, 3.0, 3.0}};
+    sphere.GetExtentAttr().Set(extent);
 
     stage->Save();
 }
