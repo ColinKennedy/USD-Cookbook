@@ -1,0 +1,21 @@
+#usda 1.0
+(
+    subLayers = [
+        @/tmp/tmphQYhKd.usda@
+    ]
+)
+
+over "SomeSphere" (
+    variants = {
+        string some_variant_set = "foo"
+    }
+    prepend variantSets = ["another", "some_variant_set"]
+)
+{
+    variantSet "some_variant_set" = {
+        "foo" {
+            double radius = 100
+
+        }
+    }
+}
