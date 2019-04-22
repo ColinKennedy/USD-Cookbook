@@ -1,0 +1,22 @@
+#usda 1.0
+(
+	doc = """This shot takes the common settings from sequence.usda and adds to them."""
+	subLayers = [
+		@./sequence.usda@
+	]
+)
+
+over "SomeSphere"
+(
+	prepend variantSets = ["some_variant_set"]
+	variants = {
+		string some_variant_set = "variant_name_2"
+	}
+)
+{
+	variantSet "some_variant_set" = {
+		"variant_name_2" {
+			color3f[] primvars:displayColor = [(0, 1, 0)]
+		}
+	}
+}

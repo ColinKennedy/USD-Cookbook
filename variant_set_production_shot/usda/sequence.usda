@@ -1,0 +1,25 @@
+#usda 1.0
+(
+	"We override the character to make it bigger and add some viewing option."
+	doc = """A common set of data for an entire sequence."""
+	subLayers = [
+		@./asset.usda@,
+	]
+)
+
+over "SomeSphere"
+(
+	prepend variantSets = ["some_variant_set"]
+	variants = {
+        string some_variant_set = "variant_name_1"
+    }
+)
+{
+	double radius = 20
+
+	variantSet "some_variant_set" = {
+		"variant_name_1" {
+			color3f[] primvars:displayColor = [(1, 0, 0)]
+		}
+	}
+}

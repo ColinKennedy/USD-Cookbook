@@ -1,0 +1,8 @@
+#usda 1.0
+(
+	doc = """This file contains the "character" that will be changed in other layers."""
+)
+
+def Sphere "SomeSphere" {
+	double radius = 3.0
+}
