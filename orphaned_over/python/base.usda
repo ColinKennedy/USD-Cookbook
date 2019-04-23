@@ -1,0 +1,9 @@
+#usda 1.0
+(
+	doc = """Some Prim definition. It could be anything. See "over.usda" for details."""
+)
+
+
+def Sphere "SomeSphere" {
+	double radius = 4.0
+}

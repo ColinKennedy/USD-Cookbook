@@ -1,0 +1,25 @@
+#usda 1.0
+(
+	doc = """The "base.usda" file is brought in but our over "misses" the
+		PrimSpec that it's meant to modify"""
+	subLayers = [
+		@./base.usda@
+	]
+)
+
+
+over "SomethingNameThatIsNotSomeSphere" {
+	double radius = 4.0
+}
+
+over "AnotherOne" {
+	double radius = 4.0
+
+	over "AndAnotherOne" {
+		double radius = 10.0
+	}
+}
+
+over "SomeSphere" {
+	double radius = 10.0
+}
