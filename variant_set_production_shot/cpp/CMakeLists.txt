@@ -26,6 +26,7 @@ PUBLIC
 	${PYTHON_INCLUDE_PATH}
 )
 
+# TODO: Make sure that each of these are needed
 target_link_libraries(
 run_it
 	${USD_LIB_DIR}/libboost_python.so

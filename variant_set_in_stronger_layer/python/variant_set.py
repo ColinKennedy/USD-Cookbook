@@ -13,6 +13,8 @@ def create_basic_stage(path):
     stage = Usd.Stage.CreateNew(path)
     sphere = UsdGeom.Sphere(stage.DefinePrim('/SomeSphere', 'Sphere'))
 
+    stage.GetRootLayer().documentation = 'A layer that authors some variant set'
+
     variants = sphere.GetPrim().GetVariantSets().AddVariantSet('some_variant_set')
     variants.AddVariant('variant_name_1')
     variants.AddVariant('variant_name_2')

@@ -23,6 +23,8 @@ def create_asset():
     '''Create some asset to add into a sequence of shots.'''
     path = tempfile.NamedTemporaryFile(suffix='.usda').name
     stage = Usd.Stage.CreateNew(path)
+    stage.GetRootLayer().documentation = 'This file contains the "character" that will be changed in other layers.'
+
     sphere = UsdGeom.Sphere(stage.DefinePrim('/SomeSphere', 'Sphere'))
 
     stage.Save()  # XXX: This is needed. Otherwise `create_sequence` will fail
@@ -33,7 +35,10 @@ def create_sequence(asset):
     '''Create a collection that shots will include and add some character to it.'''
     path = tempfile.NamedTemporaryFile(suffix='.usda').name
     stage = Usd.Stage.CreateNew(path)
-    stage.GetRootLayer().subLayerPaths.append(asset)
+    root = stage.GetRootLayer()
+    root.documentation = 'A common set of data for an entire sequence.'
+    root.subLayerPaths.append(asset)
+    stage.SetMetadata('comment', 'We override the character to make it bigger and add some viewing option.')
     prim = stage.OverridePrim('/SomeSphere')
     variants = prim.GetVariantSets().AddVariantSet('some_variant_set')
     variants.AddVariant('variant_name_1')

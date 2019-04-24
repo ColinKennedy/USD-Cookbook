@@ -26,7 +26,7 @@ std::string create_asset() {
 
 std::string create_sequence() {
     auto stage = pxr::UsdStage::CreateNew(SEQUENCE_PATH);
-    auto prim = stage->OverridePrim("/SomeSphere");
+    auto prim = stage->OverridePrim(pxr::SdfPath("/SomeSphere"));
 
     stage->GetRootLayer()->SetDocumentation(
         "A common set of data for an entire sequence.");
