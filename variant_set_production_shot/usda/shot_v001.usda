@@ -8,7 +8,6 @@
 
 over "SomeSphere"
 (
-	prepend variantSets = ["some_variant_set"]
 	variants = {
 		string some_variant_set = "variant_name_2"
 	}
