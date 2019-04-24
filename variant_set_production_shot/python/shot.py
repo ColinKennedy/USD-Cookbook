@@ -1,6 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+'''A demonstration of how to add to variant sets at different levels of pipeline.
+
+There is an asset that gets added to a "sequence" and then the sequence
+is further further refined by a shot. This is shown by adding variant
+sets at each step.
+
+'''
+
 # IMPORT STANDARD LIBRARIES
 import os
 import tempfile
