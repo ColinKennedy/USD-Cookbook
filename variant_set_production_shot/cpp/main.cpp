@@ -2,7 +2,6 @@
 #include <string>
 
 // IMPORT THIRD-PARTY LIBRARIES
-#include "pxr/usd/sdf/schema.h"
 #include "pxr/usd/usd/stage.h"
 #include "pxr/usd/usd/editContext.h"
 #include "pxr/usd/usd/variantSets.h"
