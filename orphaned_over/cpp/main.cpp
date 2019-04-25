@@ -28,21 +28,10 @@ std::string create_basic_stage() {
 auto create_over_stage(std::string const &path) {
     auto stage = pxr::UsdStage::CreateNew(OVER_STAGE_PATH);
 
-    auto over1 = stage->OverridePrim(pxr::SdfPath("/SomethingNameThatIsNotSomeSphere"));
-    auto sphere1 = pxr::UsdGeomSphere(over1);
-    sphere1.GetRadiusAttr().Set(4.0);
-
-    auto over2 = stage->OverridePrim(pxr::SdfPath("/AnotherOne"));
-    auto sphere2 = pxr::UsdGeomSphere(over2);
-    sphere2.GetRadiusAttr().Set(5.0);
-
-    auto over3 = stage->OverridePrim(pxr::SdfPath("/AnotherOne/AndAnotherOne"));
-    auto sphere3 = pxr::UsdGeomSphere(over3);
-    sphere3.GetRadiusAttr().Set(10.0);
-
-    auto over4 = stage->OverridePrim(pxr::SdfPath("SomeSphere"));
-    auto sphere4 = pxr::UsdGeomSphere(over4);
-    sphere4.GetRadiusAttr().Set(10.0);
+    stage->OverridePrim(pxr::SdfPath("/SomethingNameThatIsNotSomeSphere"));
+    stage->OverridePrim(pxr::SdfPath("/AnotherOne"));
+    stage->OverridePrim(pxr::SdfPath("/AnotherOne/AndAnotherOne"));
+    stage->OverridePrim(pxr::SdfPath("SomeSphere"));
 
     return stage;
 }
