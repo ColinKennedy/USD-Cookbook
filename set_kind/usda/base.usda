@@ -1,0 +1,22 @@
+#usda 1.0
+(
+	doc = "This is an example of setting a Model Prim kind"
+)
+
+def Sphere "MySphere" (
+	kind = "component"
+) {
+	def Sphere "SphereChild" (
+		kind = "subcomponent"
+	)
+	{
+	}
+
+	def Sphere "Foo" (
+		"XXX: This kind is made up. But it could be real if we added to the KindRegistry"
+		"https://graphics.pixar.com/usd/docs/api/class_kind_registry.html"
+		kind = "does_not_exist"
+	)
+	{
+	}
+}
