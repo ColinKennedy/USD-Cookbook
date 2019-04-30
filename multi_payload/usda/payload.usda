@@ -1,0 +1,11 @@
+#usda 1.0
+
+def Xform "SomeTransform" (
+    prepend references = [
+        @./cube.usda@</SomeXformCube>,
+        @./sphere.usda@</SomeXformSphere>
+    ]
+)
+{
+}
+
