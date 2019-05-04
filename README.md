@@ -2,6 +2,7 @@ This repository has a collection of USD snippets and example ideas / concepts.
 
 
 ## Structure summary
+
 ```
 Folders
 concepts/
