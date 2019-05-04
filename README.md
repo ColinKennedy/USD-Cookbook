@@ -1,6 +1,8 @@
 This repository has a collection of USD snippets and example ideas / concepts.
 
+
 ## Structure summary
+```
 Folders
 concepts/
  - {CONCEPT_NAME}
@@ -10,6 +12,7 @@ concepts/
   - cpp/
   - python/
   - usda/
+```
 
 
 Each folder in the "concepts" folder shows how to do something in USD.
@@ -52,9 +55,6 @@ things in USD. It's just a collection of (my) personal findings. Also,
 as Pixar comes out with new USD releases and learning resources, this
 information may become out-of-date. Always prefer primary guides and
 documentation over anything that you see here.
-
-Lastly, I like to keep flashcards for USD. 
-My USD deck is [available online here](https://ankiweb.net/shared/decks)
 
 
 ## Final Note
