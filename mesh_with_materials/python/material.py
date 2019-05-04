@@ -98,7 +98,7 @@ def main():
 
     UsdShade.MaterialBindingAPI(billboard).Bind(material)
 
-    print(stage.GetRootLayer().ExportToString())
+    stage.GetRootLayer().Export('/tmp/stage.usda')
 
 
 if __name__ == '__main__':
