@@ -13,63 +13,54 @@
 #include <pxr/usd/usdGeom/tokens.h>
 #include <pxr/usd/usdGeom/xform.h>
 
-
 pxr::UsdGeomMesh attach_billboard(pxr::UsdStageRefPtr &stage,
                                   std::string const &root,
                                   std::string const &name = "card") {
     auto billboard =
         pxr::UsdGeomMesh::Define(stage, pxr::SdfPath(root + "/" + name));
 
-    // billboard.CreatePointsAttr(pxr::VtValue());
-    // billboard.CreateFaceVertexCountsAttr(pxr::VtValue());
-    // billboard.CreateFaceVertexIndicesAttr(pxr::VtValue());
-    // billboard.CreateExtentAttr(pxr::VtValue());
-    //
-    // auto coordinates = billboard.CreatePrimvar(
-    //     pxr::TfToken("st"),
-    //     pxr::SdfValueTypeNames->TexCoord2fArray,
-    //     pxr::UsdGeomTokens->varying
-    // );
+    billboard.CreatePointsAttr(pxr::VtValue());
+    billboard.CreateFaceVertexCountsAttr(pxr::VtValue());
+    billboard.CreateFaceVertexIndicesAttr(pxr::VtValue());
+    billboard.CreateExtentAttr(pxr::VtValue());
+
+    auto coordinates = billboard.CreatePrimvar(
+        pxr::TfToken("st"), pxr::SdfValueTypeNames->TexCoord2fArray,
+        pxr::UsdGeomTokens->varying);
 
     // coordinates.Set();
 
     return billboard;
 }
 
+pxr::UsdShadeShader attach_surface_shader(pxr::UsdStageRefPtr &stage,
+                                          pxr::UsdShadeMaterial material,
+                                          pxr::SdfPath const &path) {
+    auto shader = pxr::UsdShadeShader::Define(stage, path);
+    shader.CreateIdAttr(pxr::VtValue("UsdPreviewSurface"));
+    shader.CreateInput(pxr::TfToken("roughness"), pxr::SdfValueTypeNames->Float)
+        .Set(0.4f);
+    shader.CreateInput(pxr::TfToken("metallic"), pxr::SdfValueTypeNames->Float)
+        .Set(0.0f);
+    material.CreateSurfaceOutput().ConnectToSource(shader,
+                                                   pxr::TfToken("surface"));
 
-int attach_surface_shader(
-        pxr::UsdStageRefPtr &stage,
-        pxr::UsdShadeMaterial material,
-        std::string const &root,
-)
-{
-    // shader = UsdShade.Shader.Define(stage, path)
-    // shader.CreateIdAttr("UsdPreviewSurface")
-    // shader.CreateInput("roughness", Sdf.ValueTypeNames.Float).Set(0.4)
-    // shader.CreateInput("metallic", Sdf.ValueTypeNames.Float).Set(0.0)
-    //
-    // material.CreateSurfaceOutput().ConnectToSource(shader, "surface")
-    //
-    // return shader
-
-    return 0;
+    return shader;
 }
 
+int attach_texture(pxr::UsdStageRefPtr &stage, pxr::UsdShadeShader shader,
+                   std::string const &material_path,
+                   std::string const reader_name = "stdReader",
+                   std::string const shader_name = "diffuseTexture") {
+    auto reader = pxr::UsdShadeShader::Define(
+        stage, pxr::SdfPath(material_path + "/" + reader_name));
+    reader.CreateIdAttr(pxr::VtValue("UsdPrimvarReader_float2"));
 
-int attach_texture(
-        pxr::UsdStageRefPtr &stage,
-        pxr::UsdShadeMaterial material,
-        std::string const &root,
-        std::string const reader_name="stdReader",
-        std::string const shader_name="diffuseTexture",
-)
-{
-    auto reader = pxr::UsdShadeShader::Define(stage, pxr::SdfPath(root + "/" + reader_name));
-    reader.CreateIdAttr("UsdPrimvarReader_float2");
+    auto sampler = pxr::UsdShadeShader::Define(
+        stage, pxr::SdfPath(material_path + "/" + shader_name));
 
-    auto sampler = pxr::UsdShadeShader::Define(stage,)
+    return -1;
 }
-
 
 int main() {
     auto stage = pxr::UsdStage::CreateInMemory("/tmp/simpleShading.usd");
@@ -84,13 +75,12 @@ int main() {
         pxr::SdfPath(billboard.GetPath().GetString() + "/" + "boardMat"));
 
     auto material_path = material.GetPath().GetString();
-    auto shader = attach_surface_shader(
-        stage,
-        material,
-        material_path + "/" + "PBRShader"
-    );
-    auto reader = attach_texture(stage, shader, material_path);
 
+    auto shader = attach_surface_shader(
+        stage, material,
+        static_cast<pxr::SdfPath>(material_path + "/" + "PBRShader"));
+
+    auto reader = attach_texture(stage, shader, material_path);
 
     return 0;
 }
