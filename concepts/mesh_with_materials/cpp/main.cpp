@@ -1,8 +1,13 @@
+#ifdef WIN32
+#define OS_SEP '\\'
+#else
+#define OS_SEP '/'
+#endif
+
 // IMPORT STANDARD LIBRARIES
 #include <string>
 
 // IMPORT THIRD-PARTY LIBRARIES
-#include "pxr/usd/usdShade/material.h"
 #include <pxr/base/tf/token.h>
 #include <pxr/usd/kind/registry.h>
 #include <pxr/usd/sdf/types.h>
@@ -12,6 +17,12 @@
 #include <pxr/usd/usdGeom/metrics.h>
 #include <pxr/usd/usdGeom/tokens.h>
 #include <pxr/usd/usdGeom/xform.h>
+#include <pxr/usd/usdShade/material.h>
+#include <pxr/usd/usdShade/materialBindingAPI.h>
+
+std::string ASSET_DIRECTORY{
+    "/home/selecaoone/projects/usd_experiments/examples/concepts/"
+    "mesh_with_materials/cpp/assets"};
 
 pxr::UsdGeomMesh attach_billboard(pxr::UsdStageRefPtr &stage,
                                   std::string const &root,
@@ -48,18 +59,29 @@ pxr::UsdShadeShader attach_surface_shader(pxr::UsdStageRefPtr &stage,
     return shader;
 }
 
-int attach_texture(pxr::UsdStageRefPtr &stage, pxr::UsdShadeShader shader,
-                   std::string const &material_path,
-                   std::string const reader_name = "stdReader",
-                   std::string const shader_name = "diffuseTexture") {
+pxr::UsdShadeShader attach_texture(pxr::UsdStageRefPtr &stage,
+                                   pxr::UsdShadeShader shader,
+                                   std::string const &material_path,
+                                   std::string const reader_name = "stdReader",
+                                   std::string const shader_name =
+                                       "diffuseTexture") {
     auto reader = pxr::UsdShadeShader::Define(
         stage, pxr::SdfPath(material_path + "/" + reader_name));
     reader.CreateIdAttr(pxr::VtValue("UsdPrimvarReader_float2"));
 
     auto sampler = pxr::UsdShadeShader::Define(
         stage, pxr::SdfPath(material_path + "/" + shader_name));
+    sampler.CreateIdAttr(pxr::VtValue("UsdUVTexture"));
+    sampler.CreateInput(pxr::TfToken("file"), pxr::SdfValueTypeNames->Asset)
+        .Set(ASSET_DIRECTORY + OS_SEP + "USDLogoLrg.png");
+    sampler.CreateInput(pxr::TfToken("st"), pxr::SdfValueTypeNames->Float2)
+        .ConnectToSource(reader, pxr::TfToken("result"));
+    sampler.CreateOutput(pxr::TfToken("rgb"), pxr::SdfValueTypeNames->Float3);
+    shader.CreateInput(pxr::TfToken("diffuseColor"),
+                       pxr::SdfValueTypeNames->Color3f)
+        .ConnectToSource(sampler, pxr::TfToken("rgb"));
 
-    return -1;
+    return reader;
 }
 
 int main() {
@@ -77,10 +99,18 @@ int main() {
     auto material_path = material.GetPath().GetString();
 
     auto shader = attach_surface_shader(
-        stage, material,
-        static_cast<pxr::SdfPath>(material_path + "/" + "PBRShader"));
+        stage, material, pxr::SdfPath(material_path + "/" + "PBRShader"));
 
     auto reader = attach_texture(stage, shader, material_path);
+
+    auto st_input = material.CreateInput(pxr::TfToken("frame:stPrimvarName"),
+                                         pxr::SdfValueTypeNames->Token);
+    st_input.Set("st");
+
+    reader.CreateInput(pxr::TfToken("varname"), pxr::SdfValueTypeNames->Token)
+        .ConnectToSource(st_input);
+
+    pxr::UsdShadeMaterialBindingAPI(billboard).Bind(material);
 
     return 0;
 }

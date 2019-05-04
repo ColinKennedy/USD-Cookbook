@@ -36,4 +36,5 @@ run_it
 	${USD_LIB_DIR}/libusd.so
 	${USD_LIB_DIR}/libusdGeom.so
 	${USD_LIB_DIR}/libvt.so
+    ${USD_LIB_DIR}/libusdShade.so
 )
