@@ -112,7 +112,7 @@ int main() {
 
     pxr::UsdShadeMaterialBindingAPI(billboard).Bind(material);
 
-    auto* result = new std::string();
+    auto *result = new std::string();
     stage->ExportToString(result);
     std::cout << *result << std::endl;
     delete result;
