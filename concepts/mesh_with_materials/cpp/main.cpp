@@ -48,7 +48,7 @@ pxr::UsdShadeShader attach_surface_shader(pxr::UsdStageRefPtr &stage,
                                           pxr::UsdShadeMaterial material,
                                           pxr::SdfPath const &path) {
     auto shader = pxr::UsdShadeShader::Define(stage, path);
-    shader.CreateIdAttr(pxr::VtValue("UsdPreviewSurface"));
+    shader.CreateIdAttr(pxr::VtValue(pxr::TfToken("UsdPreviewSurface")));
     shader.CreateInput(pxr::TfToken("roughness"), pxr::SdfValueTypeNames->Float)
         .Set(0.4f);
     shader.CreateInput(pxr::TfToken("metallic"), pxr::SdfValueTypeNames->Float)
@@ -67,13 +67,13 @@ pxr::UsdShadeShader attach_texture(pxr::UsdStageRefPtr &stage,
                                        "diffuseTexture") {
     auto reader = pxr::UsdShadeShader::Define(
         stage, pxr::SdfPath(material_path + "/" + reader_name));
-    reader.CreateIdAttr(pxr::VtValue("UsdPrimvarReader_float2"));
+    reader.CreateIdAttr(pxr::VtValue(pxr::TfToken("UsdPrimvarReader_float2")));
 
     auto sampler = pxr::UsdShadeShader::Define(
         stage, pxr::SdfPath(material_path + "/" + shader_name));
-    sampler.CreateIdAttr(pxr::VtValue("UsdUVTexture"));
+    sampler.CreateIdAttr(pxr::VtValue(pxr::TfToken("UsdUVTexture")));
     sampler.CreateInput(pxr::TfToken("file"), pxr::SdfValueTypeNames->Asset)
-        .Set(ASSET_DIRECTORY + OS_SEP + "USDLogoLrg.png");
+        .Set(pxr::SdfAssetPath(ASSET_DIRECTORY + OS_SEP + "USDLogoLrg.png"));
     sampler.CreateInput(pxr::TfToken("st"), pxr::SdfValueTypeNames->Float2)
         .ConnectToSource(reader, pxr::TfToken("result"));
     sampler.CreateOutput(pxr::TfToken("rgb"), pxr::SdfValueTypeNames->Float3);
@@ -105,12 +105,17 @@ int main() {
 
     auto st_input = material.CreateInput(pxr::TfToken("frame:stPrimvarName"),
                                          pxr::SdfValueTypeNames->Token);
-    st_input.Set("st");
+    st_input.Set(pxr::TfToken("st"));
 
     reader.CreateInput(pxr::TfToken("varname"), pxr::SdfValueTypeNames->Token)
         .ConnectToSource(st_input);
 
     pxr::UsdShadeMaterialBindingAPI(billboard).Bind(material);
+
+    auto* result = new std::string();
+    stage->ExportToString(result);
+    std::cout << *result << std::endl;
+    delete result;
 
     return 0;
 }
