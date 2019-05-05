@@ -10,10 +10,6 @@ find information about it.
 
 
 ## Questions
-### The Pixar USD tutorials are good but not enough. Where can I find more?
-[Extended tutorials](https://github.com/AnimalLogic/AL_USDMaya/tree/master/tutorials)
-
-
 ### Where can I look to learn about the attributes/relationships/properties that a USD type supports?
 If you look at [the USD source
 code](https://github.com/PixarAnimationStudios/USD), there is a file
