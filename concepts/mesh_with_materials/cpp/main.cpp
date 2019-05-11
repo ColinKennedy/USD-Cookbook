@@ -27,19 +27,33 @@ std::string ASSET_DIRECTORY{
 pxr::UsdGeomMesh attach_billboard(pxr::UsdStageRefPtr &stage,
                                   std::string const &root,
                                   std::string const &name = "card") {
-    auto billboard =
-        pxr::UsdGeomMesh::Define(stage, pxr::SdfPath(root + "/" + name));
+    auto billboard = pxr::UsdGeomMesh::Define(stage, pxr::SdfPath(root + "/" + name));
 
-    billboard.CreatePointsAttr(pxr::VtValue());
-    billboard.CreateFaceVertexCountsAttr(pxr::VtValue());
-    billboard.CreateFaceVertexIndicesAttr(pxr::VtValue());
-    billboard.CreateExtentAttr(pxr::VtValue());
+    billboard.CreatePointsAttr(pxr::VtValue{pxr::VtArray<pxr::GfVec3f> {
+        {-430, -145, 0},
+        {430, -145, 0},
+        {430, 145, 0},
+        {-430, 145, 0},
+    }});
+    billboard.CreateFaceVertexCountsAttr(pxr::VtValue{pxr::VtArray<int> {4}});
+    billboard.CreateFaceVertexIndicesAttr(pxr::VtValue{pxr::VtArray<int> {0, 1, 2, 3}});
+    billboard.CreateExtentAttr(pxr::VtValue{pxr::VtArray<pxr::GfVec3f> {
+        {
+            {-430, -145, 0},
+            {430, 145, 0},
+        }
+    }});
 
     auto coordinates = billboard.CreatePrimvar(
         pxr::TfToken("st"), pxr::SdfValueTypeNames->TexCoord2fArray,
         pxr::UsdGeomTokens->varying);
 
-    // coordinates.Set();
+    coordinates.Set(pxr::VtValue{pxr::VtArray<pxr::GfVec2f> {
+        {0, 0},
+        {1, 0},
+        {1, 1},
+        {0, 1},
+    }});
 
     return billboard;
 }
