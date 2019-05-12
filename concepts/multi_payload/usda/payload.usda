@@ -2,9 +2,23 @@
 
 def Xform "SomeTransform" (
     prepend references = [
-        @./cube.usda@</SomeXformCube>,
-        @./sphere.usda@</SomeXformSphere>
+        </SomeXformCube>,
+        </SomeXformSphere>
     ]
+)
+{
+}
+
+
+def Xform "SomeXformCube" (
+    prepend payload = @./cube_payload.usda@</PayloadCubeThing>
+)
+{
+}
+
+
+def Xform "SomeXformSphere" (
+    prepend payload = @./sphere_payload.usda@</PayloadSphereThing>
 )
 {
 }
