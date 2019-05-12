@@ -1,0 +1,19 @@
+#usda 1.00
+
+def "thing" {
+	def "SomethingElse" {
+		def "NestedEvenMore" {
+			double radius = 4.0
+		}
+	}
+
+	def Sphere "SpecializedChild" (
+		specializes = [
+			</thing/SomethingElse/NestedEvenMore>
+		]
+	)
+	{
+	}
+}
+
+
