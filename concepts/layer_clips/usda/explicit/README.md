@@ -1,3 +1,6 @@
+This code is copied from [USD's testUsdValueClips](https://github.com/PixarAnimationStudios/USD/tree/master/pxr/usd/lib/usd/testenv/testUsdValueClips/manifest).
+
+
 ## How to read this section
 Open root.usda and read through [this page of USD's
 documentation](https://graphics.pixar.com/usd/docs/api/_usd__page__value
