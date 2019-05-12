@@ -1,4 +1,9 @@
 #usda 1.0
+(
+	startTimeCode = 0
+	endTimeCode = 2
+)
+
 
 def "Set" (
     clips = {
