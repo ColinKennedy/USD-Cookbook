@@ -9,7 +9,7 @@ from pxr import Usd
 from pxr import UsdGeom
 
 
-def create_cube_base_stage():
+def create_cube_base_stage(stage):
     def _create_cube_payload():
         path = tempfile.NamedTemporaryFile(suffix='.usda').name
         stage = Usd.Stage.CreateNew(path)
@@ -20,20 +20,16 @@ def create_cube_base_stage():
         return path
 
     payload = _create_cube_payload()
-    path = tempfile.NamedTemporaryFile(suffix='.usda').name
-    stage = Usd.Stage.CreateNew(path)
     xform = UsdGeom.Xform(stage.DefinePrim('/SomeXformCube', 'Xform'))
     xform.GetPrim().GetPayloads().AddPayload(
         assetPath=payload,
         primPath='/PayloadCubeThing'
     )
 
-    stage.GetRootLayer().Save()
-
-    return path
+    return xform
 
 
-def create_sphere_base_stage():
+def create_sphere_base_stage(stage):
     def _create_sphere_payload():
         path = tempfile.NamedTemporaryFile(suffix='.usda').name
         stage = Usd.Stage.CreateNew(path)
@@ -44,31 +40,27 @@ def create_sphere_base_stage():
         return path
 
     payload = _create_sphere_payload()
-    path = tempfile.NamedTemporaryFile(suffix='.usda').name
-    stage = Usd.Stage.CreateNew(path)
     xform = UsdGeom.Xform(stage.DefinePrim('/SomeXformSphere', 'Xform'))
     xform.GetPrim().GetPayloads().AddPayload(
         assetPath=payload,
         primPath='/PayloadSphereThing'
     )
 
-    stage.GetRootLayer().Save()
-
-    return path
+    return xform
 
 
 def main():
     '''Run the main execution of the current script.'''
-    cube_payload = create_cube_base_stage()
-    sphere_payload = create_sphere_base_stage()
     stage = Usd.Stage.CreateInMemory()
+    cube = create_cube_base_stage(stage)
+    sphere = create_sphere_base_stage(stage)
     xform = UsdGeom.Xform(stage.DefinePrim('/SomeTransform', 'Xform'))
     xform.GetPrim().GetReferences().AddReference(
-        assetPath=cube_payload,
+        assetPath='',
         primPath='/SomeXformCube',
     )
     xform.GetPrim().GetReferences().AddReference(
-        assetPath=sphere_payload,
+        assetPath='',
         primPath='/SomeXformSphere',
     )
 
