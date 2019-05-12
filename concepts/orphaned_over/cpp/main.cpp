@@ -31,7 +31,7 @@ auto create_over_stage(std::string const &path) {
     stage->OverridePrim(pxr::SdfPath("/SomethingNameThatIsNotSomeSphere"));
     stage->OverridePrim(pxr::SdfPath("/AnotherOne"));
     stage->OverridePrim(pxr::SdfPath("/AnotherOne/AndAnotherOne"));
-    stage->OverridePrim(pxr::SdfPath("SomeSphere"));
+    stage->OverridePrim(pxr::SdfPath("/SomeSphere"));
 
     return stage;
 }
@@ -41,8 +41,16 @@ int main() {
     auto base = create_basic_stage();
     auto stage = create_over_stage(base);
 
-    for (auto foo: pxr::UsdPrimRange::Stage(stage, !pxr::UsdPrimIsDefined)) {
-        std::cout << foo.GetPath() << std::endl;
+    // Method 1: Search the opened stage Layer
+    for (auto const &prim: pxr::UsdPrimRange::Stage(stage, !pxr::UsdPrimIsDefined)) {
+        std::cout << prim.GetPath() << std::endl;
+    }
+
+    // Method 2: Search all Layers in the stage, recursively (follows
+    //           payloads and other composition arcs)
+    //
+    for (auto const &prim : stage->Traverse(!pxr::UsdPrimIsDefined)) {
+        std::cout << prim.GetPath() << std::endl;
     }
 
     return 0;
