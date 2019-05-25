@@ -144,9 +144,9 @@ int main() {
     // `Register` and uses a separate signature.
     //
     {
-        // StageContentNoticeGlobal contents;
+        StageContentNoticeGlobal contents;
         ObjectNoticeGlobal objects;
-        // StageTargetNoticeGlobal targets;
+        StageTargetNoticeGlobal targets;
 
         stage->DefinePrim(pxr::SdfPath {"/Foo"});
         stage->SetEditTarget(stage->GetSessionLayer());
