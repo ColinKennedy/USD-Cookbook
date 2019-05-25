@@ -27,7 +27,7 @@ private:
         const pxr::UsdNotice::ObjectsChanged &notice,
         const pxr::UsdStageWeakPtr &sender
     ) {
-        printf("The triggered sender %s", pxr::TfStringify(notice.GetStage()).c_str());
+        printf("The triggered sender %s\n", pxr::TfStringify(notice.GetStage()).c_str());
         printf("Resynced paths [");
         for (auto const &path : notice.GetResyncedPaths())
         {
@@ -75,6 +75,7 @@ private:
         const pxr::UsdNotice::ObjectsChanged &notice
     ) {
         // TODO : How do you print `notice`?
+        printf("The triggered stage %s\n", pxr::TfStringify(notice.GetStage()).c_str());
     }
 };
 
@@ -94,6 +95,7 @@ private:
         const pxr::UsdNotice::StageContentsChanged &notice
     ) {
         // TODO : How do you print `notice`?
+        printf("The triggered stage %s\n", pxr::TfStringify(notice.GetStage()).c_str());
     }
 };
 
@@ -113,6 +115,7 @@ private:
         const pxr::UsdNotice::StageEditTargetChanged &notice
     ) {
         // TODO : How do you print `notice`?
+        printf("The triggered stage %s\n", pxr::TfStringify(notice.GetStage()).c_str());
     }
 };
 
