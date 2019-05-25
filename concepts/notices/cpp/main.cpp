@@ -60,67 +60,61 @@ private:
 };
 
 
-// class StageContentNoticeGlobal : public pxr::TfWeakBase
-// {
-// public:
-//     StageContentNoticeGlobal() {
-//         pxr::TfNotice::Register(
-//             pxr::TfCreateWeakPtr(this),
-//             &StageContentNoticeGlobal::_callback
-//         );
-//     }
-//
-// private:
-//     void _callback(
-//         const pxr::UsdNotice::StageContentsChanged &notice,
-//         const pxr::UsdStageWeakPtr &sender
-//     ) {
-//         // TODO : How do you print `notice`?
-//         printf("%s", pxr::TfStringify(sender).c_str());
-//     }
-// };
+class ObjectNoticeGlobal : public pxr::TfWeakBase
+{
+public:
+    ObjectNoticeGlobal() {
+        pxr::TfNotice::Register(
+            pxr::TfCreateWeakPtr<ObjectNoticeGlobal>(this),
+            &ObjectNoticeGlobal::_callback
+        );
+    }
+
+private:
+    void _callback(
+        const pxr::UsdNotice::ObjectsChanged &notice
+    ) {
+        // TODO : How do you print `notice`?
+    }
+};
 
 
-// class StageTargetNoticeGlobal : public pxr::TfWeakBase
-// {
-// public:
-//     StageTargetNoticeGlobal() {
-//         pxr::TfNotice::Register(
-//             pxr::TfCreateWeakPtr(this),
-//             &StageTargetNoticeGlobal::_callback
-//         );
-//     }
-//
-// private:
-//     void _callback(
-//         const pxr::UsdNotice::StageEditTargetChanged &notice,
-//         const pxr::UsdStageWeakPtr &sender
-//     ) {
-//         // TODO : How do you print `notice`?
-//         printf("%s", pxr::TfStringify(sender).c_str());
-//     }
-// };
-//
-//
-// class ObjectNoticeGlobal : public pxr::TfWeakBase
-// {
-// public:
-//     ObjectNoticeGlobal() {
-//         pxr::TfNotice::Register(
-//             pxr::TfCreateWeakPtr(this),
-//             &ObjectNoticeGlobal::_callback
-//         );
-//     }
-//
-// private:
-//     void _callback(
-//         const pxr::UsdNotice::StageContentsChanged &notice,
-//         const pxr::UsdStageWeakPtr &sender
-//     ) {
-//         // TODO : How do you print `notice`?
-//         printf("%s", pxr::TfStringify(sender).c_str());
-//     }
-// };
+class StageContentNoticeGlobal : public pxr::TfWeakBase
+{
+public:
+    StageContentNoticeGlobal() {
+        pxr::TfNotice::Register(
+            pxr::TfCreateWeakPtr(this),
+            &StageContentNoticeGlobal::_callback
+        );
+    }
+
+private:
+    void _callback(
+        const pxr::UsdNotice::StageContentsChanged &notice
+    ) {
+        // TODO : How do you print `notice`?
+    }
+};
+
+
+class StageTargetNoticeGlobal : public pxr::TfWeakBase
+{
+public:
+    StageTargetNoticeGlobal() {
+        pxr::TfNotice::Register(
+            pxr::TfCreateWeakPtr(this),
+            &StageTargetNoticeGlobal::_callback
+        );
+    }
+
+private:
+    void _callback(
+        const pxr::UsdNotice::StageEditTargetChanged &notice
+    ) {
+        // TODO : How do you print `notice`?
+    }
+};
 
 
 int main() {
@@ -148,19 +142,19 @@ int main() {
     //
     {
         // StageContentNoticeGlobal contents;
-        // ObjectNoticeGlobal objects;
+        ObjectNoticeGlobal objects;
         // StageTargetNoticeGlobal targets;
 
-        // stage->DefinePrim(pxr::SdfPath {"/Foo"});
-        // stage->SetEditTarget(stage->GetSessionLayer());
-        // stage->GetPrimAtPath(pxr::SdfPath {"/Foo"}).SetMetadata(
-        //     pxr::SdfFieldKeys->Comment,
-        //     ""
-        // );
-        // stage->GetPrimAtPath(pxr::SdfPath {"/Foo"}).SetMetadata(
-        //     pxr::SdfFieldKeys->Comment,
-        //     "x"
-        // );
+        stage->DefinePrim(pxr::SdfPath {"/Foo"});
+        stage->SetEditTarget(stage->GetSessionLayer());
+        stage->GetPrimAtPath(pxr::SdfPath {"/Foo"}).SetMetadata(
+            pxr::SdfFieldKeys->Comment,
+            ""
+        );
+        stage->GetPrimAtPath(pxr::SdfPath {"/Foo"}).SetMetadata(
+            pxr::SdfFieldKeys->Comment,
+            "x"
+        );
     }
 
     return 0;
