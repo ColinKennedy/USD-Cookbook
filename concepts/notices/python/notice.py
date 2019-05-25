@@ -19,16 +19,16 @@ def update(notice, sender):
     print('Changed?', notice.ChangedInfoOnly(sender.GetPrimAtPath("/SomeSphere")))
 
 
-def objects_changed(event, sender):
-    print(event, sender)
+def objects_changed(notice, sender):
+    print(notice, sender)
 
 
-def stage_changed(event, sender):
-    print(event, sender)
+def stage_changed(notice, sender):
+    print(notice, sender)
 
 
-def target_changed(event, sender):
-    print(event, sender)
+def target_changed(notice, sender):
+    print(notice, sender)
 
 
 def main():
