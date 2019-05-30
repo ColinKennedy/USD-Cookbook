@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""A module that shows USD has lock-less multi-threading support with caches."""
+
 # IMPORT FUTURE LIBRARIES
 from __future__ import print_function
 
@@ -14,13 +16,28 @@ from pxr import Usd
 
 
 class StageTraversalWatcher(threading.Thread):
+    """A basic thread that prints cached Stage repeatedly."""
+
     def __init__(self, event, cache, stage_ids):
+        """Save the given Stage information to this instance.
+
+        Args:
+            event (`threading.Event`):
+                The object that controls when this thread will stop watching.
+            cache (`pxr.Usd.StageCache`):
+                The cache that presumably contains every USD Stage that
+                can be referred to using `stage_ids`.
+            stage_ids (list[`pxr.Usd.Id`]):
+                The unique key that can be used to get a Stage object from `cache`.
+
+        """
         super(StageTraversalWatcher, self).__init__()
         self.stop_event = event
         self.cache = cache
         self.stage_ids = stage_ids
 
     def run(self):
+        """Check each of the cached Stage objects for Prims, over and over."""
         stages = [self.cache.Find(stage_id) for stage_id in self.stage_ids]
         while not self.stop_event.wait(0.1):
             for stage in stages:
@@ -29,6 +46,13 @@ class StageTraversalWatcher(threading.Thread):
 
 
 def using_contexts():
+    """Use Python Contexts to auto-register opened/created stages into the cache.
+
+    Note:
+        Using another context with Usd.BlockStageCachePopulation can
+        temporarily halt Stage objects from being added to the cache.
+
+    """
     stage = Usd.Stage.CreateInMemory()
     cache = Usd.StageCache()
     print('Should be False (the cache was just created)', cache.Contains(stage))
@@ -53,6 +77,7 @@ def using_contexts():
 
 
 def using_explicit_inserts():
+    """Add USD Stage objects into the cache explicitly, using `pxr.Usd.StageCache.Insert`."""
     stage = Usd.Stage.CreateInMemory()
     cache = Usd.StageCache()
     cache.Insert(stage)
@@ -69,12 +94,16 @@ def using_explicit_inserts():
 
 
 def threading_example():
-    # """ Strongly typed? Lets test that.
-    #
-    # Reference:
-    #     https://graphics.pixar.com/usd/docs/api/class_usd_stage_cache.html#af6d4a9d580fe05510b1a35087332166c
-    #
-    # """
+    """Check that USD can write and read from multiple threads at once.
+
+    USD states that it can read from multiple threads at once and a
+    stage can be written to in exactly one thread at a time. But you can
+    write multiple Stage objects if they are on their own thread.
+
+    Reference:
+        https://graphics.pixar.com/usd/docs/api/class_usd_stage_cache.html#af6d4a9d580fe05510b1a35087332166c
+
+    """
     def create_prims(cache, stage_ids, index):
         for stage_id in stage_ids:
             stage = cache.Find(stage_id)
