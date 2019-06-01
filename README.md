@@ -52,7 +52,7 @@ Python modules can always run using `python name_of_module.py`
 ## Studying
 This repository exists as source-code reference. That said, if you want
 to treat as if this is a library of tutorials, here's the recommended
-folder order:
+viewing order:
 
 [add_comment](concepts/add_comment)
 
