@@ -136,9 +136,14 @@ def threading_example():
         creator = threading.Thread(target=functools.partial(
             create_prims, cache, stage_ids, index))
         creator.start()
+        # XXX : We can't have multiple threads writing at the same time
+        # so we need to wait for the thread to finish before starting
+        # another one.
+        #
         creator.join()
 
     stop.set()  # Stop watching for changes
+    watcher.join()
 
     print('Done')
 
