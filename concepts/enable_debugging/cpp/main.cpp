@@ -6,13 +6,21 @@
 #include "pxr/usd/usd/stage.h"
 
 
-
 // TF_DEBUG(PXRUSDMAYAGL_SHAPE_ADAPTER_BUCKETING).Msg(
 //     "            shape adapter: %p\n",
 //     shapeAdapter);
+PXR_NAMESPACE_OPEN_SCOPE
+TF_DEBUG_CODES(
+    MY_DEBUG_SYMBOL
+);
+
+TF_REGISTRY_FUNCTION(TfDebug)
+{
+    TF_DEBUG_ENVIRONMENT_SYMBOL(MY_DEBUG_SYMBOL, "Some description for the symbol.");
+}
 
 
-int main() {
+void test() {
     pxr::TfDebug::SetOutputFile(stderr);
 
     auto stage = pxr::UsdStage::CreateInMemory();
@@ -43,11 +51,19 @@ int main() {
     stage->DefinePrim(pxr::SdfPath {"/SomePrim"});
 
     // XXX : Here's some stuff that isn't in the Python version
-    // - call your own debug message
-// - register your own debug message
+    std::cout << "My custom symbol " << pxr::TfDebug::GetDebugSymbolDescription("MY_DEBUG_SYMBOL") << '\n';
+    pxr::TfDebug::SetDebugSymbolsByName("MY_DEBUG_SYMBOL", true);
+    TF_DEBUG_MSG(MY_DEBUG_SYMBOL, "whatever");
 // - profiling? TF_DEBUG_TIMED_SCOPE()
 // TF_AXIOM
 
 
+}
+
+PXR_NAMESPACE_CLOSE_SCOPE
+
+
+int main() {
+    pxr::test();
     return 0;
 }
