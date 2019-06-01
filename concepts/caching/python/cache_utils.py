@@ -1,18 +1,29 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""This module is a variant of `caching.py` that explores uses of `pxr.UsdUtils.StageCache`.
+
+Unlike `pxr.Usd.StageCache` which is not a singleton,
+`pxr.UsdUtils.StageCache` is. This lets us use USD's stage cache without
+passing a cache object around to every function. It's very useful for
+applications.
+
+"""
+
 # IMPORT THIRD-PARTY LIBRARIES
 from pxr import UsdUtils
 from pxr import Usd
 
 
 def add_to_cache_from_external_function():
+    """Refer to the singleton UsdUtils cache to insert a stage."""
     stage = Usd.Stage.CreateInMemory()
     cache = UsdUtils.StageCache.Get()
     cache.Insert(stage)
 
 
 def get_stage_from_id(stage_id):
+    """Refer to the singleton UsdUtils cache to find a stage by-ID."""
     cache = UsdUtils.StageCache.Get()
     print('Found stage', cache.Find(stage_id))
 
