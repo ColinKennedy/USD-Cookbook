@@ -7,6 +7,7 @@
 #include <vector>
 
 // IMPORT THIRD-PARTY LIBRARIES
+#include "pxr/base/tf/stringUtils.h"
 #include "pxr/base/tf/token.h"
 #include "pxr/usd/usd/primRange.h"
 #include "pxr/usd/usd/stage.h"
@@ -17,51 +18,33 @@
 using StageIds = std::vector<pxr::UsdStageCache::Id>;
 
 
-class StageTraversalWatcher {
-    public:
-        StageTraversalWatcher(
-        ) {}
-
-        void run() {
-            while (!this->is_set) {
-                // std::cout << "Watching\n";
-                std::this_thread::sleep_for(std::chrono::milliseconds {100});
-            }
-            // std::vector<pxr::UsdStageRefPtr > stages;
-            // stages.reserve(this->stage_ids.size());
-            //
-            // for (auto const &stage_id : stage_ids) {
-            //     stages.push_back(this->cache.Find(stage_id));
-            // }
-            //
-            // while (!this->is_set) {
-            //     for (auto const &stage : stages) {
-            //         for (auto const &prim : stage->TraverseAll()) {
-            //             std::cout << "Found prim: " << prim.GetPath() << " " << stage << '\n';
-            //         }
-            //     }
-            //
-            //     std::this_thread::sleep_for(std::chrono::milliseconds {100});
-            // }
-        }
-
-        void set() {
-            this->is_set = true;
-        }
-
-    private:
-        // pxr::UsdStageCache *cache;
-        // StageIds stage_ids;
-        bool is_set = false;
-};
-
-void threadFunction(std::future<void> future_object)
+void watch_for_changes(
+    std::future<void> future_object,
+    pxr::UsdStageCache const &cache,
+    StageIds const &stage_ids
+)
 {
+    std::vector<pxr::UsdStageRefPtr > stages;
+    stages.reserve(stage_ids.size());
+
+    for (auto const &stage_id : stage_ids) {
+        stages.push_back(cache.Find(stage_id));
+    }
+
     std::cout << "Thread Start" << std::endl;
     while (future_object.wait_for(std::chrono::milliseconds(1)) == std::future_status::timeout)
     {
-        std::cout << "Doing Some Work" << std::endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        for (auto const &stage : stages) {
+            for (auto const &prim : stage->TraverseAll()) {
+                std::cout
+                    << "Found prim: "
+                    << prim.GetPath()
+                    << '\n'
+                ;
+            }
+        }
+
+        std::this_thread::sleep_for(std::chrono::milliseconds {100});
     }
 
     std::cout << "Thread End" << std::endl;
@@ -157,7 +140,7 @@ void threading_example() {
     // Reference: https://thispointer.com/c11-how-to-stop-or-terminate-a-thread/
     std::promise<void> stop;
     std::future<void> future_object = stop.get_future();
-    std::thread thread {&threadFunction, std::move(future_object)};
+    std::thread thread {&watch_for_changes, std::move(future_object), cache, stage_ids};
 
     // XXX : The watcher is checking `stage1` as we continually write to
     // it on the main thread
@@ -183,7 +166,6 @@ void threading_example() {
     }
 
     stop.set_value();
-    //Wait for thread to join
     thread.join();
 
     std::cout << "Done\n";
