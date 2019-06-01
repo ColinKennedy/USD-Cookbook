@@ -68,7 +68,6 @@ folder order:
 [multi_payload](concepts/multi_payload)
 [notices](concepts/notices)
 [mesh_with_materials](concepts/mesh_with_materials)
-[rigging](concepts/rigging)
 
 
 ## Roadmap
