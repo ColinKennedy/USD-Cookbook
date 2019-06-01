@@ -1,56 +1,89 @@
-This repository has a collection of USD snippets and example ideas / concepts.
+This repository is a collection of simple USD projects. Each project
+shows off a single feature or group of USD features.
 
 
 ## Structure summary
 
 ```
 Folders
-concepts/
+- concepts/
  - {CONCEPT_NAME}
   - README.md
-   * Snippet
-   * Special notes
   - cpp/
   - python/
   - usda/
+- guides/
 ```
 
-
-Each folder in the "concepts" folder shows how to do something in USD.
-This is called a "concept".
-
-Each concept folder contains how to do said concept in C++, Python, and
-raw USDA syntax.
+Each USD feature is in the "concepts" folder. Most features have a C++,
+python, and USDA project folder where you can see how to author that
+feature in each representation and how it actually looks when it gets
+written in USD.
 
 
 ## How to view
-If a concept has a lot of code but only a small part is actually
-important, the concept folder may also contain its own README.md which
-summarizes the important bits.
+If a concept folder is trying to show off a USD feature but it takes a
+lot of code then the top-level README.md file is there to summarize the
+important bits. It may also refer to other resources for where to read
+more.
 
-Also, look out for lines marked with "XXX". The XXX marker gives further
-explanations to what is shown.
+Lastly, source-code files may contain explanations for what is shown.
+Each of these lines is marked with "XXX".
 
 
 ## How to build
-In the C++ projects, unless otherwise specified, the instructions to
-compile and run are ...
+### C++
+Unless a C++ project has specific instructions, every project compiles
+and executes using the following commands:
 
 ```bash
-cd {root}/build
+cd {some_concept_cpp_folder}
+mkdir build
+cd build
 cmake ..
 make
-./build/do_it
+./build/run_it
 ```
+
+## Python
+Python modules can always run using `python name_of_module.py`
 
 
 ## Studying
-Each concept in the `concepts` folder has a "USD expertise rating"
-assigned to it, from 0 (easiest) to 10 (hardest). This repository is
-a reference but, if you wand to learn directly from it, the script
-below can be used to print out every reference from easiest to hardest.
-Theoretically, one could use that to learn USD concepts one at a time.
+This repository exists as source-code reference. That said, if you want
+to treat as if this is a library of tutorials, here's the recommended
+folder order:
 
+[add_comment](concepts/add_comment)
+[set_kind](concepts/set_kind)
+[specializes](concepts/specializes)
+[asset_info](concepts/asset_info)
+[world_bouning_box](concepts/world_bouning_box)
+[variant_set_in_stronger_layer](concepts/variant_set_in_stronger_layer)
+[variant_set_production_shot](concepts/variant_set_production_shot)
+[purposes](concepts/purposes)
+[orphaned_over](concepts/orphaned_over)
+[value_clips](concepts/value_clips)
+[caching](concepts/caching)
+[multi_payload](concepts/multi_payload)
+[notices](concepts/notices)
+[mesh_with_materials](concepts/mesh_with_materials)
+[rigging](concepts/rigging)
+
+
+## Roadmap
+See [This wiki page](https://github.com/ColinKennedy/USD-Cookbook/wiki/road-map)
+for a list of planned topics that will be added in the future.
+
+
+## Contributing
+This repository is a constant WIP. If there's something that you'd like
+to see written about, please suggest it as an issue so that I / others
+can pick it up and work on it. Also, if you have something that you'd
+like to contribute, please make a PR. Submissions are welcome!
+
+
+## Disclaimer
 But note: This repository may not actually show the best way to do
 things in USD. It's just a collection of (my) personal findings. Also,
 as Pixar comes out with new USD releases and learning resources, this
