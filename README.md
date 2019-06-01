@@ -55,18 +55,31 @@ to treat as if this is a library of tutorials, here's the recommended
 folder order:
 
 [add_comment](concepts/add_comment)
+
 [set_kind](concepts/set_kind)
+
 [specializes](concepts/specializes)
+
 [asset_info](concepts/asset_info)
-[world_bouning_box](concepts/world_bouning_box)
+
+[world_bounding_box](concepts/world_bounding_box)
+
 [variant_set_in_stronger_layer](concepts/variant_set_in_stronger_layer)
+
 [variant_set_production_shot](concepts/variant_set_production_shot)
+
 [purposes](concepts/purposes)
+
 [orphaned_over](concepts/orphaned_over)
+
 [value_clips](concepts/value_clips)
+
 [caching](concepts/caching)
+
 [multi_payload](concepts/multi_payload)
+
 [notices](concepts/notices)
+
 [mesh_with_materials](concepts/mesh_with_materials)
 
 
