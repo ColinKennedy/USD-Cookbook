@@ -7,12 +7,50 @@
 
 // IMPORT THIRD-PARTY LIBRARIES
 #include "pxr/base/tf/token.h"
+#include "pxr/usd/usd/primRange.h"
 #include "pxr/usd/usd/stage.h"
 #include "pxr/usd/usd/stageCache.h"
 #include "pxr/usd/usd/stageCacheContext.h"
 
 
 using StageIds = std::vector<pxr::UsdStageCache::Id>;
+
+
+class StageTraversalWatcher {
+    public:
+        StageTraversalWatcher(
+            pxr::UsdStageCache const &cache,
+            StageIds const &stage_ids
+        ) : cache(cache), stage_ids(stage_ids) {}
+
+        void run() {
+            std::vector<pxr::UsdStageRefPtr > stages;
+            stages.reserve(this->stage_ids.size());
+
+            for (auto const &stage_id : stage_ids) {
+                stages.push_back(this->cache.Find(stage_id));
+            }
+
+            while (!this->is_set) {
+                for (auto const &stage : stages) {
+                    for (auto const &prim : stage->TraverseAll()) {
+                        std::cout << "Found prim: " << prim.GetPath() << " " << stage << '\n';
+                    }
+                }
+
+                std::this_thread::sleep_for(std::chrono::milliseconds {100});
+            }
+        }
+
+        void set() {
+            this->is_set = true;
+        }
+
+    private:
+        pxr::UsdStageCache cache;
+        StageIds stage_ids;
+        bool is_set = false;
+};
 
 
 void create_prims(pxr::UsdStageCache const &cache, StageIds const &stage_ids, int index) {
@@ -102,6 +140,9 @@ void threading_example() {
         cache.GetId(stage2),
     };
 
+    // auto watcher = StageTraversalWatcher{cache, stage_ids};
+    // std::thread([&](){ watcher.run(); });
+
     // XXX : The watcher is checking `stage1` as we continually write to
     // it on the main thread
     //
@@ -112,25 +153,29 @@ void threading_example() {
         std::this_thread::sleep_for(std::chrono::milliseconds {2});
     }
 
-    int threads {1000};
-    std::vector<std::thread> workers;
-    workers.reserve(threads);
-    for (int index = 0; index < threads; ++index) {
-        workers.push_back(std::thread([&]()
-        {
-            create_prims(cache, stage_ids, index);
-        }));
+    // XXX : Now we're writing to two USD stages on 2 threads at once.
+    // While this is happening, the `watcher` is still reading and
+    // printing from both stages
+    //
+    for (int index = 0; index < 1000; ++index) {
+        auto creator = std::thread([&](){ create_prims(cache, stage_ids, index); });
+        // XXX : We can't have multiple threads writing at the same time
+        // so we need to wait for the thread to finish before starting
+        // another one.
+        //
+        creator.join();
     }
-    for (auto &thread : workers) {
-        thread.join();
-    }
+
+    // watcher.set();
+
+    std::cout << "Done\n";
 };
 
 
 int main() {
     using_contexts();
     using_explicit_inserts();
-    // threading_example();
+    threading_example();
 
     return 0;
 }
