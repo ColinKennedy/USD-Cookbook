@@ -58,22 +58,22 @@ def using_contexts():
     print('Should be False (the cache was just created)', cache.Contains(stage))
 
     with Usd.StageCacheContext(cache):
-        innerStage = Usd.Stage.CreateInMemory()
-        print('Has stage?', cache.Contains(innerStage))
+        inner_stage = Usd.Stage.CreateInMemory()
+        print('Has stage?', cache.Contains(inner_stage))
 
         with Usd.StageCacheContext(Usd.BlockStageCachePopulation):
-            newStage = Usd.Stage.CreateInMemory()
-            print('Has stage?', cache.Contains(innerStage))
-            print('Has new stage?', cache.Contains(newStage))
+            new_stage = Usd.Stage.CreateInMemory()
+            print('Has stage? (True)', cache.Contains(inner_stage))
+            print('Has new stage? (False)', cache.Contains(new_stage))
 
-        print('Still has stage?', cache.Contains(innerStage))
-        stage_id = cache.GetId(innerStage)
+        print('Still has stage? (True)', cache.Contains(inner_stage))
+        stage_id = cache.GetId(inner_stage)
         print('The key that refers to the cached, opened USD stage', stage_id.ToString())
-        print('Found stage in cache', cache.Find(stage_id) == innerStage)
+        print('Found stage in cache', cache.Find(stage_id) == inner_stage)
 
-    print("Still has it??", cache.Contains(innerStage))
+    print("Still has it??", cache.Contains(inner_stage))
     cache.Clear()
-    print("This value should be False now", cache.Contains(innerStage))
+    print("This value should be False now", cache.Contains(inner_stage))
 
 
 def using_explicit_inserts():
@@ -83,7 +83,6 @@ def using_explicit_inserts():
     cache.Insert(stage)
 
     print('Should be True (the stage was added to the cache)', cache.Contains(stage))
-    print('Still has stage?', cache.Contains(stage))
     stage_id = cache.GetId(stage)
     print('The key that refers to the cached, opened USD stage', stage_id.ToString())
     print('Found stage in cache', cache.Find(stage_id) == stage)
@@ -123,15 +122,15 @@ def threading_example():
     watcher.start()
 
     # XXX : The watcher is checking `stage1` as we continually write to
-    #       it on the main thread
+    # it on the main thread
     #
     for index in range(1000):
         stage1.DefinePrim('/SomeCube{index}'.format(index=index), 'Cube')
         time.sleep(0.002)
 
     # XXX : Now we're writing to two USD stages on 2 threads at once.
-    #       While this is happening, the `watcher` is still reading and
-    #       printing from both stages
+    # While this is happening, the `watcher` is still reading and
+    # printing from both stages
     #
     for index in range(1000):
         creator = threading.Thread(target=functools.partial(
