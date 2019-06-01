@@ -154,6 +154,7 @@ void threading_example() {
         cache.GetId(stage2),
     };
 
+    // Reference: https://thispointer.com/c11-how-to-stop-or-terminate-a-thread/
     std::promise<void> stop;
     std::future<void> future_object = stop.get_future();
     std::thread thread {&threadFunction, std::move(future_object)};
