@@ -1,6 +1,7 @@
 // IMPORT STANDARD LIBRARIES
 #include <chrono>
 #include <cstdio>
+#include <future>
 #include <iostream>
 #include <thread>
 #include <vector>
@@ -19,27 +20,29 @@ using StageIds = std::vector<pxr::UsdStageCache::Id>;
 class StageTraversalWatcher {
     public:
         StageTraversalWatcher(
-            pxr::UsdStageCache const &cache,
-            StageIds const &stage_ids
-        ) : cache(cache), stage_ids(stage_ids) {}
+        ) {}
 
         void run() {
-            std::vector<pxr::UsdStageRefPtr > stages;
-            stages.reserve(this->stage_ids.size());
-
-            for (auto const &stage_id : stage_ids) {
-                stages.push_back(this->cache.Find(stage_id));
-            }
-
             while (!this->is_set) {
-                for (auto const &stage : stages) {
-                    for (auto const &prim : stage->TraverseAll()) {
-                        std::cout << "Found prim: " << prim.GetPath() << " " << stage << '\n';
-                    }
-                }
-
+                // std::cout << "Watching\n";
                 std::this_thread::sleep_for(std::chrono::milliseconds {100});
             }
+            // std::vector<pxr::UsdStageRefPtr > stages;
+            // stages.reserve(this->stage_ids.size());
+            //
+            // for (auto const &stage_id : stage_ids) {
+            //     stages.push_back(this->cache.Find(stage_id));
+            // }
+            //
+            // while (!this->is_set) {
+            //     for (auto const &stage : stages) {
+            //         for (auto const &prim : stage->TraverseAll()) {
+            //             std::cout << "Found prim: " << prim.GetPath() << " " << stage << '\n';
+            //         }
+            //     }
+            //
+            //     std::this_thread::sleep_for(std::chrono::milliseconds {100});
+            // }
         }
 
         void set() {
@@ -47,11 +50,22 @@ class StageTraversalWatcher {
         }
 
     private:
-        pxr::UsdStageCache cache;
-        StageIds stage_ids;
+        // pxr::UsdStageCache *cache;
+        // StageIds stage_ids;
         bool is_set = false;
 };
 
+void threadFunction(std::future<void> future_object)
+{
+    std::cout << "Thread Start" << std::endl;
+    while (future_object.wait_for(std::chrono::milliseconds(1)) == std::future_status::timeout)
+    {
+        std::cout << "Doing Some Work" << std::endl;
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    }
+
+    std::cout << "Thread End" << std::endl;
+}
 
 void create_prims(pxr::UsdStageCache const &cache, StageIds const &stage_ids, int index) {
     for (auto const &stage_id : stage_ids) {
@@ -140,8 +154,9 @@ void threading_example() {
         cache.GetId(stage2),
     };
 
-    // auto watcher = StageTraversalWatcher{cache, stage_ids};
-    // std::thread([&](){ watcher.run(); });
+    std::promise<void> stop;
+    std::future<void> future_object = stop.get_future();
+    std::thread thread {&threadFunction, std::move(future_object)};
 
     // XXX : The watcher is checking `stage1` as we continually write to
     // it on the main thread
@@ -166,7 +181,9 @@ void threading_example() {
         creator.join();
     }
 
-    // watcher.set();
+    stop.set_value();
+    //Wait for thread to join
+    thread.join();
 
     std::cout << "Done\n";
 };
