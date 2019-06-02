@@ -69,7 +69,7 @@ def attach_texture(
 
 def main():
     """Run the main execution of the current script."""
-    stage = Usd.Stage.CreateNew("/tmp/simpleShading.usd")
+    stage = Usd.Stage.CreateInMemory()
     UsdGeom.SetStageUpAxis(stage, UsdGeom.Tokens.y)
 
     root = UsdGeom.Xform.Define(stage, "/TexModel")
