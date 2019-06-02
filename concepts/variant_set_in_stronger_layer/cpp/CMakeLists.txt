@@ -14,20 +14,20 @@ set(USD_ROOT_DIR /usr/local/USD-19.05)
 set(USD_LIB_DIR ${USD_ROOT_DIR}/lib)
 set(USD_INC_DIR ${USD_ROOT_DIR}/include)
 
-add_executable(variant_set
+add_executable(run_it
 	main.cpp
 )
 
 find_package(PythonLibs)
 
-target_include_directories(variant_set
+target_include_directories(run_it
 PUBLIC
 	${USD_INC_DIR}
 	${PYTHON_INCLUDE_PATH}
 )
 
 target_link_libraries(
-variant_set
+run_it
 	${USD_LIB_DIR}/libboost_python.so
 	${USD_LIB_DIR}/libgf.so
 	${USD_LIB_DIR}/libsdf.so
