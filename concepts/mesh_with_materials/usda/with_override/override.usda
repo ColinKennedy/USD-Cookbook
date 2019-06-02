@@ -24,7 +24,7 @@ over "TexModel" {
 				token outputs:surface
 			}
 
-			def Shader "stdReader"
+			def Shader "stReader"
 			{
 				uniform token info:id = "UsdPrimvarReader_float2"
 				token inputs:varname.connect = </TexModel/card/boardMat.inputs:frame:stPrimvarName>
@@ -35,7 +35,7 @@ over "TexModel" {
 			{
 				uniform token info:id = "UsdUVTexture"
 				asset inputs:file = @./USDLogoLrg.png@
-				float2 inputs:st.connect = </TexModel/card/boardMat/stdReader.outputs:result>
+				float2 inputs:st.connect = </TexModel/card/boardMat/stReader.outputs:result>
 				float3 outputs:rgb
 			}
 		}

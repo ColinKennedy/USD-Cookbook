@@ -59,11 +59,11 @@ def attach_texture(
         stage,
         shader,
         material_path,
-        reader_name='stdReader',
+        reader_name='stReader',
         shader_name='diffuseTexture',
     ):
-    stReader = UsdShade.Shader.Define(stage, material_path + '/' + reader_name)
-    stReader.CreateIdAttr('UsdPrimvarReader_float2')
+    reader = UsdShade.Shader.Define(stage, material_path + '/' + reader_name)
+    reader.CreateIdAttr('UsdPrimvarReader_float2')
 
     diffuseTextureSampler = UsdShade.Shader.Define(stage,material_path + '/' + shader_name)
     diffuseTextureSampler.CreateIdAttr('UsdUVTexture')
@@ -71,11 +71,11 @@ def attach_texture(
         'file',
         Sdf.ValueTypeNames.Asset,
     ).Set(os.path.join(ASSETS_DIRECTORY, "USDLogoLrg.png"))
-    diffuseTextureSampler.CreateInput("st", Sdf.ValueTypeNames.Float2).ConnectToSource(stReader, 'result')
+    diffuseTextureSampler.CreateInput("st", Sdf.ValueTypeNames.Float2).ConnectToSource(reader, 'result')
     diffuseTextureSampler.CreateOutput('rgb', Sdf.ValueTypeNames.Float3)
     shader.CreateInput("diffuseColor", Sdf.ValueTypeNames.Color3f).ConnectToSource(diffuseTextureSampler, 'rgb')
 
-    return stReader
+    return reader
 
 
 def main():
@@ -91,10 +91,10 @@ def main():
     shader = attach_surface_shader(stage, material, str(material.GetPath()) + '/' + 'PBRShader')
     reader = attach_texture(stage, shader, str(material.GetPath()))
 
-    stInput = material.CreateInput('frame:stPrimvarName', Sdf.ValueTypeNames.Token)
-    stInput.Set('st')
+    st_input = material.CreateInput('frame:stPrimvarName', Sdf.ValueTypeNames.Token)
+    st_input.Set('st')
 
-    reader.CreateInput('varname', Sdf.ValueTypeNames.Token).ConnectToSource(stInput)
+    reader.CreateInput('varname', Sdf.ValueTypeNames.Token).ConnectToSource(st_input)
 
     UsdShade.MaterialBindingAPI(billboard).Bind(material)
 

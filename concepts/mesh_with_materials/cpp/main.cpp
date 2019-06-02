@@ -76,7 +76,7 @@ pxr::UsdShadeShader attach_surface_shader(pxr::UsdStageRefPtr &stage,
 pxr::UsdShadeShader attach_texture(pxr::UsdStageRefPtr &stage,
                                    pxr::UsdShadeShader shader,
                                    std::string const &material_path,
-                                   std::string const reader_name = "stdReader",
+                                   std::string const reader_name = "stReader",
                                    std::string const shader_name =
                                        "diffuseTexture") {
     auto reader = pxr::UsdShadeShader::Define(
