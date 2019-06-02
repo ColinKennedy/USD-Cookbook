@@ -1,0 +1,19 @@
+- lofting
+- USD traversal
+ - traversal with predicate
+ - with custom predicate
+- Sending notices
+- Anonymous Layers
+- customData / userProperties
+- Check for corruption - https://groups.google.com/forum/#!topic/usd-interest/q5D0maPTD2M
+- material caching / Usd_InstanceCache / Usd_ClipCache / usdskel caching
+- Copying stages
+- materials / shading
+ - network forwarding
+- USD collection
+- SdfChangeBlock and profiling the creation of Prims
+- uniquify an instance prim so that you can add overrides to it
+- schema (with Python) 
+- SdfStateDelegate
+- UsdUtilsComputeUsdStageStats ? 
+- Description:PcpPrimIndex
