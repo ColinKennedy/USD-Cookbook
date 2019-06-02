@@ -42,7 +42,7 @@ class StageTraversalWatcher(threading.Thread):
         while not self.stop_event.wait(0.1):
             for stage in stages:
                 for prim in stage.TraverseAll():
-                    print('Found prim:', prim.GetPath(), stage)
+                    print("Found prim:", prim.GetPath(), stage)
 
 
 def using_contexts():
@@ -55,21 +55,23 @@ def using_contexts():
     """
     stage = Usd.Stage.CreateInMemory()
     cache = Usd.StageCache()
-    print('Should be False (the cache was just created)', cache.Contains(stage))
+    print("Should be False (the cache was just created)", cache.Contains(stage))
 
     with Usd.StageCacheContext(cache):
         inner_stage = Usd.Stage.CreateInMemory()
-        print('Has stage?', cache.Contains(inner_stage))
+        print("Has stage?", cache.Contains(inner_stage))
 
         with Usd.StageCacheContext(Usd.BlockStageCachePopulation):
             new_stage = Usd.Stage.CreateInMemory()
-            print('Has stage? (True)', cache.Contains(inner_stage))
-            print('Has new stage? (False)', cache.Contains(new_stage))
+            print("Has stage? (True)", cache.Contains(inner_stage))
+            print("Has new stage? (False)", cache.Contains(new_stage))
 
-        print('Still has stage? (True)', cache.Contains(inner_stage))
+        print("Still has stage? (True)", cache.Contains(inner_stage))
         stage_id = cache.GetId(inner_stage)
-        print('The key that refers to the cached, opened USD stage', stage_id.ToString())
-        print('Found stage in cache', cache.Find(stage_id) == inner_stage)
+        print(
+            "The key that refers to the cached, opened USD stage", stage_id.ToString()
+        )
+        print("Found stage in cache", cache.Find(stage_id) == inner_stage)
 
     print("Still has it??", cache.Contains(inner_stage))
     cache.Clear()
@@ -82,10 +84,10 @@ def using_explicit_inserts():
     cache = Usd.StageCache()
     cache.Insert(stage)
 
-    print('Should be True (the stage was added to the cache)', cache.Contains(stage))
+    print("Should be True (the stage was added to the cache)", cache.Contains(stage))
     stage_id = cache.GetId(stage)
-    print('The key that refers to the cached, opened USD stage', stage_id.ToString())
-    print('Found stage in cache', cache.Find(stage_id) == stage)
+    print("The key that refers to the cached, opened USD stage", stage_id.ToString())
+    print("Found stage in cache", cache.Find(stage_id) == stage)
 
     print("Still has it??", cache.Contains(stage))
     cache.Clear()
@@ -103,10 +105,11 @@ def threading_example():
         https://graphics.pixar.com/usd/docs/api/class_usd_stage_cache.html#af6d4a9d580fe05510b1a35087332166c
 
     """
+
     def create_prims(cache, stage_ids, index):
         for stage_id in stage_ids:
             stage = cache.Find(stage_id)
-            stage.DefinePrim('/SomeSphere{index}'.format(index=index), 'Sphere')
+            stage.DefinePrim("/SomeSphere{index}".format(index=index), "Sphere")
             time.sleep(0.003)
 
     stage1 = Usd.Stage.CreateInMemory()
@@ -125,7 +128,7 @@ def threading_example():
     # it on the main thread
     #
     for index in range(1000):
-        stage1.DefinePrim('/SomeCube{index}'.format(index=index), 'Cube')
+        stage1.DefinePrim("/SomeCube{index}".format(index=index), "Cube")
         time.sleep(0.002)
 
     # XXX : Now we're writing to two USD stages on 2 threads at once.
@@ -133,8 +136,9 @@ def threading_example():
     # printing from both stages
     #
     for index in range(1000):
-        creator = threading.Thread(target=functools.partial(
-            create_prims, cache, stage_ids, index))
+        creator = threading.Thread(
+            target=functools.partial(create_prims, cache, stage_ids, index)
+        )
         creator.start()
         # XXX : We can't have multiple threads writing at the same time
         # so we need to wait for the thread to finish before starting
@@ -145,7 +149,7 @@ def threading_example():
     stop.set()  # Stop watching for changes
     watcher.join()
 
-    print('Done')
+    print("Done")
 
 
 def main():

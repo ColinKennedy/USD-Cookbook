@@ -2,16 +2,15 @@
 # -*- coding: utf-8 -*-
 
 # IMPORT THIRD-PARTY LIBRARIES
-from pxr import Gf
-from pxr import Usd
-from pxr import Kind
-from pxr import UsdGeom
+from pxr import Gf, Kind, Usd, UsdGeom
 
 
 def main():
-    '''Run the main execution of the current script.'''
+    """Run the main execution of the current script."""
     stage = Usd.Stage.CreateInMemory()
-    stage.GetRootLayer().documentation = 'This is an example of setting a Model Prim kind'
+    stage.GetRootLayer().documentation = (
+        "This is an example of setting a Model Prim kind"
+    )
 
     sphere1 = UsdGeom.Sphere(stage.DefinePrim("/SomeSphere", "Sphere"))
     Usd.ModelAPI(sphere1).SetKind(Kind.Tokens.component)
@@ -20,13 +19,13 @@ def main():
     sphere3 = UsdGeom.Sphere(stage.DefinePrim("/SomeSphere/Foo", "Sphere"))
     Usd.ModelAPI(sphere3).SetKind("does_not_exist")
     sphere3.GetPrim().SetMetadata(
-        'comment',
-        'XXX: This kind is made up. But it could be real if we added to the KindRegistry\n'
-        'https://graphics.pixar.com/usd/docs/api/class_kind_registry.html'
+        "comment",
+        "XXX: This kind is made up. But it could be real if we added to the KindRegistry\n"
+        "https://graphics.pixar.com/usd/docs/api/class_kind_registry.html",
     )
 
     print(stage.GetRootLayer().ExportToString())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

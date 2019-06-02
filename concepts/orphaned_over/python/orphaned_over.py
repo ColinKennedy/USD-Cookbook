@@ -7,13 +7,12 @@ import os
 # IMPORT THIRD-PARTY LIBRARIES
 from pxr import Usd
 
-
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
 
 
 def main():
-    '''Run the main execution of the current script.'''
-    stage = Usd.Stage.Open(os.path.join(CURRENT_DIR, 'over.usda'))
+    """Run the main execution of the current script."""
+    stage = Usd.Stage.Open(os.path.join(CURRENT_DIR, "over.usda"))
 
     # Method 1: Search everything and filter out only what you need This
     # method is the "best" because it crosses composition arcs and finds
@@ -30,5 +29,5 @@ def main():
     print(list(Usd.PrimRange.Stage(stage, ~Usd.PrimIsDefined)))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

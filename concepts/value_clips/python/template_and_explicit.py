@@ -1,11 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""Use the Value Clip API's template syntax to author Value Clips."""
+
 # IMPORT THIRD-PARTY LIBRARIES
 from pxr import Sdf, Usd
 
 
 def main():
+    """Run the main execution of this module."""
     stage = Usd.Stage.CreateInMemory()
     stage.SetStartTimeCode(0)
     stage.SetEndTimeCode(2)
