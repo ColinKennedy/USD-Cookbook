@@ -19,7 +19,7 @@ int main() {
     auto sphere2 = pxr::UsdGeomSphere::Define(stage, pxr::SdfPath("/SomeSphere/SphereChild"));
     pxr::UsdModelAPI(sphere2).SetKind(pxr::KindTokens->subcomponent);
     auto sphere3 = pxr::UsdGeomSphere::Define(stage, pxr::SdfPath("/SomeSphere/Foo"));
-    pxr::UsdModelAPI(sphere3).SetKind(pxr::TfToken("asdfsd"));
+    pxr::UsdModelAPI(sphere3).SetKind(pxr::TfToken("does_not_exist"));
     sphere3.GetPrim().SetMetadata(
         pxr::SdfFieldKeys->Comment,
         "XXX: This kind is made up. But it could be real if we added to the KindRegistry\nhttps://graphics.pixar.com/usd/docs/api/class_kind_registry.html"
