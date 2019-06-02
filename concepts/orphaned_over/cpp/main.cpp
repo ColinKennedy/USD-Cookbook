@@ -41,15 +41,25 @@ int main() {
     auto base = create_basic_stage();
     auto stage = create_over_stage(base);
 
-    // Method 1: Search the opened stage Layer
-    for (auto const &prim: pxr::UsdPrimRange::Stage(stage, !pxr::UsdPrimIsDefined)) {
-        std::cout << prim.GetPath() << std::endl;
+    // Method 1: Search everything and filter out only what you need This
+    // method is the "best" because it crosses composition arcs and finds
+    // nested overs even if they're layered between concrete Prims
+    //
+    for (auto const &prim : stage->TraverseAll()) {
+        if (!prim.IsDefined()) {
+            std::cout << prim.GetPath() << std::endl;
+        }
     }
 
     // Method 2: Search all Layers in the stage, recursively (follows
-    //           payloads and other composition arcs)
+    // payloads and other composition arcs but does not follow all Prims)
     //
     for (auto const &prim : stage->Traverse(!pxr::UsdPrimIsDefined)) {
+        std::cout << prim.GetPath() << std::endl;
+    }
+
+    // Method 3: Search the opened stage Layer
+    for (auto const &prim: pxr::UsdPrimRange::Stage(stage, !pxr::UsdPrimIsDefined)) {
         std::cout << prim.GetPath() << std::endl;
     }
 
