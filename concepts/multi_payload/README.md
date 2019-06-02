@@ -35,3 +35,6 @@ def Xform "SomeXformSphere" (
 ```
 
 The Python and C++ projects in this concept show how to replicate this, in-code.
+
+# See Also
+https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGlossary-Payload

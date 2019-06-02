@@ -17,3 +17,6 @@ for (auto const &prim : stage->TraverseAll()) {
 ```python
 print(list(prim for prim in stage.TraverseAll() if not prim.IsDefined()))
 ```
+
+# See Also
+https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGlossary-Over
