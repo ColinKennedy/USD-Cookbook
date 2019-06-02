@@ -20,15 +20,15 @@ def update(notice, sender):
 
 
 def objects_changed(notice, sender):
-    print(notice, sender)
+    print('Objects changed', notice, sender)
 
 
 def stage_changed(notice, sender):
-    print(notice, sender)
+    print('Stage changed', notice, sender)
 
 
 def target_changed(notice, sender):
-    print(notice, sender)
+    print('Target changed', notice, sender)
 
 
 def main():
