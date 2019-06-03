@@ -4,41 +4,53 @@
 
 class Callback : public pxr::TfWeakBase {
     public:
-        void ProcessNotice(pxr::TfNotice const &) { this->counter += 1; }
+        Callback (int identity, pxr::TfNotice const &notice) : identity(identity), notice(notice) {}
+
+        void ProcessNotice(
+            pxr::TfNotice &notice,
+            pxr::TfWeakPtr<Callback> const &sender
+        ) {
+            std::cout << "Got sender? " << (sender->identity == this->identity) << '\n';
+            this->counter += 1;
+        }
+
         int counter = 0;
+
+    private:
+        int identity;
+        pxr::TfNotice notice;
 };
 
-void ProcessNotice(const pxr::TfNotice&) {}
 
 int main() {
-    auto callback = new Callback;
-    pxr::TfWeakPtr<Callback> sender {callback};
+    auto notice = pxr::TfNotice {};
+    auto callback1 = new Callback {1, notice};
+    pxr::TfWeakPtr<Callback> sender {callback1};
     auto key = pxr::TfNotice::Register(sender, &Callback::ProcessNotice, sender);
 
-    pxr::TfWeakPtr<Callback> sender2 {callback};
+    auto callback2 = new Callback {2, notice};
+    pxr::TfWeakPtr<Callback> sender2 {callback2};
     pxr::TfNotice::Register(sender, &Callback::ProcessNotice, sender2);
 
-    std::cout << "Custom count " << callback->counter << '\n';
+    std::cout << "Custom count " << callback1->counter << '\n';
 
     // Note, the sender actually matters here. It has to be whatever was
-    // provided to `Tf.Notice.Register`. Otherwise, the `callback` method
+    // provided to `Tf.Notice.Register`. Otherwise, the `callback1` method
     // will never be run.
     //
-    pxr::TfNotice().Send(sender);
-    pxr::TfNotice().Send(sender2);
+    notice.Send(sender);
+    notice.Send(sender2);
 
     pxr::TfNotice::Revoke(key);
-    pxr::TfNotice().Send(sender);
+    notice.Send(sender);
 
-    std::cout << "Custom count " << callback->counter << '\n';
+    std::cout << "Custom count " << callback1->counter << '\n';
 
     // pointer clean-up // TODO: replace with unique_ptr?
-    delete callback;
-    callback = nullptr;
+    delete callback1;
+    callback1 = nullptr;
+    delete callback2;
+    callback2 = nullptr;
 
     return 0;
 }
-
-    // XXX : Instead of putting `callback` in a scope, you can also run
-    // You can also use `pxr::TfNotice::Revoke(key);` (where `key` is
-    // the return of `Register`) to force sender to stop listening
