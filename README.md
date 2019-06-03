@@ -72,6 +72,8 @@ viewing order:
 
 [orphaned_over](concepts/orphaned_over)
 
+[enable_debugging](concepts/enable_debugging)
+
 [value_clips](concepts/value_clips)
 
 [caching](concepts/caching)
