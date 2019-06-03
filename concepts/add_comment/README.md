@@ -1,9 +1,10 @@
 # Quick Reference
-
+### C++
 ```cpp
 prim.SetMetadata(pxr::SdfFieldKeys->Comment, "I am a comment");
 ```
 
+### Python
 ```python
 prim.SetMetadata("comment", "I am a comment")
 ```

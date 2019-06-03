@@ -28,7 +28,7 @@ important bits. It may also refer to other resources for where to read
 more.
 
 Lastly, source-code files may contain explanations for what is shown.
-Each of these lines is marked with "XXX".
+Each of these lines is marked with `XXX`.
 
 
 ## How to build
@@ -42,7 +42,7 @@ mkdir build
 cd build
 cmake ..
 make
-./build/run_it
+./run_it
 ```
 
 ## Python
@@ -79,6 +79,8 @@ viewing order:
 [multi_payload](concepts/multi_payload)
 
 [notices](concepts/notices)
+
+[notice_send](concepts/notice_send)
 
 [mesh_with_materials](concepts/mesh_with_materials)
 
