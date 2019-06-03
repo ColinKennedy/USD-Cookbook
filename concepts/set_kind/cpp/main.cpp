@@ -29,7 +29,7 @@ int main() {
     stage->ExportToString(result);
     std::cout << *result << std::endl;
     delete result;
-    result = NULL;
+    result = nullptr;
 
     return 0;
 }
