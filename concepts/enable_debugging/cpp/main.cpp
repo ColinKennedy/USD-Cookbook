@@ -3,12 +3,10 @@
 
 // IMPORT THIRD-PARTY LIBRARIES
 #include "pxr/base/tf/debug.h"
+#include "pxr/base/tf/diagnostic.h"
 #include "pxr/usd/usd/stage.h"
 
 
-// TF_DEBUG(PXRUSDMAYAGL_SHAPE_ADAPTER_BUCKETING).Msg(
-//     "            shape adapter: %p\n",
-//     shapeAdapter);
 PXR_NAMESPACE_OPEN_SCOPE
 TF_DEBUG_CODES(
     MY_DEBUG_SYMBOL
@@ -55,12 +53,17 @@ void test() {
     //
     std::cout << "My custom symbol " << pxr::TfDebug::GetDebugSymbolDescription("MY_DEBUG_SYMBOL") << '\n';
     pxr::TfDebug::SetDebugSymbolsByName("MY_DEBUG_SYMBOL", true);
-    TF_DEBUG_MSG(MY_DEBUG_SYMBOL, "Some debug message");
+    TF_DEBUG_MSG(MY_DEBUG_SYMBOL, "Some debug message\n");
 
-    // 2 - debug profiling
-    // - profiling? TF_DEBUG_TIMED_SCOPE()
+    // 2 - debug profiling. Just add a scope to time and a message, for clarity
+    {
+        TF_DEBUG_TIMED_SCOPE(MY_DEBUG_SYMBOL, "Some timed information\n");
+    }
 
-    // TF_AXIOM
+    // 3 - TF_AXIOM, an asset macro that must always be true
+    // there are also other versions, such as `TF_DEV_AXIOM` and `TF_VERIFY`
+    //
+    TF_AXIOM(true);  // USD seg-faults if the expression in TF_AXIOM is ever false
 }
 
 PXR_NAMESPACE_CLOSE_SCOPE
