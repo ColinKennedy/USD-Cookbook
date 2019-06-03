@@ -11,6 +11,9 @@
 - materials / shading
  - network forwarding
 - USD collection
+- Sdf API topics
+ - Other features abstracted at the layer level include journaling (undo and redo functionality) and logging, which can be customized by subclassing SdfLayerStateDelegateBase .
+  - https://graphics.pixar.com/usd/docs/api/sdf_page_front.html
 - SdfChangeBlock and profiling the creation of Prims
 - uniquify an instance prim so that you can add overrides to it
 - schema (with Python) 
