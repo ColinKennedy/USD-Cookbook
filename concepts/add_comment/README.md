@@ -1,6 +1,6 @@
 # Quick Reference
 ### C++
-```cpp
+```c++
 prim.SetMetadata(pxr::SdfFieldKeys->Comment, "I am a comment");
 ```
 
