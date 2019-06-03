@@ -1,5 +1,5 @@
 # Quick Reference
-
+### C++
 ```cpp
 auto variants = sphere.GetPrim().GetVariantSets();
 auto variant = variants.AddVariantSet("some_variant");
@@ -16,6 +16,7 @@ auto radius = sphere.GetRadiusAttr();
 ```
 
 
+### Python
 ```python
 variants = sphere.GetPrim().GetVariantSets().AddVariantSet('some_variant_set')
 variants.AddVariant('variant_name_1')
@@ -25,6 +26,8 @@ with variants.GetVariantEditContext():
     sphere.GetRadiusAttr().Set(1)
 ```
 
+
+### USD
 base.usda
 ```usda
 #usda 1.0

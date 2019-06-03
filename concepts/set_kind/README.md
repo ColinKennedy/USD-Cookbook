@@ -1,5 +1,5 @@
 # Quick Reference
-
+### C++
 ```cpp
 auto sphere = pxr::UsdGeomSphere::Define(stage, pxr::SdfPath("/SomeSphere"));
 pxr::UsdModelAPI(sphere).SetKind(pxr::KindTokens->assembly);
@@ -9,6 +9,8 @@ pxr::UsdModelAPI(sphere).SetKind(pxr::KindTokens->subcomponent);
 pxr::UsdModelAPI(sphere).SetKind(pxr::TfToken("does_not_exist"));
 ```
 
+
+### Python
 ```python
 sphere = UsdGeom.Sphere(stage.DefinePrim("/SomeSphere", "Sphere"))
 Usd.ModelAPI(sphere).SetKind(Kind.Tokens.assembly)
@@ -18,6 +20,8 @@ Usd.ModelAPI(sphere).SetKind(Kind.Tokens.subcomponent)
 Usd.ModelAPI(sphere).SetKind("does_not_exist")
 ```
 
+
+### USD
 ```usda
 #usda 1.0
 (
@@ -44,6 +48,7 @@ def Sphere "Sphere4" (
 ) {
 }
 ```
+
 
 # See Also
 https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGlossary-Kind

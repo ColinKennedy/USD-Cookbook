@@ -1,5 +1,5 @@
 # Quick Reference
-
+### C++
 ```cpp
 auto bounds = pxr::UsdGeomImageable(sphere).ComputeWorldBound(
     pxr::UsdTimeCode(1),
@@ -15,6 +15,8 @@ auto cache = pxr::UsdGeomBBoxCache(
 std::cout << cache.ComputeWorldBound(sphere.GetPrim()) << std::endl;
 ```
 
+
+### Python
 ```python
 # Method #1: Compute at a certain time
 print(UsdGeom.Imageable(sphere).ComputeWorldBound(

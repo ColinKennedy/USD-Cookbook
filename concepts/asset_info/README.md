@@ -1,5 +1,5 @@
 # Quick Reference
-
+### C++
 ```cpp
 prim.SetAssetInfoByKey(
     pxr::UsdModelAPIAssetInfoKeys->version,
@@ -22,6 +22,8 @@ prim.SetAssetInfoByKey(
 );
 ```
 
+
+### Python
 ```python
 prim.SetAssetInfoByKey('version', 'v1')
 prim.SetAssetInfoByKey('name', 'some_asset')
@@ -35,6 +37,8 @@ prim.SetAssetInfoByKey(
 )
 ```
 
+
+### USD
 ```usda
 #usda 1.0
 

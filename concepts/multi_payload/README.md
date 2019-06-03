@@ -7,6 +7,8 @@ Reference" that is weaker than References. As it turns out, you can
 use References and container Prims to collect multiple Payloads into a
 single Prim.
 
+
+### USD
 ```usda
 #usda 1.0
 
@@ -35,6 +37,7 @@ def Xform "SomeXformSphere" (
 ```
 
 The Python and C++ projects in this concept show how to replicate this, in-code.
+
 
 # See Also
 https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGlossary-Payload

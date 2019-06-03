@@ -1,5 +1,5 @@
 # Quick Reference
-
+### C++
 ```cpp
 purpose = sphere.CreatePurposeAttr();
 purpose.Set(pxr::UsdGeomTokens->proxy);
@@ -8,6 +8,8 @@ purpose.Set(pxr::UsdGeomTokens->render);
 purpose.Set(pxr::UsdGeomTokens->guide);
 ```
 
+
+### Python
 ```python
 purpose = sphere.CreatePurposeAttr()
 purpose.Set(UsdGeom.Tokens.default_)
@@ -16,6 +18,8 @@ purpose.Set(UsdGeom.Tokens.proxy)
 purpose.Set(UsdGeom.Tokens.render)
 ```
 
+
+### USD
 ```usda
 #usda 1.0
 
@@ -42,6 +46,7 @@ def Xform "Xform"
     }
 }
 ```
+
 
 # See Also
 https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGlossary-Purpose

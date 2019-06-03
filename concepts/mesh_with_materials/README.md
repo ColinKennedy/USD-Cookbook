@@ -4,6 +4,8 @@ This file will try to show important parts but still be concise. The
 sections below aren't 100% of what is needed to assign materials. It is
 abbreviated to save on this page's space.
 
+
+### C++
 ```cpp
 auto billboard = pxr::UsdGeomMesh::Define(stage, pxr::SdfPath("/TexModel/card"));
 auto material = pxr::UsdShadeMaterial::Define(stage, pxr::SdfPath("/TexModel/card/boardMat"));
@@ -26,6 +28,8 @@ reader.CreateInput(pxr::TfToken("varname"), pxr::SdfValueTypeNames->Token)
 pxr::UsdShadeMaterialBindingAPI(billboard).Bind(material);
 ```
 
+
+### Python
 ```python
 billboard = UsdGeom.Mesh.Define(stage, '/TexModel/card')
 material = UsdShade.Material.Define(stage, '/TexModel/card/boardMat')
@@ -43,8 +47,9 @@ reader.CreateInput('varname', Sdf.ValueTypeNames.Token).ConnectToSource(st_input
 UsdShade.MaterialBindingAPI(billboard).Bind(material)
 ```
 
-## Simple Material Assignment
 
+## Simple Material Assignment
+### USD
 ```usda
 #usda 1.0
 
@@ -93,8 +98,9 @@ def Xform "TexModel" (
 ```
 
 ## Material Assignment Using Overrides
-
+### USD
 base.usda
+
 ```usda
 #usda 1.0
 

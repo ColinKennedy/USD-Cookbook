@@ -4,7 +4,7 @@ run arbitrary commands whenever USD scene data is changed.
 
 
 ## Search For Stage Changes
-
+### C++
 ```cpp
 class UpdateNotice : public pxr::TfWeakBase
 {
@@ -34,6 +34,8 @@ int main() {
 }
 ```
 
+
+### Python
 ```python
 # Run `update` whenever an object in `stage` changes
 updated = Tf.Notice.Register(Usd.Notice.ObjectsChanged, update, stage)
@@ -47,7 +49,7 @@ stage.DefinePrim('/SomeSphere2')  # This won't trigger the `update` function
 
 
 ## Search For Global Changes
-
+### C++
 ```cpp
 class ObjectNoticeGlobal : public pxr::TfWeakBase
 {
@@ -79,6 +81,8 @@ int main() {
 }
 ```
 
+
+### Python
 ```python
 objects = Tf.Notice.RegisterGlobally(Usd.Notice.ObjectsChanged, update)
 stage.DefinePrim("/Foo")  # This will call `update`

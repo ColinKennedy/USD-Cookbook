@@ -6,6 +6,7 @@ points to nothing. Check out the [usda folder](usda) for a better idea
 of what that looks like, if needed.
 
 
+### C++
 ```cpp
 for (auto const &prim : stage->TraverseAll()) {
     if (!prim.IsDefined()) {
@@ -14,9 +15,12 @@ for (auto const &prim : stage->TraverseAll()) {
 }
 ```
 
+
+### Python
 ```python
 print(list(prim for prim in stage.TraverseAll() if not prim.IsDefined()))
 ```
+
 
 # See Also
 https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGlossary-Over
