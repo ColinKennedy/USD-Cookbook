@@ -2,9 +2,16 @@
 #include "pxr/base/tf/notice.h"
 
 
+class NoticeBase : pxr::TfNotice {
+};
+
+class NoticeDerived : NoticeBase {};
+
+
 class Callback : public pxr::TfWeakBase {
     public:
         Callback (int identity, pxr::TfNotice const &notice) : identity(identity), notice(notice) {}
+        Callback (int identity, NoticeBase const &notice) : identity(identity), notice(notice) {}
 
         void ProcessNotice(
             pxr::TfNotice &notice,
@@ -18,19 +25,22 @@ class Callback : public pxr::TfWeakBase {
 
     private:
         int identity;
-        pxr::TfNotice notice;
+        NoticeBase notice;
 };
 
 
 int main() {
-    auto notice = pxr::TfNotice {};
+    pxr::TfType::Define<NoticeBase, pxr::TfType::Bases<pxr::TfNotice> >();
+    pxr::TfType::Define<NoticeDerived, pxr::TfType::Bases<pxr::TfNotice> >();
+
+    auto notice = NoticeBase {};
     auto callback1 = new Callback {1, notice};
     pxr::TfWeakPtr<Callback> sender {callback1};
-    auto key = pxr::TfNotice::Register(sender, &Callback::ProcessNotice, sender);
+    auto key = pxr::TfNotice::Register(NoticeBase {}, &Callback::ProcessNotice, sender);
 
     auto callback2 = new Callback {2, notice};
     pxr::TfWeakPtr<Callback> sender2 {callback2};
-    pxr::TfNotice::Register(sender, &Callback::ProcessNotice, sender2);
+    pxr::TfNotice::Register(NoticeDerived {}, &Callback::ProcessNotice, sender2);
 
     std::cout << "Custom count " << callback1->counter << '\n';
 
