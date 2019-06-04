@@ -70,6 +70,8 @@ viewing order:
 
 [purposes](concepts/purposes)
 
+[stl_iteration](concepts/stl_iteration)
+
 [orphaned_over](concepts/orphaned_over)
 
 [enable_debugging](concepts/enable_debugging)
