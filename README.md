@@ -74,6 +74,8 @@ viewing order:
 
 [orphaned_over](concepts/orphaned_over)
 
+[copy_variant_set_to_prim](concepts/copy_variant_set_to_prim)
+
 [enable_debugging](concepts/enable_debugging)
 
 [value_clips](concepts/value_clips)
