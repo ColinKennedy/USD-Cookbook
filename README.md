@@ -45,7 +45,7 @@ make
 ./run_it
 ```
 
-## Python
+### Python
 Python modules can always run using `python name_of_module.py`
 
 
