@@ -82,6 +82,8 @@ viewing order:
 
 [value_clips](concepts/value_clips)
 
+[sdf_change_block](concepts/sdf_change_block)
+
 [caching](concepts/caching)
 
 [multi_payload](concepts/multi_payload)
