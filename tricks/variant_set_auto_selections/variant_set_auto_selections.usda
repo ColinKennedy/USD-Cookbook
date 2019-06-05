@@ -1,0 +1,56 @@
+#usda 1.0
+
+def "Parent" (
+    variants = {
+        string parent_variant_set = "parent_selection_1"
+    }
+    add variantSets = "parent_variant_set"
+) {
+    variantSet "parent_variant_set" = {
+        "parent_selection_1" (
+            """The purpose of HiddenContainer is to hold a variant selection
+            that ChildSphere can then pick up and use."""
+        ) {
+            class "HiddenContainer" (
+                variants = {
+                    string child_variant_set = "child_selection_1"
+                }
+            ) {
+            }
+        }
+        "parent_selection_2" {
+            class "HiddenContainer" (
+                variants = {
+                    string child_variant_set = "child_selection_2"
+                }
+            ) {
+            }
+        }
+        "parent_selection_3" {
+            class "HiddenContainer" (
+                variants = {
+                    string child_variant_set = "child_selection_3"
+                }
+            ) {
+            }
+        }
+    }
+
+    def Sphere "ChildSphere" (
+        """This Prim grabs the variant selection at </Parent/HiddenContainer> and uses it as if it were its own."""
+        add references = </Parent/HiddenContainer>
+        add variantSets = "child_variant_set"
+    ) {
+        variantSet "child_variant_set" = {
+            "child_selection_1" {
+                double radius = 1
+            }
+            "child_selection_2" {
+                double radius = 2
+            }
+            "child_selection_3" {
+                double radius = 3
+            }
+        }
+    }
+}
