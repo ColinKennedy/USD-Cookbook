@@ -13,6 +13,7 @@ Folders
   - python/
   - usda/
 - guides/
+- tricks/
 ```
 
 Each USD feature is in the "concepts" folder. Most features have a C++,
@@ -47,6 +48,18 @@ make
 
 ### Python
 Python modules can always run using `python name_of_module.py`
+
+
+## Folder Explanation
+- `concepts` is where you'll find simple, single ideas shown by-example.
+It will have C++, Python, and USDA example projects (whenever possible).
+If you're the type that makes flashcards, you'll get the most mileage
+here.
+- `guides` contains articles of ideas and references that help a user
+learn USD.
+- `tricks` is a mixed bag of situations that come up in production. It
+exists basically to show off USD's features, no matter how niche they
+may be. There's no defined structure for this folder.
 
 
 ## Studying
