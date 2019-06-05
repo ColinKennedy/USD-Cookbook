@@ -113,7 +113,7 @@ viewing order:
 
 
 ## Roadmap
-See [This wiki page](https://github.com/ColinKennedy/USD-Cookbook/wiki/road-map)
+See [This wiki page](https://github.com/ColinKennedy/USD-Cookbook/wiki)
 for a list of planned topics that will be added in the future.
 
 
