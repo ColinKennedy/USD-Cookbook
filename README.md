@@ -75,6 +75,8 @@ viewing order:
 
 [asset_info](concepts/asset_info)
 
+[userProperties](concepts/userProperties)
+
 [world_bounding_box](concepts/world_bounding_box)
 
 [variant_set_in_stronger_layer](concepts/variant_set_in_stronger_layer)
