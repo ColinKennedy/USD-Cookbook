@@ -22,7 +22,7 @@ attribute.Set(False)
 ```
 
 
-## Find all userProperty Properties
+## Find all userProperties
 ### C++
 
 ```cpp
