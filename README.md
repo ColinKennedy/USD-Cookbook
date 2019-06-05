@@ -76,6 +76,8 @@ viewing order:
 
 [orphaned_over](concepts/orphaned_over)
 
+[variant_set_auto_selections](tricks/variant_set_auto_selections )
+
 [copy_variant_set_to_prim](concepts/copy_variant_set_to_prim)
 
 [enable_debugging](concepts/enable_debugging)
