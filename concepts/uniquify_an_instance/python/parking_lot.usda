@@ -1,0 +1,25 @@
+#usda 1.0
+
+def "ParkingLot"
+{
+    def "Car_1" (
+        instanceable = true
+        references = @./Car.usd@</Car>
+    )
+    {
+    }
+
+    def "Car_2" (
+        instanceable = true
+        references = @./Car.usd@</Car>
+    )
+    {
+    }
+
+    def "Car_n" (
+        instanceable = true
+        references = @./Car.usd@</Car>
+    )
+    {
+    }
+}
