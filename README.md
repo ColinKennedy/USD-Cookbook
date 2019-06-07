@@ -73,6 +73,8 @@ viewing order:
 
 [specializes](concepts/specializes)
 
+[uniquify_an_instance](concepts/uniquify_an_instance)
+
 [asset_info](concepts/asset_info)
 
 [userProperties](concepts/userProperties)

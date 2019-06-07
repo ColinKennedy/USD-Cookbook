@@ -1,0 +1,28 @@
+#usda 1.0
+
+def Xform "AnotherPrim"
+{
+    def Xform "InnerPrim1" (
+        instanceable = true
+        prepend references = </MyPrim>
+    )
+    {
+        def "SomePrimThatWillNotExist"
+        {
+        }
+    }
+
+    def Xform "InnerPrim2" (
+        instanceable = true
+        prepend references = </MyPrim>
+    )
+    {
+    }
+}
+
+def Xform "MyPrim"
+{
+    def Xform "SomePrim"
+    {
+    }
+}
