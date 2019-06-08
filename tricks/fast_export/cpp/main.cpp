@@ -55,6 +55,8 @@ PrimPaths _create_prims(Names const &names, std::string const &parent=std::strin
         output.reserve(inner_prims.size());
         output.insert(std::end(output), std::begin(inner_prims), std::end(inner_prims));
     }
+
+    return output;
 }
 
 
