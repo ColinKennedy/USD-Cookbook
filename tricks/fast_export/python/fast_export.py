@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import collections
 # IMPORT STANDARD LIBRARIES
+import collections
 import time
 
 # IMPORT THIRD-PARTY LIBRARIES
@@ -25,6 +25,7 @@ PATHS = (
 )
 
 
+# Reference: https://medium.com/pythonhive/python-decorator-to-measure-the-execution-time-of-methods-fa04cb6bb36d
 def _timeit(method):
     def timed(*args, **kw):
         ts = time.time()
@@ -90,7 +91,7 @@ def create_prims(names):
             base_prim_spec = parent + '/' + base
             yield base_prim_spec
 
-            for prim in _create_recursively(inner_names, parent=base_prim_spec, ):
+            for prim in _create_recursively(inner_names, parent=base_prim_spec):
                 yield prim
 
     for prim in _create_recursively(names):
