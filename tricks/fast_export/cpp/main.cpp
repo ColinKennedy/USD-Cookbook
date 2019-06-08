@@ -6,6 +6,8 @@
 #include <vector>
 
 // IMPORT THIRD-PARTY LIBRARIES
+#include "pxr/base/tf/debug.h"
+#include "pxr/base/tf/diagnostic.h"
 #include "pxr/usd/pcp/primIndex.h"
 #include "pxr/usd/sdf/layer.h"
 #include "pxr/usd/sdf/primSpec.h"
@@ -19,6 +21,17 @@ using Leaf = std::vector<std::string>;
 using Names = std::map<std::string, Leaf>;
 using PrimPaths = std::vector<std::string>;
 
+
+PXR_NAMESPACE_OPEN_SCOPE
+TF_DEBUG_CODES(
+    PRIMSPEC_CREATED
+);
+
+TF_REGISTRY_FUNCTION(TfDebug)
+{
+    TF_DEBUG_ENVIRONMENT_SYMBOL(PRIMSPEC_CREATED, "Time functions that create Prims/PrimSpecs");
+}
+PXR_NAMESPACE_CLOSE_SCOPE
 
 static int const ITERATIONS = 1000;
 static Names const PATHS = {
@@ -84,26 +97,42 @@ void _create_prim_specs(pxr::SdfPrimSpecHandle root, Names const &names) {
 }
 
 
+PXR_NAMESPACE_OPEN_SCOPE
 void _prepare_prim_specs_with_sdf(pxr::SdfLayerRefPtr &layer, Names const &paths) {
-    _create_prim_specs(layer->GetPseudoRoot(), paths);
-    auto parent = layer->GetPrimAtPath(pxr::SdfPath {"SomePrim/AnotherInnerPrim"});
+    {
+        TF_DEBUG_TIMED_SCOPE(
+            PRIMSPEC_CREATED,
+            "The time it took to create layers with the Sdf API"
+        );
 
-    for (int index = 0; index < ITERATIONS; ++index) {
-        pxr::SdfPrimSpec::New(parent, "IndexedPrim" + std::to_string(index), pxr::SdfSpecifierDef);
+        _create_prim_specs(layer->GetPseudoRoot(), paths);
+        auto parent = layer->GetPrimAtPath(pxr::SdfPath {"SomePrim/AnotherInnerPrim"});
+
+        for (int index = 0; index < ITERATIONS; ++index) {
+            pxr::SdfPrimSpec::New(parent, "IndexedPrim" + std::to_string(index), pxr::SdfSpecifierDef);
+        }
     }
 }
 
 
 void _prepare_prims_with_stage(pxr::UsdStageRefPtr const &stage) {
-    for (auto const &path : _create_prims(PATHS)) {
-        stage->DefinePrim(pxr::SdfPath {path});
-    }
+    {
+        TF_DEBUG_TIMED_SCOPE(
+            PRIMSPEC_CREATED,
+            "The time it took to create layers with the Sdf API"
+        );
 
-    auto indexed_template = "/SomePrim/AnotherInnerPrim/IndexedPrim";
-    for (int index = 0; index < ITERATIONS; ++index) {
-        stage->DefinePrim(pxr::SdfPath {indexed_template + std::to_string(index)});
+        for (auto const &path : _create_prims(PATHS)) {
+            stage->DefinePrim(pxr::SdfPath {path});
+        }
+
+        auto indexed_template = "/SomePrim/AnotherInnerPrim/IndexedPrim";
+        for (int index = 0; index < ITERATIONS; ++index) {
+            stage->DefinePrim(pxr::SdfPath {indexed_template + std::to_string(index)});
+        }
     }
 }
+PXR_NAMESPACE_CLOSE_SCOPE
 
 
 std::string create_using_sdf() {
@@ -144,8 +173,10 @@ std::string create_using_stage() {
 
 
 int main() {
+    pxr::TfDebug::SetDebugSymbolsByName("PRIMSPEC_CREATED", true);
     auto stage_export = create_using_stage();
     auto layer_export = create_using_sdf();
+    pxr::TfDebug::SetDebugSymbolsByName("PRIMSPEC_CREATED", false);
 
     std::vector<std::string> stage_export_lines;
     boost::split(stage_export_lines, stage_export, [](char character){return character == '\n';});
