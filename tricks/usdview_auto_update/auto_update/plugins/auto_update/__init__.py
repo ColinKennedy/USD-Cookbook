@@ -6,12 +6,20 @@ from __future__ import print_function
 import datetime
 import functools
 import logging
+import sys
 
 from pxr import Tf
 from pxr.Usdviewq import plugin
 
-
 LOGGER = logging.getLogger(__name__)
+_HANDLER = logging.StreamHandler(sys.stdout)
+_FORMATTER = logging.Formatter(
+    "%(asctime)s [%(levelname)s] %(module)s: %(message)s", datefmt="%m/%d/%Y %H:%M:%S"
+)
+_HANDLER.setFormatter(_FORMATTER)
+LOGGER.addHandler(_HANDLER)
+LOGGER.setLevel(logging.INFO)
+
 WAS_INITIALIZED = False
 IS_ENABLED = False
 
@@ -26,9 +34,10 @@ class AutoUpdateContainer(plugin.PluginContainer):
         IS_ENABLED = not IS_ENABLED
 
         if WAS_INITIALIZED:
-            LOGGER.debug('The timer was already created. Nothing left to do here.')
+            LOGGER.debug("The timer was already created. Nothing left to do here.")
             return
 
+        # Add `timer` to this instance to keep it from going out of scope
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(functools.partial(reload_layers, viewer))
         self.timer.start(1000)
@@ -49,7 +58,7 @@ class AutoUpdateContainer(plugin.PluginContainer):
 
 def reload_layers(viewer):
     if not IS_ENABLED:
-        LOGGER.debug('Layer auto-reload is disabled.')
+        LOGGER.debug("Layer auto-reload is disabled.")
         return
 
     layers = viewer.stage.GetUsedLayers()
@@ -58,10 +67,10 @@ def reload_layers(viewer):
     if not any(reloaded):
         return
 
-    print("Layers reloaded at", datetime.datetime.now())
+    LOGGER.info('Layers reloaded at "%s"', datetime.datetime.now())
     for layer, reloaded in zip(layers, reloaded):
         if reloaded:
-            print("    ", layer.identifier)
+            LOGGER.info('    "%s"', layer.identifier)
 
 
 Tf.Type.Define(AutoUpdateContainer)
