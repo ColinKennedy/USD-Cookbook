@@ -28,16 +28,19 @@ PATHS = (
 def _create_prims(names):
     """str: Write out the paths to each Prim that must be created."""
     def _create_recursively(names, parent=''):
+        if not isinstance(names, collections.MutableMapping):
+            for name in names:
+                yield parent + '/' + name
+
+            return
+            yield
+
         for base, inner_names in names.iteritems():
             base_prim_spec = parent + '/' + base
             yield base_prim_spec
 
-            if not isinstance(inner_names, collections.MutableMapping):
-                for name in inner_names:
-                    yield parent + '/' + name
-            else:
-                for prim in _create_recursively(inner_names, parent=base_prim_spec):
-                    yield prim
+            for prim in _create_recursively(inner_names, parent=base_prim_spec):
+                yield prim
 
     for prim in _create_recursively(names):
         yield prim
