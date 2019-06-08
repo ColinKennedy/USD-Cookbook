@@ -2,34 +2,28 @@
 # -*- coding: utf-8 -*-
 
 # IMPORT STANDARD LIBRARIES
-import collections
+import os
 import datetime
+import functools
 
-# IMPORT THIRD-PARTY LIBRARIES
-from pxr import Tf, Usd
-
-_INITIALIZED_STAGE = collections.defaultdict(set)
-
-
-def _is_initialized(stage):
-    return stage in _INITIALIZED_STAGE
+try:
+    from PySide2 import QtCore
+except ImportError:
+    from PySide import QtCore
 
 
-def enable_auto_reload(viewer):
-    if _is_initialized(viewer.stage):
-        print('Stage "{viewer.stage}" is already registered.'.format(viewer=viewer))
-        return
-
-    print('Stage "{viewer.stage}" will now auto-load'.format(viewer=viewer))
-
-    listener = Tf.Notice.Register(
-        Usd.Notice.ObjectsChanged, reload_layers, viewer.stage
-    )
-    _INITIALIZED_STAGE[viewer.stage].add(listener)
+_INITITALIZED_STAGES = []
 
 
-def reload_layers(notice, _):
-    layers = notice.GetStage().GetUsedLayers()
+def _make_timer(viewer, interval, function):
+    function(viewer)
+
+    timer = QtCore.QTimer()
+    timer.singleShot(interval, functools.partial(_make_timer, viewer, interval, function))
+
+
+def reload_layers(viewer):
+    layers = viewer.stage.GetUsedLayers()
     reloaded = [layer.Reload() for layer in layers if not layer.anonymous]
     if not any(reloaded):
         return
@@ -39,3 +33,25 @@ def reload_layers(notice, _):
     for (layer, reloaded) in zip(layers, reloaded):
         if reloaded:
             print("    " + layer.identifier)
+
+
+def enable_auto_reload(viewer):
+    '''Run the main execution of the current script.
+
+    Args:
+        viewer (`pxr.Usdviewq.usdviewApi.UsdviewApi`):
+            The active usdview session object.
+
+    '''
+    print('Sourcing "usdview_auto_reload.py"')
+
+    if viewer.stage in _INITITALIZED_STAGES:
+        print('Stage "{viewer.stage}" is already registered.'.format(viewer=viewer))
+        return
+
+    print('Stage "{viewer.stage}" will now auto-load'.format(viewer=viewer))
+
+    timer = QtCore.QTimer()
+    timer.singleShot(1000, functools.partial(_make_timer, viewer, 1000, reload_layers))
+
+    _INITITALIZED_STAGES.append(viewer.stage)
