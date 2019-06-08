@@ -11,6 +11,8 @@
 #include "pxr/usd/sdf/primSpec.h"
 #include "pxr/usd/sdf/types.h"
 #include "pxr/usd/usd/stage.h"
+#include <boost/algorithm/string.hpp>
+#include <boost/algorithm/string/join.hpp>
 
 
 using Leaf = std::vector<std::string>;
@@ -27,7 +29,7 @@ static Names const PATHS = {
     },
     {
         "SomePrim", {
-            "AnnotherInnerPrim",
+            "AnotherInnerPrim",
             "ChildPrim",
             "SiblingPrim",
         }
@@ -82,9 +84,9 @@ void _create_prim_specs(pxr::SdfPrimSpecHandle root, Names const &names) {
 }
 
 
-void _prepare_prim_specs_with_sdf(pxr::SdfLayer &layer, Names const &paths) {
-    _create_prim_specs(layer.GetPseudoRoot(), paths);
-    auto parent = layer.GetPrimAtPath(pxr::SdfPath {"SomePrim/AnotherInnerPrim"});
+void _prepare_prim_specs_with_sdf(pxr::SdfLayerRefPtr &layer, Names const &paths) {
+    _create_prim_specs(layer->GetPseudoRoot(), paths);
+    auto parent = layer->GetPrimAtPath(pxr::SdfPath {"SomePrim/AnotherInnerPrim"});
 
     for (int index = 0; index < ITERATIONS; ++index) {
         pxr::SdfPrimSpec::New(parent, "IndexedPrim" + std::to_string(index), pxr::SdfSpecifierDef);
@@ -145,6 +147,16 @@ int main() {
     auto stage_export = create_using_stage();
     auto layer_export = create_using_sdf();
 
-    std::cout << "These exports should be exactly the same" << (stage_export == layer_export) << '\n';
+    std::vector<std::string> stage_export_lines;
+    boost::split(stage_export_lines, stage_export, [](char character){return character == '\n';});
+    stage_export_lines.erase(std::begin(stage_export_lines), std::begin(stage_export_lines) + 5);
+    stage_export = boost::algorithm::join(stage_export_lines, "\n");
+
+    std::vector<std::string> layer_export_lines;
+    boost::split(layer_export_lines, layer_export, [](char character){return character == '\n';});
+    layer_export_lines.erase(std::begin(layer_export_lines));
+    layer_export = boost::algorithm::join(layer_export_lines, "\n");
+
+    std::cout << "These exports should be exactly the same " << (stage_export == layer_export) << '\n';
     return 0;
 }
