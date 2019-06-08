@@ -2,10 +2,10 @@
     "Plugins": [
         {
             "Type": "python",
-            "Name": "tutorialPlugin",
+            "Name": "auto_update",
             "Info": {
                 "Types": {
-                    "tutorialPlugin.TutorialPluginContainer": {
+                    "auto_update.AutoUpdateContainer": {
                         "bases": ["pxr.Usdviewq.plugin.PluginContainer"],
                         "displayName": "Usdview Tutorial Plugin"
                     }
