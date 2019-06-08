@@ -1,0 +1,16 @@
+{
+    "Plugins": [
+        {
+            "Type": "python",
+            "Name": "tutorialPlugin",
+            "Info": {
+                "Types": {
+                    "tutorialPlugin.TutorialPluginContainer": {
+                        "bases": ["pxr.Usdviewq.plugin.PluginContainer"],
+                        "displayName": "Usdview Tutorial Plugin"
+                    }
+                }
+            }
+        }
+    ]
+}
