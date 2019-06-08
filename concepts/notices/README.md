@@ -91,4 +91,5 @@ stage.DefinePrim("/Foo")  # This will call `update`
 
 ## See Also
 https://graphics.pixar.com/usd/docs/api/page_tf__notification.html
+
 https://graphics.pixar.com/usd/docs/api/class_tf_notice.html

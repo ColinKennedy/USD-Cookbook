@@ -52,4 +52,5 @@ def Sphere "Sphere4" (
 
 # See Also
 https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGlossary-Kind
+
 https://graphics.pixar.com/usd/docs/api/class_kind_registry.html
