@@ -29,4 +29,5 @@ prim_spec.specifier = Sdf.SpecifierDef
 
 # See Also
 https://groups.google.com/d/msg/usd-interest/Bh6_sxij-f8/3UYUui3cAQAJ
+
 https://groups.google.com/d/msg/usd-interest/Bh6_sxij-f8/rnGtLK3tAQAJ
