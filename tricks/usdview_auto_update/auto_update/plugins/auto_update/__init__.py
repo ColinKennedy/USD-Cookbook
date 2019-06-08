@@ -15,10 +15,12 @@ LOGGER = logging.getLogger(__name__)
 
 
 class AutoUpdateContainer(plugin.PluginContainer):
-    @staticmethod
-    def _exec(viewer):
-        viewer.qMainWindow.installEventFilter(viewer.qMainWindow)
-        viewer.qMainWindow.eventFilter = functools.partial(event_filter, viewer)
+    def _exec(self, viewer):
+        from PySide import QtCore
+
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect(functools.partial(reload_layers, viewer))
+        self.timer.start(1000)
 
     def registerPlugins(self, registry, _):
         from . import reloader
@@ -34,32 +36,17 @@ class AutoUpdateContainer(plugin.PluginContainer):
         menu.addItem(self._enable_auto_reload)
 
 
-def event_filter(viewer, obj, event):
-    value = obj.__class__.eventFilter(
-        obj, obj, event
-    )  # Call the base-class `eventFilter`
-
-    if viewer.stage is None:
-        # This happens when the usdview GUI is in the process of being closed.
-        # Just ignore it.
-        #
-        LOGGER.debug(
-            "No stage was found so `event_filter` cannot update the user's Stage."
-        )
-        return value
-
+def reload_layers(viewer):
     layers = viewer.stage.GetUsedLayers()
     reloaded = [layer.Reload() for layer in layers if not layer.anonymous]
 
     if not any(reloaded):
-        return value
+        return
 
-    print("BL_reloadLayers: Reloaded at", datetime.datetime.now())
+    print("Layers reloaded at", datetime.datetime.now())
     for layer, reloaded in zip(layers, reloaded):
         if reloaded:
-            print("\t", layer.identifier)
-
-    return True
+            print("    ", layer.identifier)
 
 
 Tf.Type.Define(AutoUpdateContainer)
