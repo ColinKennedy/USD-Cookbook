@@ -15,7 +15,8 @@ using Names = std::map<std::string, Leaf>;
 using PrimPaths = std::vector<std::string>;
 
 
-static Names const PATH = {
+static int const ITERATIONS = 1000;
+static Names const PATHS = {
     {
         "BasePrim", {
             "InnerPrim", {"SiblingPrim"},
@@ -61,8 +62,13 @@ PrimPaths _create_prims(Names const &names, std::string const &parent=std::strin
 
 
 void _prepare_prims_with_stage(pxr::UsdStageRefPtr const &stage) {
-    for (auto const &path : _create_prims(PATH)) {
+    for (auto const &path : _create_prims(PATHS)) {
         stage->DefinePrim(pxr::SdfPath {path});
+    }
+
+    auto indexed_template = "/SomePrim/AnotherInnerPrim/IndexedPrim";
+    for (int index = 0; index < ITERATIONS; ++index) {
+        stage->DefinePrim(pxr::SdfPath {indexed_template + std::to_string(index)});
     }
 }
 
