@@ -99,6 +99,8 @@ viewing order:
 
 [enable_debugging](concepts/enable_debugging)
 
+[fast_export](tricks/fast_export)
+
 [value_clips](concepts/value_clips)
 
 [sdf_change_block](concepts/sdf_change_block)
