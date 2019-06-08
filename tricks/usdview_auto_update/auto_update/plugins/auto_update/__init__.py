@@ -11,6 +11,9 @@ from pxr import Tf
 from pxr.Usdviewq import plugin
 
 
+LOGGER = logging.getLogger(__name__)
+
+
 class AutoUpdateContainer(plugin.PluginContainer):
     @staticmethod
     def _exec(viewer):
