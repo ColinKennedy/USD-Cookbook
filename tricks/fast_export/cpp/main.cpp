@@ -17,11 +17,6 @@
 #include <boost/algorithm/string/join.hpp>
 
 
-using Leaf = std::vector<std::string>;
-using Names = std::map<std::string, Leaf>;
-using PrimPaths = std::vector<std::string>;
-
-
 PXR_NAMESPACE_OPEN_SCOPE
 TF_DEBUG_CODES(
     PRIMSPEC_CREATED
@@ -34,80 +29,31 @@ TF_REGISTRY_FUNCTION(TfDebug)
 PXR_NAMESPACE_CLOSE_SCOPE
 
 static int const ITERATIONS = 1000;
-static Names const PATHS = {
-    {
-        "BasePrim", {
-            "InnerPrim", {"SiblingPrim"},
-        },
-    },
-    {
-        "SomePrim", {
-            "AnotherInnerPrim",
-            "ChildPrim",
-            "SiblingPrim",
-        }
-    },
+static pxr::SdfPathSet const PATHS {
+    pxr::SdfPath {"/BasePrim"},
+    pxr::SdfPath {"/BasePrim/InnerPrim"},
+    pxr::SdfPath {"/BasePrim/InnerPrim/SiblingPrim"},
+    pxr::SdfPath {"/SomePrim"},
+    pxr::SdfPath {"/SomePrim/AnotherInnerPrim"},
+    pxr::SdfPath {"/SomePrim/ChildPrim"},
+    pxr::SdfPath {"/SomePrim/SiblingPrim"},
 };
 
 
-PrimPaths _create_prims(Leaf const &leaf, std::string const &parent=std::string {}) {
-    Leaf output;
-    output.reserve(leaf.size());
-    for (auto const &name : leaf) {
-        output.emplace_back(parent + "/" + name) ;
-    }
-
-    return output;
-}
-
-
-PrimPaths _create_prims(Names const &names, std::string const &parent=std::string {}) {
-    PrimPaths output;
-    output.reserve(names.size());
-    for (auto item : names) {
-        auto base = item.first;
-        auto inner_names = item.second;
-        auto base_prim_spec = parent + "/" + base;
-        output.push_back(base_prim_spec);
-
-        auto inner_prims = _create_prims(inner_names, base_prim_spec);
-        output.reserve(inner_prims.size());
-        output.insert(std::end(output), std::begin(inner_prims), std::end(inner_prims));
-    }
-
-    return output;
-}
-
-
-void _create_prim_specs(pxr::SdfPrimSpecHandle root, Leaf const &leaf) {
-    for (auto const &item : leaf) {
-        pxr::SdfPrimSpec::New(root, item, pxr::SdfSpecifierDef);
-    }
-}
-
-
-void _create_prim_specs(pxr::SdfPrimSpecHandle root, Names const &names) {
-    for (auto const &item : names) {
-        auto base = item.first;
-        auto inner_names = item.second;
-
-        auto base_prim_spec = pxr::SdfPrimSpec::New(root, base, pxr::SdfSpecifierDef);
-        _create_prim_specs(base_prim_spec, inner_names);
-    }
-}
-
-
 PXR_NAMESPACE_OPEN_SCOPE
-void _prepare_prim_specs_with_sdf(pxr::SdfLayerRefPtr &layer, Names const &paths) {
+void _prepare_prim_specs_with_sdf(pxr::SdfLayerRefPtr &layer, pxr::SdfPathSet const &paths) {
     {
         TF_DEBUG_TIMED_SCOPE(
             PRIMSPEC_CREATED,
             "The time it took to create layers with the Sdf API"
         );
 
-        _create_prim_specs(layer->GetPseudoRoot(), paths);
-        auto parent = layer->GetPrimAtPath(pxr::SdfPath {"SomePrim/AnotherInnerPrim"});
+        for (auto const &path : paths) {
+            auto prim_spec = pxr::SdfCreatePrimInLayer(layer, path);
+            prim_spec->SetSpecifier(pxr::SdfSpecifierDef);
+        }
 
+        auto parent = layer->GetPrimAtPath(pxr::SdfPath {"SomePrim/AnotherInnerPrim"});
         for (int index = 0; index < ITERATIONS; ++index) {
             pxr::SdfPrimSpec::New(parent, "IndexedPrim" + std::to_string(index), pxr::SdfSpecifierDef);
         }
@@ -122,8 +68,8 @@ void _prepare_prims_with_stage(pxr::UsdStageRefPtr const &stage) {
             "The time it took to create layers with the Sdf API"
         );
 
-        for (auto const &path : _create_prims(PATHS)) {
-            stage->DefinePrim(pxr::SdfPath {path});
+        for (auto const &path : PATHS) {
+            stage->DefinePrim(path);
         }
 
         auto indexed_template = "/SomePrim/AnotherInnerPrim/IndexedPrim";

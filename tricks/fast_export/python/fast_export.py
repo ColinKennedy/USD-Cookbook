@@ -39,7 +39,7 @@ def _timeit(method):
 @_timeit
 def _prepare_prim_specs_with_sdf(layer, paths):
     """Create PrimSpecs using a Sdf Layer."""
-    for path in PATHS:
+    for path in paths:
         prim_spec = Sdf.CreatePrimInLayer(layer, path)
         prim_spec.specifier = Sdf.SpecifierDef
 
@@ -49,9 +49,9 @@ def _prepare_prim_specs_with_sdf(layer, paths):
 
 
 @_timeit
-def _prepare_prims_with_stage(stage):
+def _prepare_prims_with_stage(stage, paths):
     """Create Prims using a USD Stage."""
-    for path in PATHS:
+    for path in paths:
         stage.DefinePrim(path)
 
     indexed_template = "/SomePrim/AnotherInnerPrim/IndexedPrim{}"
@@ -75,7 +75,7 @@ def create_using_sdf():
 def create_using_stage():
     """str: Create Prims using a USD stage."""
     stage = Usd.Stage.CreateInMemory()
-    _prepare_prims_with_stage(stage)
+    _prepare_prims_with_stage(stage, PATHS)
 
     return stage.GetRootLayer().ExportToString()
 
