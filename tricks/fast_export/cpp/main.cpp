@@ -6,7 +6,10 @@
 #include <vector>
 
 // IMPORT THIRD-PARTY LIBRARIES
+#include "pxr/usd/pcp/primIndex.h"
 #include "pxr/usd/sdf/layer.h"
+#include "pxr/usd/sdf/primSpec.h"
+#include "pxr/usd/sdf/types.h"
 #include "pxr/usd/usd/stage.h"
 
 
@@ -61,6 +64,34 @@ PrimPaths _create_prims(Names const &names, std::string const &parent=std::strin
 }
 
 
+void _create_prim_specs(pxr::SdfPrimSpecHandle root, Leaf const &leaf) {
+    for (auto const &item : leaf) {
+        pxr::SdfPrimSpec::New(root, item, pxr::SdfSpecifierDef);
+    }
+}
+
+
+void _create_prim_specs(pxr::SdfPrimSpecHandle root, Names const &names) {
+    for (auto const &item : names) {
+        auto base = item.first;
+        auto inner_names = item.second;
+
+        auto base_prim_spec = pxr::SdfPrimSpec::New(root, base, pxr::SdfSpecifierDef);
+        _create_prim_specs(base_prim_spec, inner_names);
+    }
+}
+
+
+void _prepare_prim_specs_with_sdf(pxr::SdfLayer &layer, Names const &paths) {
+    _create_prim_specs(layer.GetPseudoRoot(), paths);
+    auto parent = layer.GetPrimAtPath(pxr::SdfPath {"SomePrim/AnotherInnerPrim"});
+
+    for (int index = 0; index < ITERATIONS; ++index) {
+        pxr::SdfPrimSpec::New(parent, "IndexedPrim" + std::to_string(index), pxr::SdfSpecifierDef);
+    }
+}
+
+
 void _prepare_prims_with_stage(pxr::UsdStageRefPtr const &stage) {
     for (auto const &path : _create_prims(PATHS)) {
         stage->DefinePrim(pxr::SdfPath {path});
@@ -73,19 +104,26 @@ void _prepare_prims_with_stage(pxr::UsdStageRefPtr const &stage) {
 }
 
 
-// std::string create_using_sdf() {
-//     auto layer = pxr::SdfLayer::CreateAnonymous();
-//
-//     // TODO : Adding / Removing this ChangeBlock doesn't change the time
-//     // much. Is a change block only useful when authoring opinions?
-//     //
-//     {
-//         pxr::SdfChangeBlock block;
-//         _prepate_prims_with_sdf(layer, PATHS);
-//     }
-//
-//     return layer->ExportToString();
-// }
+std::string create_using_sdf() {
+    auto layer = pxr::SdfLayer::CreateAnonymous();
+
+    // TODO : Adding / Removing this ChangeBlock doesn't change the time
+    // much. Is a change block only useful when authoring opinions?
+    //
+    {
+        pxr::SdfChangeBlock block;
+        _prepare_prim_specs_with_sdf(layer, PATHS);
+    }
+
+    auto* result = new std::string();
+    layer->ExportToString(result);
+    // Assign the string to the stack so we can delete it off the heap and still return it
+    auto value = *result;
+    delete result;
+    result = nullptr;
+
+    return value;
+}
 
 
 std::string create_using_stage() {
@@ -105,9 +143,8 @@ std::string create_using_stage() {
 
 int main() {
     auto stage_export = create_using_stage();
-    // auto layer_export = create_using_sdf();
-    //
-    std::cout << stage_export << '\n';
-    // std::cout << "These exports should be exactly the same" << (stage_export == layer_export) << '\n';
+    auto layer_export = create_using_sdf();
+
+    std::cout << "These exports should be exactly the same" << (stage_export == layer_export) << '\n';
     return 0;
 }
