@@ -9,41 +9,15 @@ import time
 from pxr import Sdf, Usd
 
 ITERATIONS = 1000
-PATHS = (
-    {
-        "BasePrim": {
-            "InnerPrim": frozenset((
-                "SiblingPrim",
-            )),
-        },
-        "SomePrim": frozenset((
-            "AnotherInnerPrim",
-            "ChildPrim",
-            "SiblingPrim",
-        )),
-    }
-)
-
-
-def _create_prims(names):
-    """str: Write out the paths to each Prim that must be created."""
-    def _create_recursively(names, parent=''):
-        if not isinstance(names, collections.MutableMapping):
-            for name in names:
-                yield parent + '/' + name
-
-            return
-            yield
-
-        for base, inner_names in names.iteritems():
-            base_prim_spec = parent + '/' + base
-            yield base_prim_spec
-
-            for prim in _create_recursively(inner_names, parent=base_prim_spec):
-                yield prim
-
-    for prim in _create_recursively(names):
-        yield prim
+PATHS = frozenset((
+    "/BasePrim",
+    "/BasePrim/InnerPrim",
+    "/BasePrim/InnerPrim/SiblingPrim",
+    "/SomePrim",
+    "/SomePrim/AnotherInnerPrim",
+    "/SomePrim/ChildPrim",
+    "/SomePrim/SiblingPrim"
+))
 
 
 # Reference: https://medium.com/pythonhive/python-decorator-to-measure-the-execution-time-of-methods-fa04cb6bb36d
@@ -65,7 +39,10 @@ def _timeit(method):
 @_timeit
 def _prepare_prim_specs_with_sdf(layer, paths):
     """Create PrimSpecs using a Sdf Layer."""
-    create_prim_specs(layer.pseudoRoot, paths)
+    for path in PATHS:
+        prim_spec = Sdf.CreatePrimInLayer(layer, path)
+        prim_spec.specifier = Sdf.SpecifierDef
+
     parent = layer.GetPrimAtPath("SomePrim/AnotherInnerPrim")
     for index in range(ITERATIONS):
         Sdf.PrimSpec(parent, "IndexedPrim{}".format(index), Sdf.SpecifierDef)
@@ -74,28 +51,12 @@ def _prepare_prim_specs_with_sdf(layer, paths):
 @_timeit
 def _prepare_prims_with_stage(stage):
     """Create Prims using a USD Stage."""
-    for path in _create_prims(PATHS):
+    for path in PATHS:
         stage.DefinePrim(path)
 
     indexed_template = "/SomePrim/AnotherInnerPrim/IndexedPrim{}"
     for index in range(ITERATIONS):
         stage.DefinePrim(indexed_template.format(index))
-
-
-def create_prim_specs(root, names):
-    """Create the PrimSpecs for some Sdf Layer."""
-    def _create_recursively(parent, names):
-        if not isinstance(names, collections.MutableMapping):
-            for name in names:
-                Sdf.PrimSpec(parent, name, Sdf.SpecifierDef)
-
-            return
-
-        for base, inner_names in names.iteritems():
-            base_prim_spec = Sdf.PrimSpec(parent, base, Sdf.SpecifierDef)
-            _create_recursively(base_prim_spec, inner_names)
-
-    _create_recursively(root, names)
 
 
 def create_using_sdf():
