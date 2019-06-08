@@ -12,31 +12,46 @@ from pxr.Usdviewq import plugin
 
 
 LOGGER = logging.getLogger(__name__)
+WAS_INITIALIZED = False
+IS_ENABLED = False
 
 
 class AutoUpdateContainer(plugin.PluginContainer):
-    def _exec(self, viewer):
+    def _toggle_reload_and_setup_reload(self, viewer):
+        global WAS_INITIALIZED
+        global IS_ENABLED
+
         from PySide import QtCore
+
+        IS_ENABLED = not IS_ENABLED
+
+        if WAS_INITIALIZED:
+            LOGGER.debug('The timer was already created. Nothing left to do here.')
+            return
 
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(functools.partial(reload_layers, viewer))
         self.timer.start(1000)
 
-    def registerPlugins(self, registry, _):
-        from . import reloader
+        WAS_INITIALIZED = True
 
-        self._enable_auto_reload = registry.registerCommandPlugin(
+    def registerPlugins(self, registry, _):
+        self._toggle_auto_reload_command = registry.registerCommandPlugin(
             "AutoUpdateContainer.printMessage",
-            "Enable Auto-Reload USD Stage",
-            self._exec,
+            "Toggle Auto-Reload USD Stage",
+            self._toggle_reload_and_setup_reload,
         )
 
     def configureView(self, registry, builder):
         menu = builder.findOrCreateMenu("Reloader")
-        menu.addItem(self._enable_auto_reload)
+        menu.addItem(self._toggle_auto_reload_command)
 
 
 def reload_layers(viewer):
+    if not IS_ENABLED:
+        LOGGER.debug('Layer auto-reload is disabled.')
+        return
+
     layers = viewer.stage.GetUsedLayers()
     reloaded = [layer.Reload() for layer in layers if not layer.anonymous]
 
