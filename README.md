@@ -51,21 +51,22 @@ Python modules can always run using `python name_of_module.py`
 
 
 ## Folder Explanation
-- `concepts` is where you'll find simple, single ideas shown by-example.
+- `concepts` is where you'll find simple, single features shown by-example.
 It will have C++, Python, and USDA example projects (whenever possible).
 If you're the type that makes flashcards, you'll get the most mileage
 here.
 - `guides` contains articles of ideas and references that help a user
 learn USD.
-- `tricks` is a mixed bag of situations that come up in production. It
-exists basically to show off USD's features, no matter how niche they
-may be. There's no defined structure for this folder.
+- `tricks` is a mixed bag of situations that come up in production and
+general proof-of-concepts on how to do certain operations in USD. This
+folder has projects that are too complex or niche to fit in `concepts`.
+There's no defined structure for this folder.
 
 
 ## Studying
-This repository exists as source-code reference. That said, if you want
-to treat as if this is a library of tutorials, here's the recommended
-viewing order:
+This repository exists mainly as a reference for USD source-code. That
+said, if you want to treat as if this is a library of tutorials, here's
+a recommended viewing order:
 
 [add_comment](concepts/add_comment)
 
@@ -73,7 +74,7 @@ viewing order:
 
 [specializes](concepts/specializes)
 
-[uniquify_an_instance](concepts/uniquify_an_instance)
+[uniquify_an_instance](tricks/uniquify_an_instance)
 
 [asset_info](concepts/asset_info)
 
@@ -81,17 +82,17 @@ viewing order:
 
 [world_bounding_box](concepts/world_bounding_box)
 
-[variant_set_in_stronger_layer](concepts/variant_set_in_stronger_layer)
+[variant_set_in_stronger_layer](tricks/variant_set_in_stronger_layer)
 
-[variant_set_production_shot](concepts/variant_set_production_shot)
+[variant_set_production_shot](tricks/variant_set_production_shot)
 
 [purposes](concepts/purposes)
 
-[stl_iteration](concepts/stl_iteration)
+[stl_iteration](tricks/stl_iteration)
 
-[stl_iteration2](concepts/stl_iteration2)
+[stl_iteration2](tricks/stl_iteration2)
 
-[orphaned_over](concepts/orphaned_over)
+[orphaned_over](tricks/orphaned_over)
 
 [variant_set_auto_selections](tricks/variant_set_auto_selections )
 
