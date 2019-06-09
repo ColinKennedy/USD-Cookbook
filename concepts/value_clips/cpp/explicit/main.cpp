@@ -27,6 +27,7 @@ int main() {
     stage->GetRootLayer()->ExportToString(result);
     std::cout << *result << std::endl;
     delete result;
+    result = nullptr;
 
     return 0;
 }

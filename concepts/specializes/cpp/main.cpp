@@ -17,6 +17,7 @@ int main() {
     stage->ExportToString(result);
     std::cout << *result << std::endl;
     delete result;
+    result = nullptr;
 
     return 0;
 }
