@@ -122,42 +122,42 @@ override.usda
 ```usda
 #usda 1.0
 (
-	 subLayers = [
-		@./base.usda@
-	 ]
+     subLayers = [
+        @./base.usda@
+     ]
 )
 
 
 over "TexModel" {
-	over "card" {
+    over "card" {
         rel material:binding = </TexModel/card/boardMat>
 
-		def Material "boardMat"
-		{
-			token inputs:frame:stPrimvarName = "st"
-			token outputs:surface.connect = </TexModel/card/boardMat/PBRShader.outputs:surface>
+        def Material "boardMat"
+        {
+            token inputs:frame:stPrimvarName = "st"
+            token outputs:surface.connect = </TexModel/card/boardMat/PBRShader.outputs:surface>
 
-			def Shader "PBRShader"
-			{
-				uniform token info:id = "UsdPreviewSurface"
-				color3f inputs:diffuseColor.connect = </TexModel/card/boardMat/diffuseTexture.outputs:rgb>
-				token outputs:surface
-			}
+            def Shader "PBRShader"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor.connect = </TexModel/card/boardMat/diffuseTexture.outputs:rgb>
+                token outputs:surface
+            }
 
-			def Shader "stReader"
-			{
-				uniform token info:id = "UsdPrimvarReader_float2"
-				token inputs:varname.connect = </TexModel/card/boardMat.inputs:frame:stPrimvarName>
-				float2 outputs:result
-			}
+            def Shader "stReader"
+            {
+                uniform token info:id = "UsdPrimvarReader_float2"
+                token inputs:varname.connect = </TexModel/card/boardMat.inputs:frame:stPrimvarName>
+                float2 outputs:result
+            }
 
-			def Shader "diffuseTexture"
-			{
-				uniform token info:id = "UsdUVTexture"
-				float2 inputs:st.connect = </TexModel/card/boardMat/stReader.outputs:result>
-				float3 outputs:rgb
-			}
-		}
-	}
+            def Shader "diffuseTexture"
+            {
+                uniform token info:id = "UsdUVTexture"
+                float2 inputs:st.connect = </TexModel/card/boardMat/stReader.outputs:result>
+                float3 outputs:rgb
+            }
+        }
+    }
 }
 ```

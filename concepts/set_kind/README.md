@@ -25,11 +25,11 @@ Usd.ModelAPI(sphere).SetKind("does_not_exist")
 ```usda
 #usda 1.0
 (
-	doc = "This is an example of setting a Model Prim kind"
+    doc = "This is an example of setting a Model Prim kind"
 )
 
 def Sphere "Sphere1" (
-	kind = "assembly"
+    kind = "assembly"
 ) {
 }
 

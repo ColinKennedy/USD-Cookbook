@@ -34,23 +34,23 @@ base.usda
 
 def Sphere "SomeSphere"
 (
-	 variants = {
-		string some_variant = "variant_name_2"
-	 }
-	 prepend variantSets = "some_variant"
+     variants = {
+        string some_variant = "variant_name_2"
+     }
+     prepend variantSets = "some_variant"
 )
 {
-	variantSet "some_variant" = {
-		"variant_name_1" {
-			double radius = 1.0
-		}
-		"variant_name_2" {
-			double radius = 2.0
-		}
-		"variant_name_3" {
-			double radius = 3.0
-		}
-	}
+    variantSet "some_variant" = {
+        "variant_name_1" {
+            double radius = 1.0
+        }
+        "variant_name_2" {
+            double radius = 2.0
+        }
+        "variant_name_3" {
+            double radius = 3.0
+        }
+    }
 }
 ```
 

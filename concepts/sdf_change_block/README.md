@@ -18,8 +18,8 @@ tools.
 // ...
 
 {
-	pxr::SdfChangeBlock batcher;
-	// ... do some Sdf API code, here
+    pxr::SdfChangeBlock batcher;
+    // ... do some Sdf API code, here
 }
 ```
 
@@ -32,7 +32,7 @@ from pxr import Sdf
 # ...
 
 with Sdf.ChangeBlock():
-	# ... do some Sdf API code, here
+    # ... do some Sdf API code, here
 ```
 
 

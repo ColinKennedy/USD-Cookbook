@@ -15,8 +15,8 @@ root.usda to this snippet?
 ```usda
 #usda 1.0
 (
-	startTimeCode = 0
-	endTimeCode = 12
+    startTimeCode = 0
+    endTimeCode = 12
 )
 
 
@@ -59,7 +59,7 @@ def "Clip"
 ```
 
 In `notInManifestAndInClip`, there's our -10. But that's at time 1. Remember that we're
-looking at stage time 0, not 1. So how are we getting -10 at our stage time: 0? 
+looking at stage time 0, not 1. So how are we getting -10 at our stage time: 0?
 The answer is back in root.usda. Look at the `times` Attribute and it'll be obvious.
 `[(0, 1), ...]` means "at stage time: 0, sample the active value clip's time 1".
 
@@ -85,10 +85,10 @@ _clips.html) for further information.
 
 Important:
 
-	The above modified root.usda removed `manifestAssetPath`. 
-	If you add back in `asset manifestAssetPath = @./clip_manifest.usda@` then
-	notInManifestAndInClip will be 3.0 because that Attribute is not in mentioned
-	in clip_manifest.usda as a Value Clip Attribute.
-	
-	manifestAssetPath is optional. For more information on what it is / why
-	mayou y want to use it, see USD's documentation.
+    The above modified root.usda removed `manifestAssetPath`.
+    If you add back in `asset manifestAssetPath = @./clip_manifest.usda@` then
+    notInManifestAndInClip will be 3.0 because that Attribute is not in mentioned
+    in clip_manifest.usda as a Value Clip Attribute.
+
+    manifestAssetPath is optional. For more information on what it is / why
+    mayou y want to use it, see USD's documentation.

@@ -16,7 +16,7 @@ prim.SetMetadata("comment", "I am a comment")
 #usda 1.0
 
 def Sphere "MySphere" (
-	"I am a comment"
+    "I am a comment"
 ) {
 }
 ```

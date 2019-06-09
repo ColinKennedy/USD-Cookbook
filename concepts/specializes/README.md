@@ -20,18 +20,18 @@ prim.GetSpecializes().AddSpecialize(sphere.GetPath())
 #usda 1.00
 
 def "thing" {
-	def "SomethingElse" {
-		def "NestedEvenMore" {
-		}
-	}
+    def "SomethingElse" {
+        def "NestedEvenMore" {
+        }
+    }
 
-	def Sphere "SpecializedChild" (
-		specializes = [
-			</thing/SomethingElse/NestedEvenMore>
-		]
-	)
-	{
-	}
+    def Sphere "SpecializedChild" (
+        specializes = [
+            </thing/SomethingElse/NestedEvenMore>
+        ]
+    )
+    {
+    }
 }
 ```
 
