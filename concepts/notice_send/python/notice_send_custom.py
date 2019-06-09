@@ -46,6 +46,7 @@ class Callback(object):
         was used to register this method. But it doesn't have to be.
 
         """
+        raise ValueError(notice.GetStage())
         print("Got notice?", notice is self.notice)
         print("Got sender?", sender is self.sender)
         self.counter += 1
