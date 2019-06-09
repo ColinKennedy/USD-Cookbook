@@ -8,9 +8,9 @@ applications.
 */
 
 // IMPORT THIRD-PARTY LIBRARIES
-#include "pxr/usd/usd/stage.h"
-#include "pxr/usd/usd/stageCacheContext.h"
-#include "pxr/usd/usdUtils/stageCache.h"
+#include <pxr/usd/usd/stage.h>
+#include <pxr/usd/usd/stageCacheContext.h>
+#include <pxr/usd/usdUtils/stageCache.h>
 
 
 int main() {

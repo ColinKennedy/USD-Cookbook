@@ -2,13 +2,13 @@
 #include <iostream>
 
 // IMPORT THIRD-PARTY LIBRARIES
-#include "pxr/base/tf/diagnostic.h"
-#include "pxr/base/tf/stringUtils.h"
-#include "pxr/base/tf/weakBase.h"
-#include "pxr/usd/sdf/schema.h"
-#include "pxr/usd/usd/common.h"
-#include "pxr/usd/usd/notice.h"
-#include "pxr/usd/usd/stage.h"
+#include <pxr/base/tf/diagnostic.h>
+#include <pxr/base/tf/stringUtils.h>
+#include <pxr/base/tf/weakBase.h>
+#include <pxr/usd/sdf/schema.h>
+#include <pxr/usd/usd/common.h>
+#include <pxr/usd/usd/notice.h>
+#include <pxr/usd/usd/stage.h>
 
 
 class UpdateNotice : public pxr::TfWeakBase

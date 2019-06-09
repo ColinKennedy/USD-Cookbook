@@ -5,11 +5,11 @@
 #include <string>
 
 // IMPORT THIRD-PARTY LIBRARIES
-#include "pxr/usd/kind/registry.h"
-#include "pxr/usd/sdf/path.h"
-#include "pxr/usd/usd/modelAPI.h"
-#include "pxr/usd/usd/primRange.h"
-#include "pxr/usd/usd/stage.h"
+#include <pxr/usd/kind/registry.h>
+#include <pxr/usd/sdf/path.h>
+#include <pxr/usd/usd/modelAPI.h>
+#include <pxr/usd/usd/primRange.h>
+#include <pxr/usd/usd/stage.h>
 
 
 int main() {

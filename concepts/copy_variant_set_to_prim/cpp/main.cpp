@@ -1,11 +1,11 @@
 // IMPORT THIRD-PARTY LIBRARIES
-#include "pxr/usd/sdf/copyUtils.h"
-#include "pxr/usd/sdf/layer.h"
-#include "pxr/usd/sdf/path.h"
-#include "pxr/usd/sdf/types.h"
-#include "pxr/usd/sdf/variantSetSpec.h"
-#include "pxr/usd/sdf/variantSpec.h"
-#include "pxr/usd/usd/stage.h"
+#include <pxr/usd/sdf/copyUtils.h>
+#include <pxr/usd/sdf/layer.h>
+#include <pxr/usd/sdf/path.h>
+#include <pxr/usd/sdf/types.h>
+#include <pxr/usd/sdf/variantSetSpec.h>
+#include <pxr/usd/sdf/variantSpec.h>
+#include <pxr/usd/usd/stage.h>
 
 
 int main() {

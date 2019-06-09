@@ -4,9 +4,9 @@
 #include <regex>
 
 // IMPORT THIRD-PARTY LIBRARIES
-#include "pxr/usd/usd/stage.h"
-#include "pxr/usd/sdf/types.h"
-#include "pxr/usd/usdGeom/sphere.h"
+#include <pxr/usd/sdf/types.h>
+#include <pxr/usd/usd/stage.h>
+#include <pxr/usd/usdGeom/sphere.h>
 
 
 int main() {

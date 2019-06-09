@@ -13,7 +13,7 @@ tools.
 ### C++
 
 ```cpp
-#include "pxr/usd/sdf/changeBlock.h"
+#include <pxr/usd/sdf/changeBlock.h>
 
 // ...
 

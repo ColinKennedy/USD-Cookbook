@@ -3,9 +3,9 @@
 #include <string>
 
 // IMPORT THIRD-PARTY LIBRARIES
-#include "pxr/usd/usd/primRange.h"
-#include "pxr/usd/usd/stage.h"
-#include "pxr/usd/usdGeom/sphere.h"
+#include <pxr/usd/usd/primRange.h>
+#include <pxr/usd/usd/stage.h>
+#include <pxr/usd/usdGeom/sphere.h>
 
 
 char const BASE_STAGE_PATH[] = "/tmp/base.usda";

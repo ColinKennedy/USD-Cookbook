@@ -2,9 +2,9 @@
 #include <iostream>
 
 // IMPORT THIRD-PARTY LIBRARIES
-#include "pxr/base/tf/debug.h"
-#include "pxr/base/tf/diagnostic.h"
-#include "pxr/usd/usd/stage.h"
+#include <pxr/base/tf/debug.h>
+#include <pxr/base/tf/diagnostic.h>
+#include <pxr/usd/usd/stage.h>
 
 
 PXR_NAMESPACE_OPEN_SCOPE

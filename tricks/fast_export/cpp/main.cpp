@@ -6,15 +6,15 @@
 #include <vector>
 
 // IMPORT THIRD-PARTY LIBRARIES
-#include "pxr/base/tf/debug.h"
-#include "pxr/base/tf/diagnostic.h"
-#include "pxr/usd/pcp/primIndex.h"
-#include "pxr/usd/sdf/layer.h"
-#include "pxr/usd/sdf/primSpec.h"
-#include "pxr/usd/sdf/types.h"
-#include "pxr/usd/usd/stage.h"
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/join.hpp>
+#include <pxr/base/tf/debug.h>
+#include <pxr/base/tf/diagnostic.h>
+#include <pxr/usd/pcp/primIndex.h>
+#include <pxr/usd/sdf/layer.h>
+#include <pxr/usd/sdf/primSpec.h>
+#include <pxr/usd/sdf/types.h>
+#include <pxr/usd/usd/stage.h>
 
 
 PXR_NAMESPACE_OPEN_SCOPE

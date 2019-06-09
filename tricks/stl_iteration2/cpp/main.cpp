@@ -6,11 +6,11 @@
 
 // IMPORT THIRD-PARTY LIBRARIES
 #include <boost/range/adaptors.hpp>
-#include "pxr/usd/kind/registry.h"
-#include "pxr/usd/sdf/path.h"
-#include "pxr/usd/usd/modelAPI.h"
-#include "pxr/usd/usd/primRange.h"
-#include "pxr/usd/usd/stage.h"
+#include <pxr/usd/kind/registry.h>
+#include <pxr/usd/sdf/path.h>
+#include <pxr/usd/usd/modelAPI.h>
+#include <pxr/usd/usd/primRange.h>
+#include <pxr/usd/usd/stage.h>
 
 class is_positive_number {
     public:

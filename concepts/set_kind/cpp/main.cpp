@@ -3,11 +3,11 @@
 #include <string>
 
 // IMPORT THIRD-PARTY LIBRARIES
-#include "pxr/base/tf/token.h"
-#include "pxr/usd/kind/registry.h"
-#include "pxr/usd/usd/modelAPI.h"
-#include "pxr/usd/usd/stage.h"
-#include "pxr/usd/usdGeom/sphere.h"
+#include <pxr/base/tf/token.h>
+#include <pxr/usd/kind/registry.h>
+#include <pxr/usd/usd/modelAPI.h>
+#include <pxr/usd/usd/stage.h>
+#include <pxr/usd/usdGeom/sphere.h>
 
 
 int main() {

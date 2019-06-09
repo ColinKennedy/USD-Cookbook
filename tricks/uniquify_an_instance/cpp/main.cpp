@@ -3,10 +3,10 @@
 #include <vector>
 
 // IMPORT THIRD-PARTY LIBRARIES
-#include "pxr/usd/sdf/path.h"
-#include "pxr/usd/sdf/reference.h"
-#include "pxr/usd/usd/stage.h"
-#include "pxr/usd/usdGeom/xform.h"
+#include <pxr/usd/sdf/path.h>
+#include <pxr/usd/sdf/reference.h>
+#include <pxr/usd/usd/stage.h>
+#include <pxr/usd/usdGeom/xform.h>
 
 
 int main() {

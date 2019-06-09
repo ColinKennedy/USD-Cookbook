@@ -1,10 +1,10 @@
 // IMPORT THIRD-PARTY LIBRARIES
-#include "pxr/usd/sdf/changeBlock.h"
-#include "pxr/usd/sdf/layer.h"
-#include "pxr/usd/sdf/path.h"
-#include "pxr/usd/sdf/path.h"
-#include "pxr/usd/usd/schemaRegistry.h"
-#include "pxr/usd/usdGeom/xform.h"
+#include <pxr/usd/sdf/changeBlock.h>
+#include <pxr/usd/sdf/layer.h>
+#include <pxr/usd/sdf/path.h>
+#include <pxr/usd/sdf/path.h>
+#include <pxr/usd/usd/schemaRegistry.h>
+#include <pxr/usd/usdGeom/xform.h>
 
 
 int main() {

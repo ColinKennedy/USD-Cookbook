@@ -2,10 +2,10 @@
 #include <string>
 
 // IMPORT THIRD-PARTY LIBRARIES
-#include "pxr/usd/usd/stage.h"
-#include "pxr/usd/usd/editContext.h"
-#include "pxr/usd/usd/variantSets.h"
-#include "pxr/usd/usdGeom/sphere.h"
+#include <pxr/usd/usd/stage.h>
+#include <pxr/usd/usd/editContext.h>
+#include <pxr/usd/usd/variantSets.h>
+#include <pxr/usd/usdGeom/sphere.h>
 
 
 char const ASSET_PATH[] = "/tmp/asset.usda";

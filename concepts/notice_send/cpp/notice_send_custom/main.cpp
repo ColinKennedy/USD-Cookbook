@@ -1,5 +1,5 @@
 // IMPORT THIRD-PARTY LIBRARIES
-#include "pxr/base/tf/notice.h"
+#include <pxr/base/tf/notice.h>
 
 
 class Callback : public pxr::TfWeakBase {
