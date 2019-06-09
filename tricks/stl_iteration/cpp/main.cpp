@@ -37,7 +37,7 @@ int main() {
         pxr::UsdModelAPI(prim).SetKind(pxr::KindTokens->component);
     });
     auto* result = new std::string();
-    stage->ExportToString(result);
+    stage->GetRootLayer()->ExportToString(result);
     std::cout << *result << std::endl;
     delete result;
     result = nullptr;

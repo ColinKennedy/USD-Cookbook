@@ -108,7 +108,7 @@ std::string create_using_stage() {
     _prepare_prims_with_stage(stage);
 
     auto* result = new std::string();
-    stage->ExportToString(result);
+    stage->GetRootLayer()->ExportToString(result);
     // Assign the string to the stack so we can delete it off the heap and still return it
     auto value = *result;
     delete result;

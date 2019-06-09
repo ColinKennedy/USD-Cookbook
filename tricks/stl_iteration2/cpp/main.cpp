@@ -34,7 +34,7 @@ int main() {
     }
 
     auto* result = new std::string();
-    stage->ExportToString(result);
+    stage->GetRootLayer()->ExportToString(result);
     std::cout << *result << std::endl;
     delete result;
     result = nullptr;
