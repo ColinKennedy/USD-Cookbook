@@ -1,6 +1,7 @@
 #usda 1.0
 
 def Sphere "MyPrim" {
-	double radius = 2
+	double radius = 4
 
+	def Cube "asdfsad" {}
 }
