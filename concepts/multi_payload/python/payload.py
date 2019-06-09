@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""A module that shows you how to author 2+ Payloads onto a single Prim.
+"""This module shows how to load 2+ Payloads on a single Prim.
 
-Important:
-    All of the Stages here are created in-memory to avoid writing to
-    disk. Because of that, we use identifiers to refer to those Stages.
-    In production code, these identifiers should actually be paths to
-    files or some kind of URI that USD can resolve into a consumable
-    resource.
+The short answer is - add a Payload to 2+ Prims and then Reference
+those Prims onto a single Prim. Then that container Prim with all the
+references will get each Payload.
+
+Also note: This module isn't going to run directly in usdview because
+we're using anonymous layers. So see an actual example, look at the
+nearby "usda" folder.
 
 """
 
@@ -19,8 +20,8 @@ from pxr import Usd, UsdGeom
 def create_cube_base_stage(stage):
     def _create_cube_payload():
         stage = Usd.Stage.CreateInMemory()
-        xform = UsdGeom.Cube(stage.DefinePrim("/PayloadCubeThing", "Cube"))
-        cube = UsdGeom.Cube(stage.DefinePrim("/PayloadCubeThing/PayloadCube", "Cube"))
+        UsdGeom.Xform(stage.DefinePrim("/PayloadCubeThing", "Xform"))
+        UsdGeom.Cube(stage.DefinePrim("/PayloadCubeThing/PayloadCube", "Cube"))
 
         return stage.GetRootLayer().identifier
 
@@ -36,10 +37,8 @@ def create_cube_base_stage(stage):
 def create_sphere_base_stage(stage):
     def _create_sphere_payload():
         stage = Usd.Stage.CreateInMemory()
-        xform = UsdGeom.Sphere(stage.DefinePrim("/PayloadSphereThing", "Sphere"))
-        sphere = UsdGeom.Sphere(
-            stage.DefinePrim("/PayloadSphereThing/PayloadSphere", "Sphere")
-        )
+        UsdGeom.Xform.Define(stage, "/PayloadSphereThing")
+        UsdGeom.Sphere.Define(stage, "/PayloadSphereThing/PayloadSphere")
 
         return stage.GetRootLayer().identifier
 
