@@ -145,3 +145,6 @@ documentation over anything that you see here.
 Tested with:
 - CentOS 7.6
 - USD 19.05
+- cmake version 3.13.4
+- make 3.82
+- g++ 8.3.0  
