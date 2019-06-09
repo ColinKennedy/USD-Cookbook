@@ -38,9 +38,7 @@ Unless a C++ project has specific instructions, every project compiles
 and executes using the following commands:
 
 ```bash
-cd {some_concept_cpp_folder}
-mkdir build
-cd build
+cd {some_concept_cpp_folder}/build
 cmake ..
 make
 ./run_it
