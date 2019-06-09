@@ -103,7 +103,11 @@ viewing order:
 
 [fast_export](tricks/fast_export)
 
+[flatten_layer_stack](tricks/flatten_layer_stack)
+
 [value_clips](concepts/value_clips)
+
+[mesh_with_materials](concepts/mesh_with_materials)
 
 [sdf_change_block](concepts/sdf_change_block)
 
@@ -114,8 +118,6 @@ viewing order:
 [notices](concepts/notices)
 
 [notice_send](concepts/notice_send)
-
-[mesh_with_materials](concepts/mesh_with_materials)
 
 
 ## Roadmap
