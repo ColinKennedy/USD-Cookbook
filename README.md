@@ -118,6 +118,8 @@ a recommended viewing order:
 
 [notice_send](concepts/notice_send)
 
+There's also Anki deck for this repository, which you can download
+[by clicking here](https://drive.google.com/file/d/1qx8N9wwL2ufviuWcQrY3zT2S6GN6nrg7/view?usp=sharing)
 
 ## Roadmap
 See [This wiki page](https://github.com/ColinKennedy/USD-Cookbook/wiki)
