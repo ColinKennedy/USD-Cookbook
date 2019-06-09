@@ -66,7 +66,7 @@ private:
         const pxr::UsdNotice::ObjectsChanged &notice
     ) {
         // TODO : How do you print `notice`?
-        printf("The triggered stage %s\n", pxr::TfStringify(notice.GetStage()).c_str());
+        std::cout << "The triggered stage " << pxr::TfStringify(notice.GetStage()) << '\n';
     }
 };
 

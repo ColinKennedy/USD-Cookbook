@@ -27,20 +27,20 @@ private:
         const pxr::UsdNotice::ObjectsChanged &notice,
         const pxr::UsdStageWeakPtr &sender
     ) {
-        printf("The triggered sender %s\n", pxr::TfStringify(notice.GetStage()).c_str());
-        printf("Resynced paths [");
+        std::cout << "The triggered sender " << pxr::TfStringify(notice.GetStage()) << '\n';
+        std::cout << "Resynced paths [";
         for (auto const &path : notice.GetResyncedPaths())
         {
-            printf("%s, ", path.GetText());
+            std::cout << "%s, ", path.GetText();
         }
-        printf("]\n");
+        std::cout << "]\n";
 
-        printf("The path Prim that was affected [");
+        std::cout << "The path Prim that was affected [";
         for (auto const &path : notice.GetChangedInfoOnlyPaths())
         {
-            printf("%s, ", path.GetText());
+            std::cout << "%s, ", path.GetText();
         }
-        printf("]\n");
+        std::cout << "]\n";
 
         std::cout << std::boolalpha;
         std::cout
@@ -76,7 +76,7 @@ private:
         const pxr::UsdNotice::ObjectsChanged &notice
     ) {
         // TODO : How do you print `notice`?
-        printf("The triggered stage %s\n", pxr::TfStringify(notice.GetStage()).c_str());
+        std::cout << "The triggered stage " << pxr::TfStringify(notice.GetStage()) << '\n';
     }
 };
 
@@ -96,7 +96,7 @@ private:
         const pxr::UsdNotice::StageContentsChanged &notice
     ) {
         // TODO : How do you print `notice`?
-        printf("The triggered stage %s\n", pxr::TfStringify(notice.GetStage()).c_str());
+        std::cout << "The triggered stage " << pxr::TfStringify(notice.GetStage()) << '\n';
     }
 };
 
@@ -116,7 +116,7 @@ private:
         const pxr::UsdNotice::StageEditTargetChanged &notice
     ) {
         // TODO : How do you print `notice`?
-        printf("The triggered stage %s\n", pxr::TfStringify(notice.GetStage()).c_str());
+        std::cout << "The triggered stage " << pxr::TfStringify(notice.GetStage()) << '\n';
     }
 };
 
