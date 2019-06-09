@@ -99,6 +99,8 @@ viewing order:
 
 [enable_debugging](concepts/enable_debugging)
 
+[usdview_auto_reloader](tricks/usdview_auto_reloader)
+
 [fast_export](tricks/fast_export)
 
 [value_clips](concepts/value_clips)
