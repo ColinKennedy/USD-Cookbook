@@ -114,6 +114,7 @@ void using_explicit_inserts() {
     auto cache = pxr::UsdStageCache {};
     cache.Insert(stage);
 
+    std::cout << std::boolalpha;
     std::cout << "Should be true (the stage was added to the cache) " << cache.Contains(stage) << '\n';
     auto stage_id = cache.GetId(stage);
     std::cout << "The key that refers to the cached, opened USD stage " << stage_id.ToString() << '\n';

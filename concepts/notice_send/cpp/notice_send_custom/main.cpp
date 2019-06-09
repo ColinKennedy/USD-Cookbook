@@ -10,6 +10,7 @@ class Callback : public pxr::TfWeakBase {
             pxr::TfNotice &notice,
             pxr::TfWeakPtr<Callback> const &sender
         ) {
+            std::cout << std::boolalpha;
             std::cout << "Got sender? " << (sender->identity == this->identity) << '\n';
             this->counter += 1;
         }

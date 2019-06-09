@@ -42,6 +42,7 @@ private:
         }
         printf("]\n");
 
+        std::cout << std::boolalpha;
         std::cout
             << "Affected object "
             << notice.AffectedObject(sender->GetPrimAtPath(pxr::SdfPath("/SomeSphere")))
