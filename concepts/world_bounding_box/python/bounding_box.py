@@ -8,7 +8,7 @@ from pxr import Gf, Usd, UsdGeom
 def main():
     """Run the main execution of the current script."""
     stage = Usd.Stage.CreateInMemory()
-    sphere = UsdGeom.Sphere(stage.DefinePrim("/SomeSphere", "Sphere"))
+    sphere = UsdGeom.Sphere.Define(stage, "/SomeSphere")
     sphere.AddTranslateOp().Set(Gf.Vec3d(20, 30, 40))
 
     # Method #1: Compute at a certain time

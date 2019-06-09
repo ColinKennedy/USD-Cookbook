@@ -18,7 +18,7 @@ from pxr import Usd, UsdGeom
 
 def create_basic_stage():
     stage = Usd.Stage.CreateInMemory()
-    sphere = UsdGeom.Sphere(stage.DefinePrim("/SomeSphere", "Sphere"))
+    sphere = UsdGeom.Sphere.Define(stage, "/SomeSphere")
 
     stage.GetRootLayer().documentation = "A layer that authors some variant set"
 

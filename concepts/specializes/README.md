@@ -1,7 +1,7 @@
 # Quick Reference
 ### C++
 ```cpp
-auto sphere = pxr::UsdGeomSphere(stage->DefinePrim(pxr::SdfPath("/thing/SomethingElse/NestedEvenMore"), pxr::TfToken("Sphere")));
+auto sphere = pxr::UsdGeomSphere::Define(stage, pxr::SdfPath {"/thing/SomethingElse/NestedEvenMore"});
 auto prim = stage->DefinePrim(pxr::SdfPath("/thing/SomethingElse/SpecializedChild"));
 prim.GetSpecializes().AddSpecialize(sphere.GetPath());
 ```
@@ -9,7 +9,7 @@ prim.GetSpecializes().AddSpecialize(sphere.GetPath());
 
 ### Python
 ```python
-sphere = UsdGeom.Sphere(stage.DefinePrim("/thing/SomethingElse/NestedEvenMore", "Sphere"))
+sphere = UsdGeom.Sphere.Define(stage, "/thing/SomethingElse/NestedEvenMore")
 prim = stage.DefinePrim("/thing/SomethingElse/SpecializedChild")
 prim.GetSpecializes().AddSpecialize(sphere.GetPath())
 ```

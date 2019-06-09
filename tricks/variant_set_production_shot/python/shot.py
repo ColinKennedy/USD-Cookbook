@@ -31,7 +31,7 @@ def create_asset():
         'This file contains the "character" that will be changed in other layers.'
     )
 
-    sphere = UsdGeom.Sphere(stage.DefinePrim("/SomeSphere", "Sphere"))
+    sphere = UsdGeom.Sphere.Define(stage, "/SomeSphere")
 
     return stage
 

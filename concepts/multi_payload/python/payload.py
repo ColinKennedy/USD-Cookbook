@@ -20,13 +20,13 @@ from pxr import Usd, UsdGeom
 def create_cube_base_stage(stage):
     def _create_cube_payload():
         stage = Usd.Stage.CreateInMemory()
-        UsdGeom.Xform(stage.DefinePrim("/PayloadCubeThing", "Xform"))
-        UsdGeom.Cube(stage.DefinePrim("/PayloadCubeThing/PayloadCube", "Cube"))
+        UsdGeom.Xform.Define(stage, "/PayloadCubeThing")
+        UsdGeom.Cube.Define(stage, "/PayloadCubeThing/PayloadCube")
 
         return stage.GetRootLayer().identifier
 
     payload = _create_cube_payload()
-    xform = UsdGeom.Xform(stage.DefinePrim("/SomeXformCube", "Xform"))
+    xform = UsdGeom.Xform.Define(stage, "/SomeXformCube")
     xform.GetPrim().GetPayloads().AddPayload(
         assetPath=payload, primPath="/PayloadCubeThing"
     )
@@ -43,7 +43,7 @@ def create_sphere_base_stage(stage):
         return stage.GetRootLayer().identifier
 
     payload = _create_sphere_payload()
-    xform = UsdGeom.Xform(stage.DefinePrim("/SomeXformSphere", "Xform"))
+    xform = UsdGeom.Xform.Define(stage, "/SomeXformSphere")
     xform.GetPrim().GetPayloads().AddPayload(
         assetPath=payload, primPath="/PayloadSphereThing"
     )
@@ -56,7 +56,7 @@ def main():
     stage = Usd.Stage.CreateInMemory()
     cube = create_cube_base_stage(stage)
     sphere = create_sphere_base_stage(stage)
-    xform = UsdGeom.Xform(stage.DefinePrim("/SomeTransform", "Xform"))
+    xform = UsdGeom.Xform.Define(stage, "/SomeTransform")
     xform.GetPrim().GetReferences().AddReference(
         assetPath="", primPath="/SomeXformCube"
     )

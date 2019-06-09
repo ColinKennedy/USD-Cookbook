@@ -9,9 +9,7 @@ def main():
     """Run the main execution of the current script."""
     stage = Usd.Stage.CreateInMemory()
     # from inspection import dirgrep; dirgrep(stage, 'prim', sort=True)
-    sphere = UsdGeom.Sphere(
-        stage.DefinePrim("/thing/SomethingElse/NestedEvenMore", "Sphere")
-    )
+    sphere = UsdGeom.Sphere.Define(stage, "/thing/SomethingElse/NestedEvenMore")
     sphere.GetRadiusAttr().Set(4)
 
     prim = stage.DefinePrim("/thing/SomethingElse/SpecializedChild")

@@ -12,11 +12,11 @@ def main():
         "This is an example of setting a Model Prim kind"
     )
 
-    sphere1 = UsdGeom.Sphere(stage.DefinePrim("/SomeSphere", "Sphere"))
+    sphere1 = UsdGeom.Sphere.Define(stage, "/SomeSphere")
     Usd.ModelAPI(sphere1).SetKind(Kind.Tokens.component)
-    sphere2 = UsdGeom.Sphere(stage.DefinePrim("/SomeSphere/SphereChild", "Sphere"))
+    sphere2 = UsdGeom.Sphere.Define(stage, "/SomeSphere/SphereChild")
     Usd.ModelAPI(sphere2).SetKind(Kind.Tokens.subcomponent)
-    sphere3 = UsdGeom.Sphere(stage.DefinePrim("/SomeSphere/Foo", "Sphere"))
+    sphere3 = UsdGeom.Sphere.Define(stage, "/SomeSphere/Foo")
     Usd.ModelAPI(sphere3).SetKind("does_not_exist")
     sphere3.GetPrim().SetMetadata(
         "comment",

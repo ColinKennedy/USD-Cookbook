@@ -12,7 +12,7 @@ pxr::UsdModelAPI(sphere).SetKind(pxr::TfToken("does_not_exist"));
 
 ### Python
 ```python
-sphere = UsdGeom.Sphere(stage.DefinePrim("/SomeSphere", "Sphere"))
+sphere = UsdGeom.Sphere.Define(stage, "/SomeSphere")
 Usd.ModelAPI(sphere).SetKind(Kind.Tokens.assembly)
 Usd.ModelAPI(sphere).SetKind(Kind.Tokens.component)
 Usd.ModelAPI(sphere).SetKind(Kind.Tokens.group)

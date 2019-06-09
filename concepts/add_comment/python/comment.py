@@ -11,7 +11,7 @@ def main():
     """Run the main execution of the current script."""
     stage = Usd.Stage.CreateInMemory()
 
-    sphere = UsdGeom.Sphere(stage.DefinePrim("/SomeSphere", "Sphere"))
+    sphere = UsdGeom.Sphere.Define(stage, "/SomeSphere")
     sphere.GetPrim().SetMetadata("comment", "I am a comment")
 
     print(stage.GetRootLayer().ExportToString())

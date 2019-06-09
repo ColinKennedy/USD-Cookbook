@@ -7,7 +7,7 @@
 int main() {
     auto stage = pxr::UsdStage::CreateInMemory();
 
-    auto sphere = pxr::UsdGeomSphere(stage->DefinePrim(pxr::SdfPath("/thing/SomethingElse/NestedEvenMore"), pxr::TfToken("Sphere")));
+    auto sphere = pxr::UsdGeomSphere::Define(stage, pxr::SdfPath {"/thing/SomethingElse/NestedEvenMore"});
     sphere.GetRadiusAttr().Set(4.0);
 
     auto prim = stage->DefinePrim(pxr::SdfPath("/thing/SomethingElse/SpecializedChild"));
