@@ -16,7 +16,7 @@ import sys
 from pxr import Tf
 from pxr.Usdviewq import plugin
 
-LOGGER = logging.getLogger(__name__)
+LOGGER = logging.getLogger('auto_reloader')
 _HANDLER = logging.StreamHandler(sys.stdout)
 _FORMATTER = logging.Formatter(
     "%(asctime)s [%(levelname)s] %(module)s: %(message)s", datefmt="%m/%d/%Y %H:%M:%S"
@@ -29,8 +29,8 @@ WAS_INITIALIZED = False
 IS_ENABLED = False
 
 
-class AutoUpdateContainer(plugin.PluginContainer):
-    """The main registry class that initializes and runs the Auto-Update plugin."""
+class AutoReloaderContainer(plugin.PluginContainer):
+    """The main registry class that initializes and runs the Auto-Reloader plugin."""
 
     def _toggle_reload_and_setup_reload(self, viewer):
         """Create the Auto-Reloader and set it to enabled.
@@ -61,7 +61,7 @@ class AutoUpdateContainer(plugin.PluginContainer):
         WAS_INITIALIZED = True
 
     def registerPlugins(self, registry, _):
-        """Add this Auto-Update plugin to usdview on-startup.
+        """Add this Auto-Reloader plugin to usdview on-startup.
 
         Args:
             registry (`pxr.Usdviewq.plugin.PluginRegistry`):
@@ -69,7 +69,7 @@ class AutoUpdateContainer(plugin.PluginContainer):
 
         """
         self._toggle_auto_reload_command = registry.registerCommandPlugin(
-            "AutoUpdateContainer.printMessage",
+            "AutoReloaderContainer.printMessage",
             "Toggle Auto-Reload USD Stage",
             self._toggle_reload_and_setup_reload,
         )
@@ -107,4 +107,4 @@ def reload_layers(viewer):
             LOGGER.info('    "%s"', layer.identifier)
 
 
-Tf.Type.Define(AutoUpdateContainer)
+Tf.Type.Define(AutoReloaderContainer)

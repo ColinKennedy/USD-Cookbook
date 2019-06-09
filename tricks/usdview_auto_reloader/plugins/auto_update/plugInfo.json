@@ -2,10 +2,10 @@
     "Plugins": [
         {
             "Type": "python",
-            "Name": "auto_update",
+            "Name": "auto_reloader",
             "Info": {
                 "Types": {
-                    "auto_update.AutoUpdateContainer": {
+                    "auto_reloader.AutoReloaderContainer": {
                         "bases": ["pxr.Usdviewq.plugin.PluginContainer"],
                         "displayName": "Usdview Tutorial Plugin"
                     }
