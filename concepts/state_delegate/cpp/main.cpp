@@ -78,6 +78,8 @@ protected:
     }
 
     virtual void _OnCreateSpec(const pxr::SdfPath &path, pxr::SdfSpecType type, bool inert) override {
+        super::_OnCreateSpec(path, type, inert);
+
         std::cout << std::boolalpha;
         std::cout << "Spec was created\n";
 
@@ -90,6 +92,8 @@ protected:
     }
 
     virtual void _OnSetLayer(const pxr::SdfLayerHandle &layer) override {
+        super::_OnSetLayer(layer);
+
         std::cout << "Layer was associated with this object\n";
     }
 
