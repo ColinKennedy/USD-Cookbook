@@ -4,6 +4,8 @@
 #include <vector>
 
 // IMPORT THIRD-PARTY LIBRARIES
+#include "pxr/base/tf/instantiateSingleton.h"  // This plus singleton.h is required
+#include <pxr/base/tf/singleton.h>  // This plus instantiateSingleton.h is required
 #include <pxr/usd/sdf/layerStateDelegate.h>
 #include <pxr/usd/sdf/path.h>
 #include <pxr/usd/sdf/primSpec.h>
@@ -14,25 +16,7 @@
 using Record = std::function<bool()>;
 
 
-template<typename HeirT>
-class Singleton
-{
-public:
-    Singleton(const Singleton &) = delete;
-
-    Singleton &operator=(const Singleton &) = delete;
-
-    static HeirT &instance()
-    {
-        static HeirT instance;
-        return instance;
-    }
-protected:
-    Singleton() = default;
-};
-
-
-class StateSingleton : public Singleton<StateSingleton> {
+class State {
 public:
     void push_back(Record const &record) {
         this->memos.push_back(record);
@@ -74,6 +58,7 @@ protected:
         }
 
         this->DeleteSpec(path, inert);
+
         return true;
     }
 
@@ -83,7 +68,7 @@ protected:
         std::cout << std::boolalpha;
         std::cout << "Spec was created\n";
 
-        auto &state = StateSingleton::instance();
+        auto &state = pxr::TfSingleton<State>::GetInstance();
         state.push_back(
             std::bind(&StateDelegate::_InvertCreateSpec, this, path, inert
         ));
@@ -117,15 +102,11 @@ int main() {
 
     root->SetStateDelegate(pxr::StateDelegate::New());
 
-    // XXX : Once the delegate is set, you can author PrimSpecs any way you'd like
-    // either way, the delegate will still get triggered
-    //
+    // pxr::SdfPrimSpec::New(root, "SomePrim2", pxr::SdfSpecifierDef);  XXX alternate syntax?
     stage->DefinePrim(pxr::SdfPath {"/SomePrim1"}, pxr::TfToken {"Sphere"});
-    pxr::SdfPrimSpec::New(root, "SomePrim2", pxr::SdfSpecifierDef);
-
     std::cout << "Is dirty " << root->GetStateDelegate()->IsDirty() << '\n';
 
-    auto &state = StateSingleton::instance();
+    auto &state = pxr::TfSingleton<State>::GetInstance();
     std::cout << state.memos.empty() << '\n';
     state.undo();
     std::cout << "Is still dirty " << root->GetStateDelegate()->IsDirty() << '\n';
