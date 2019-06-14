@@ -13,40 +13,22 @@
 
 using Record = std::function<bool()>;
 
-class S
-{
-    public:
-        static S& getInstance()
-        {
-            static S    instance; // Guaranteed to be destroyed.
-                                  // Instantiated on first use.
-            return instance;
-        }
-    private:
-        S() {}                    // Constructor? (the {} brackets) are needed here.
-
-    public:
-        S(S const&)               = delete;
-        void operator=(S const&)  = delete;
-
-        // Note: Scott Meyers mentions in his Effective Modern
-        //       C++ book, that deleted functions should generally
-        //       be public as it results in better error messages
-        //       due to the compilers behavior to check accessibility
-        //       before deleted status
-};
 
 template<typename HeirT>
-class Singleton {
+class Singleton
+{
 public:
-    Singleton() = delete;
     Singleton(const Singleton &) = delete;
+
     Singleton &operator=(const Singleton &) = delete;
 
-    static HeirT &instance() {
+    static HeirT &instance()
+    {
         static HeirT instance;
         return instance;
     }
+protected:
+    Singleton() = default;
 };
 
 
@@ -79,12 +61,11 @@ TF_DECLARE_WEAK_AND_REF_PTRS(StateDelegate);
 class StateDelegate : public pxr::SdfSimpleLayerStateDelegate {
 public:
     static pxr::StateDelegateRefPtr New();
-    StateDelegate() : state(StateSingleton::instance()) {
-    }
+    StateDelegate() = default;
 
 protected:
     bool _InvertCreateSpec(const pxr::SdfPath& path, bool inert) {
-        std::cout << "Undoing" << path << '\n';
+        std::cout << "Undoing " << path << '\n';
 
         if (!this->_GetLayer()) {
             std::cout << "Could not undo because the layer doesn't exist\n";
@@ -97,11 +78,15 @@ protected:
     }
 
     virtual void _OnCreateSpec(const pxr::SdfPath &path, pxr::SdfSpecType type, bool inert) override {
+        std::cout << std::boolalpha;
         std::cout << "Spec was created\n";
-        this->state.push_back(
+
+        auto &state = StateSingleton::instance();
+        state.push_back(
             std::bind(&StateDelegate::_InvertCreateSpec, this, path, inert
         ));
-        std::cout << this->state.memos.empty();
+
+        std::cout << state.memos.empty() << '\n';
     }
 
     virtual void _OnSetLayer(const pxr::SdfLayerHandle &layer) override {
@@ -110,7 +95,6 @@ protected:
 
 private:
     typedef pxr::SdfSimpleLayerStateDelegate super;
-    StateSingleton state;
 };
 PXR_NAMESPACE_CLOSE_SCOPE
 
@@ -122,6 +106,8 @@ pxr::StateDelegateRefPtr pxr::StateDelegate::New() {
 
 
 int main() {
+    std::cout << std::boolalpha;
+
     auto stage = pxr::UsdStage::CreateInMemory();
     auto root = stage->GetRootLayer();
 
@@ -133,15 +119,11 @@ int main() {
     stage->DefinePrim(pxr::SdfPath {"/SomePrim1"}, pxr::TfToken {"Sphere"});
     pxr::SdfPrimSpec::New(root, "SomePrim2", pxr::SdfSpecifierDef);
 
-    std::cout << std::boolalpha;
     std::cout << "Is dirty " << root->GetStateDelegate()->IsDirty() << '\n';
 
-    auto state = StateSingleton::get();
-    std::cout << state.memos.empty();
+    auto &state = StateSingleton::instance();
+    std::cout << state.memos.empty() << '\n';
     state.undo();
-    state.undo();
-    state.undo();
-
     std::cout << "Is still dirty " << root->GetStateDelegate()->IsDirty() << '\n';
 
     return 0;
