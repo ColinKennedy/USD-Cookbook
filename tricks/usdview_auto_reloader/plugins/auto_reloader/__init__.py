@@ -56,7 +56,7 @@ class AutoReloaderContainer(plugin.PluginContainer):
         # Add `timer` to this instance to keep it from going out of scope
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(functools.partial(reload_layers, viewer))
-        self.timer.start(1000)
+        self.timer.start(500)
 
         WAS_INITIALIZED = True
 
