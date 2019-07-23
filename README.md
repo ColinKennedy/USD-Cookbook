@@ -86,6 +86,8 @@ a recommended viewing order:
 
 [purposes](concepts/purposes)
 
+[reference_into_prim](tricks/reference_into_prim)
+
 [stl_iteration](tricks/stl_iteration)
 
 [stl_iteration2](tricks/stl_iteration2)
