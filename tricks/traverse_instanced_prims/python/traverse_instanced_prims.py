@@ -23,9 +23,9 @@ def create_basic_instance_stage():
     car.CreateAttribute("color", Sdf.ValueTypeNames.Color3f).Set(Gf.Vec3f([0, 0, 0]))
     body = stage.DefinePrim("/Car/Body")
     body.CreateAttribute("color", Sdf.ValueTypeNames.Color3f).Set(Gf.Vec3f([0, 0, 0]))
-    door = stage.DefinePrim("/Car/Door")
+    stage.DefinePrim("/Car/Door")
 
-    paths = ("/ParkingLog/Car_1", "/ParkingLog/Car_2", "/ParkingLog/Car_n")
+    paths = ("/ParkingLot/Car_1", "/ParkingLot/Car_2", "/ParkingLot/Car_n")
 
     for path in paths:
         prim = stage.DefinePrim(path)
@@ -72,7 +72,7 @@ def main():
         )
     )
 
-    for prim in sorted(all_prims_including_instanced_child_prims):
+    for prim in all_prims_including_instanced_child_prims:
         print(prim)
 
 
