@@ -39,11 +39,9 @@ std::vector<pxr::UsdPrim> traverse_instanced_children(pxr::UsdPrim const &prim) 
     std::vector<pxr::UsdPrim> prims;
 
     auto range = prim.GetFilteredChildren(pxr::UsdTraverseInstanceProxies());
-    for (auto const &prim : range) {
-        prims.push_back(prim);
-    }
+    prims.insert(std::end(prims), std::begin(range), std::end(range));
 
-    for (auto const &child : prim.GetFilteredChildren(pxr::UsdTraverseInstanceProxies())) {
+    for (auto const &child : range) {
         auto subchild_range = traverse_instanced_children(child);
         prims.reserve(subchild_range.size());
         prims.insert(std::end(prims), std::begin(subchild_range), std::end(subchild_range));
