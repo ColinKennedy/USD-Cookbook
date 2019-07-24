@@ -12,23 +12,23 @@
 pxr::UsdStagePtr create_basic_instance_stage() {
     auto stage = pxr::UsdStage::CreateInMemory();
 
-    // auto car = stage->CreateClassPrim(pxr::SdfPath {"/Car"});
-    // car.CreateAttribute(pxr::TfToken {"color"}, pxr::SdfValueTypeNames->Color3f).Set(pxr::GfVec3f {0, 0, 0});
-    // auto body = stage->CreateClassPrim(pxr::SdfPath {"/Car/Body"});
-    // body.CreateAttribute(pxr::TfToken {"color"}, pxr::SdfValueTypeNames->Color3f).Set(pxr::GfVec3f {0, 0, 0});
-    // stage->CreateClassPrim(pxr::SdfPath {"/Car/Door"});
-    //
-    // std::vector<pxr::SdfPath> paths {
-    //     pxr::SdfPath {"/ParkingLot/Car_1"},
-    //     pxr::SdfPath {"/ParkingLot/Car_2"},
-    //     pxr::SdfPath {"/ParkingLot/Car_n"},
-    // };
-    //
-    // for (auto const &path : paths) {
-    //     auto prim = stage->DefinePrim(path);
-    //     prim.SetInstanceable(true);
-    //     prim.GetReferences().AddReference("", car.GetPath());
-    // }
+    auto car = stage->CreateClassPrim(pxr::SdfPath {"/Car"});
+    car.CreateAttribute(pxr::TfToken {"color"}, pxr::SdfValueTypeNames->Color3f).Set(pxr::GfVec3f {0, 0, 0});
+    auto body = stage->DefinePrim(pxr::SdfPath {"/Car/Body"});
+    body.CreateAttribute(pxr::TfToken {"color"}, pxr::SdfValueTypeNames->Color3f).Set(pxr::GfVec3f {0, 0, 0});
+    stage->DefinePrim(pxr::SdfPath {"/Car/Door"});
+
+    std::vector<pxr::SdfPath> paths {
+        pxr::SdfPath {"/ParkingLot/Car_1"},
+        pxr::SdfPath {"/ParkingLot/Car_2"},
+        pxr::SdfPath {"/ParkingLot/Car_n"},
+    };
+
+    for (auto const &path : paths) {
+        auto prim = stage->DefinePrim(path);
+        prim.SetInstanceable(true);
+        prim.GetReferences().AddReference("", car.GetPath());
+    }
 
     return stage;
 }
