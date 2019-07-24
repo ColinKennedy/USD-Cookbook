@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <iostream>
 #include <vector>
 
 #include <pxr/base/tf/token.h>
@@ -9,7 +10,7 @@
 #include <pxr/usd/usd/stage.h>
 
 
-pxr::UsdStagePtr create_basic_instance_stage() {
+auto create_basic_instance_stage() {
     auto stage = pxr::UsdStage::CreateInMemory();
 
     auto car = stage->CreateClassPrim(pxr::SdfPath {"/Car"});
@@ -34,44 +35,40 @@ pxr::UsdStagePtr create_basic_instance_stage() {
 }
 
 
-// std::vector<pxr::UsdPrim> traverse_instanced_children(pxr::UsdPrim const &prim) {
-//     std::vector<pxr::UsdPrim> prims;
-//
-//     auto range = prim.GetFilteredChildren(pxr::UsdTraverseInstanceProxies());
-//     for (auto const &prim : range) {
-//         prims.push_back(prim);
-//     }
-//
-//     for (auto const &child : range) {
-//         auto subchild_range = traverse_instanced_children(child);
-//         prims.reserve(subchild_range.size());
-//         prims.insert(std::end(prims), std::begin(subchild_range), std::end(subchild_range));
-//
-//         for (auto const &subchild : subchild_range) {
-//             prims.push_back(subchild);
-//         }
-//     }
-//
-//     return prims;
-// }
+std::vector<pxr::UsdPrim> traverse_instanced_children(pxr::UsdPrim const &prim) {
+    std::vector<pxr::UsdPrim> prims;
+
+    auto range = prim.GetFilteredChildren(pxr::UsdTraverseInstanceProxies());
+    for (auto const &prim : range) {
+        prims.push_back(prim);
+    }
+
+    for (auto const &child : prim.GetFilteredChildren(pxr::UsdTraverseInstanceProxies())) {
+        auto subchild_range = traverse_instanced_children(child);
+        prims.reserve(subchild_range.size());
+        prims.insert(std::end(prims), std::begin(subchild_range), std::end(subchild_range));
+    }
+
+    return prims;
+}
 
 
 int main() {
     auto stage = create_basic_instance_stage();
 
-    // auto traverse = stage->TraverseAll();
-    // std::vector<pxr::UsdPrim> all_uninstanced_prims;
-    // all_uninstanced_prims.insert(std::end(all_uninstanced_prims), std::begin(traverse), std::end(traverse));
-    //
-    // auto all_prims_including_child_prims = traverse_instanced_children(stage->GetPseudoRoot());
-    //
-    // std::sort(std::begin(all_prims_including_child_prims), std::end(all_prims_including_child_prims));
-    //
-    // std::cout << "The instanced Prims list found \"" << all_prims_including_child_prims.size() - all_uninstanced_prims.size() << "\" more Prims than TraverseAll.\n";
-    //
-    // for (auto const &prim : all_prims_including_child_prims) {
-    //     std::cout << prim.GetPath();
-    // }
+    auto traverse = stage->TraverseAll();
+    std::vector<pxr::UsdPrim> all_uninstanced_prims;
+    all_uninstanced_prims.insert(std::end(all_uninstanced_prims), std::begin(traverse), std::end(traverse));
+
+    auto all_prims_including_child_prims = traverse_instanced_children(stage->GetPseudoRoot());
+
+    std::sort(std::begin(all_prims_including_child_prims), std::end(all_prims_including_child_prims));
+
+    std::cout << "The instanced Prims list found \"" << all_prims_including_child_prims.size() - all_uninstanced_prims.size() << "\" more Prims than TraverseAll.\n";
+
+    for (auto const &prim : all_prims_including_child_prims) {
+        std::cout << prim.GetPath() << std::endl;
+    }
 
 
     return 0;
