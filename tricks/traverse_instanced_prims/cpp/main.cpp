@@ -65,14 +65,14 @@ int main() {
     all_uninstanced_prims.insert(std::end(all_uninstanced_prims), std::begin(traverse), std::end(traverse));
 
     auto all_prims_including_child_prims = traverse_instanced_children(stage->GetPseudoRoot());
-    //
-    // std::sort(std::begin(all_prims_including_child_prims), std::end(all_prims_including_child_prims));
-    //
-    // std::cout << "The instanced Prims list found \"" << all_prims_including_child_prims.size() - all_uninstanced_prims.size() << "\" more Prims than TraverseAll.\n";
-    //
-    // for (auto const &prim : all_prims_including_child_prims) {
-    //     std::cout << prim.GetPath();
-    // }
+
+    std::sort(std::begin(all_prims_including_child_prims), std::end(all_prims_including_child_prims));
+
+    std::cout << "The instanced Prims list found \"" << all_prims_including_child_prims.size() - all_uninstanced_prims.size() << "\" more Prims than TraverseAll.\n";
+
+    for (auto const &prim : all_prims_including_child_prims) {
+        std::cout << prim.GetPath();
+    }
 
 
     return 0;
