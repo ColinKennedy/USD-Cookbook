@@ -10,8 +10,6 @@
             },
             "LibraryPath": "../libURIResolver.so",
             "Name": "URIResolver",
-            "ResourcePath": "resources",
-            "Root": "..",
             "Type": "library"
         }
     ]

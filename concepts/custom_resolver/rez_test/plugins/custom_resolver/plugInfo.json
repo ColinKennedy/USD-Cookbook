@@ -10,10 +10,10 @@
                     }
                 }
             },
-            "LibraryPath": "/home/selecaoone/projects/usd_experiments/examples/concepts/custom_resolver/project/build/src/libURIResolver.so",
+            "LibraryPath": "/home/selecaoone/projects/usd_experiments/examples/concepts/custom_resolver/project/install/libURIResolver.so",
             "Name": "URIResolver",
             "ResourcePath": "resources",
-            "Root": "..",
+            "Root": "/home/selecaoone/projects/usd_experiments/examples/concepts/custom_resolver/project/install",
             "Type": "library"
         }
     ]

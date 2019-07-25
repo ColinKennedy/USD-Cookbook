@@ -10,7 +10,7 @@ set(
 
 add_library(${PLUGIN_NAME}
     SHARED
-    ${SRC}
+		${SRC}
 )
 
 find_package(PythonLibs)
@@ -18,41 +18,30 @@ find_package(PythonLibs)
 target_link_libraries(${PLUGIN_NAME}
     PUBLIC
 
-    ${PYTHON_LIBRARY}
-    ${USD_LIB_DIR}/libboost_python.so
+		libboost_python.so
+		libar.so
 )
 
 target_include_directories(
 	${PLUGIN_NAME}
 		SYSTEM
 			PRIVATE
+				${USD_INCLUDE_DIR}
 
-			"${USD_INCLUDE_DIR}"
-
-        PUBLIC
-            ${USD_INC_DIR}
-            ${PYTHON_INCLUDE_PATH}
+			PUBLIC
+				${PYTHON_INCLUDE_PATH}
 )
-
-set(DESTINATION_INSTALL /home/selecaoone/projects/usd_experiments/examples/concepts/custom_resolver/project/build/testout)
 
 install(
     TARGETS
         ${PLUGIN_NAME}
-    DESTINATION
-        ${DESTINATION_INSTALL}
+	DESTINATION
+		.
 )
 
 install(
     FILES
 		plugInfo.json
     DESTINATION
-        ${DESTINATION_INSTALL}/resources/
+        ./resources
 )
-
-# install(
-#     FILES
-# 		README.md
-#     DESTINATION
-# 		docs
-# )

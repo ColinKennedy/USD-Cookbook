@@ -19,7 +19,11 @@ bool URIResolver::IsRelativePath(const std::string& path) {
 }
 
 std::string URIResolver::Resolve(const std::string& path) {
-    return "/foo";
+    if (path == "/foo") {
+        return "/bar";
+    }
+
+    return "";
 }
 
 PXR_NAMESPACE_CLOSE_SCOPE
