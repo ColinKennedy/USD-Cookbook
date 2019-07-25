@@ -4,6 +4,7 @@ in USD.
 It's the most basic project you can write and does almost nothing. But
 it's a good template to build from.
 
+
 ## To build and run
 1. Follow the build instructions located in the [C++ project folder](./project).
 2. Run this code:
