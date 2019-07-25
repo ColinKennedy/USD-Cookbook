@@ -102,6 +102,8 @@ a recommended viewing order:
 
 [usdview_auto_reloader](tricks/usdview_auto_reloader)
 
+[custom_resolver](concepts/custom_resolver)
+
 [fast_export](tricks/fast_export)
 
 [flatten_layer_stack](tricks/flatten_layer_stack)
