@@ -38,3 +38,20 @@ modelling.usda Layer tried to override `focalLength` in between.
 If the same situation happened and </_class_CameraSettingsSpecialized>
 used `inherits` instead of `specializes`, the value for `focaLength`
 would have been overridden in modelling.usda.
+
+
+## Final Note
+Asute users of USD will point out that the above scenario can also be solved even if </_class_CameraSettingsSpecialized> used `inherits` if you include `@./settings.usda` in the `subLayers` of layout.usda like so:
+
+```usda
+(
+    subLayers = [
+        @./settings.usda@,
+        @./modelling.usda@,
+    ]
+)
+```
+
+This also works and should probably be preferred whenever possible. That
+said, just consider the `specializes` solution when there's no other
+option.
