@@ -15,7 +15,6 @@ Linux
 ```bash
 echo -e '#usda 1.0\n\ndef Sphere "MyPrim" {\ndouble radius = 4\n}' > some_file.usda
 PYTHONPATH=$PWD/plugins:$PYTHONPATH PXR_PLUGINPATH_NAME=$PWD/plugins/auto_reloader:$PXR_PLUGINPATH_NAME usdview some_file.usda
-rm some_file.usda
 ```
 
 2. In the opened usdview, Click "Reloader" > "Toggle Auto-Reload USD
