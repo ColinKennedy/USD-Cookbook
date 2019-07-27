@@ -1,0 +1,55 @@
+#usda 1.0
+(
+    "This example shows how to override a relationship point to different targets after resolve-time, using VariantSets."
+)
+
+class "Forwarder1"
+{
+    rel something = </SomeLocation>
+}
+
+class "Forwarder2"
+{
+    rel something = </AnotherLocation>
+}
+
+class "Forwarder3"
+{
+    rel something = </ThirdLocation>
+}
+
+def Xform "SomePrim" (
+    variants = {
+        string forwarding_variant_set = "selection_1"
+    }
+    prepend variantSets = "forwarding_variant_set"
+)
+{
+    variantSet "forwarding_variant_set" = {
+        "selection_1" {
+            rel another = </Forwarder1.something>
+
+        }
+        "selection_2" {
+            rel another = </Forwarder2.something>
+
+        }
+        "selection_3" {
+            rel another = </Forwarder3.something>
+
+        }
+    }
+}
+
+def Xform "SomeLocation"
+{
+}
+
+def Xform "AnotherLocation"
+{
+}
+
+def Xform "ThirdLocation"
+{
+}
+

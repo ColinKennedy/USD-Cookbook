@@ -1,0 +1,45 @@
+#usda 1.0
+(
+    "This example shows how to make a single relationship point to different targets after resolve-time, using VariantSets, without overriding its targets. The </Forwarder> is a class so that means it won't show up in regular traversals. But we can still change its variant sets programmatically (even if artists can't). To \"expose\" </Forwarder> to the user so they can change variants, just change `class` to `def`."
+)
+
+class "Forwarder" (
+    variants = {
+        string forwarding_variant_set = "selection_1"
+    }
+    prepend variantSets = "forwarding_variant_set"
+)
+{
+    variantSet "forwarding_variant_set" = {
+        "selection_1" {
+            rel something = </SomeLocation>
+
+        }
+        "selection_2" {
+            rel something = </AnotherLocation>
+
+        }
+        "selection_3" {
+            rel something = </ThirdLocation>
+
+        }
+    }
+}
+
+def Xform "SomePrim"
+{
+    rel another = </Forwarder.something>
+}
+
+def Xform "SomeLocation"
+{
+}
+
+def Xform "AnotherLocation"
+{
+}
+
+def Xform "ThirdLocation"
+{
+}
+
