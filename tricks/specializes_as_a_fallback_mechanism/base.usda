@@ -1,0 +1,52 @@
+#usda 1.0
+(
+	"A Layer that demonstrates why `specializes` can be used as a fallback-Prim mechanism. The reason it works is because it's the weakest composition arc."
+)
+
+class "SomeClassWithRadius"
+{
+    double radius = 4
+}
+
+class "FallbackClassWithRadius"
+{
+    double radius = 5
+}
+
+def Sphere "MySphere1" (
+    "This Prim will have a radius of 4 because `references` is preferred over `specializes`."
+    references = </SomeClassWithRadius>
+    specializes = </FallbackClassWithRadius>
+)
+{
+}
+
+def Sphere "MySphere2" (
+	"This Prim will have a radius of 10 because `payload` is preferred over `specializes`."
+    payload = @./payload.usda@</MySphere>
+    specializes = </FallbackClassWithRadius>
+)
+{
+}
+
+def Sphere "MySphere3" (
+	"This Prim will have a radius of 4 because `references` is preferred over `payload`."
+    payload = @./payload.usda@</MySphere>
+    references = </SomeClassWithRadius>
+)
+{
+}
+
+def Sphere "MySphere4" (
+    "This Prim will have a radius of 5 because `specializes` authors a value for it."
+    specializes = </FallbackClassWithRadius>
+)
+{
+}
+
+def Sphere "MySphere5" (
+    "This Prim will have a radius of 1 because that is the fallback value for `Sphere`."
+)
+{
+}
+
