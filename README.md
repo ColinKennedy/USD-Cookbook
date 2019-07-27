@@ -80,6 +80,8 @@ a recommended viewing order:
 
 [world_bounding_box](concepts/world_bounding_box)
 
+[relationship_forwarding](concepts/relationship_forwarding)
+
 [variant_set_in_stronger_layer](tricks/variant_set_in_stronger_layer)
 
 [variant_set_production_shot](tricks/variant_set_production_shot)
