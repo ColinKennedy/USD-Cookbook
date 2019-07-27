@@ -84,6 +84,12 @@ a recommended viewing order:
 
 [variant_set_production_shot](tricks/variant_set_production_shot)
 
+[specializes_glossary_example](tricks/specializes_glossary_example)
+
+[specializes_a_practical_example](tricks/specializes_a_practical_example)
+
+[specializes_as_a_fallback_mechanism](tricks/specializes_as_a_fallback_mechanism)
+
 [purposes](concepts/purposes)
 
 [reference_into_prim](tricks/reference_into_prim)
