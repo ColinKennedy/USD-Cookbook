@@ -62,7 +62,7 @@ because it means stronger Layers cannot override values of the
 base-class of specialized Prims. If that kind of editting restriction
 is desired though, this may actually be seen as an advantage. But in my
 opinion, it's an anti-pattern to prevent users from changing settings
-from Prims defined in weaker Layers. 
+from Prims defined in weaker Layers.
     - If you're reading this item and don't know what it's talking about, check out
 	[specializes_a_practical_example](../specializes_a_practical_example).
 
