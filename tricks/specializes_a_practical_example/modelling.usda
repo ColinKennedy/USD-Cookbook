@@ -1,0 +1,22 @@
+#usda 1.0
+(
+    subLayers = [
+        @./settings.usda@
+    ]
+)
+
+class Xform "Grouper"
+{
+    def Sphere "MySphere"
+    {
+        double radius = 4
+    }
+}
+
+over "_class_CameraSettings"
+{
+    double focalLength = 200 (
+        'When you open layout.usda, anything that references "_class_CameraSettings" will have a value of 200. But anything that referennces "_class_CameraSettingsSpecialized" will not!'
+    )
+}
+

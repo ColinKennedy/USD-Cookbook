@@ -1,0 +1,12 @@
+#usda 1.0
+
+class Camera "_class_CameraSettings" {
+	double focalLength = 100.0
+}
+
+class Camera "_class_CameraSettingsSpecialized"
+(
+	specializes = </_class_CameraSettings>
+){
+	double focalLength = 100.0
+}

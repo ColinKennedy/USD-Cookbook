@@ -1,0 +1,40 @@
+#usda 1.0
+(
+    subLayers = [
+        @./modelling.usda@
+    ]
+)
+
+def "Models"
+{
+    def "Foo1" (
+        instanceable = true
+        references = @./modelling.usda@</Grouper>
+    )
+    {
+        float3 xformOp:translate = (2, 0, 1)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+
+    def "Foo2" (
+        instanceable = true
+        references = @./modelling.usda@</Grouper>
+    )
+    {
+        float3 xformOp:translate = (2, 2, 7)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+}
+
+def Camera "SceneCamera1" (
+    references = </_class_CameraSettings>
+)
+{
+}
+
+def Camera "SceneCamera2" (
+    references = </_class_CameraSettingsSpecialized>
+)
+{
+}
+
