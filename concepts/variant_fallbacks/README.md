@@ -36,16 +36,16 @@ def Xform "SomePrim" (
 {
     variantSet "some_variant_set_name" = {
         "bar" {
-			def Sphere "Child"
-			{
-				# ... more stuff ...
-			}
+            def Sphere "Child"
+            {
+                # ... more stuff ...
+            }
         }
         "foo" {
-			def Sphere "Child"
-			{
-				# ... more stuff ...
-			}
+            def Sphere "Child"
+            {
+                # ... more stuff ...
+            }
         }
     }
 }
@@ -66,12 +66,12 @@ Here's the example `plugInfo.json` that is used in this folder:
 {
     "Plugins": [
         {
-			"Name": "Variant Set Fallbacks",
-			"Type": "resource",
+            "Name": "Variant Set Fallbacks",
+            "Type": "resource",
             "Info": {
-				"UsdVariantFallbacks": {
-					"some_variant_set_name": ["possible_fallback_1", "possible_fallback_2", "possible_fallback_3", "foo", "bar"]
-				}
+                "UsdVariantFallbacks": {
+                    "some_variant_set_name": ["possible_fallback_1", "possible_fallback_2", "possible_fallback_3", "foo", "bar"]
+                }
             }
         }
     ]
@@ -85,7 +85,7 @@ USD plugin. The parts worth mentioning is this bit:
 ...
 
 "UsdVariantFallbacks": {
-	"some_variant_set_name": ["possible_fallback_1", "possible_fallback_2", "possible_fallback_3", "foo", "bar"]
+    "some_variant_set_name": ["possible_fallback_1", "possible_fallback_2", "possible_fallback_3", "foo", "bar"]
 }
 
 ...
