@@ -1,0 +1,22 @@
+{
+    "Plugins": [
+        {
+			"Name": "Plugin double extension",
+			"Type": "resource",
+            "Info": {
+                "SdfMetadata": {
+                    "another_metadata": {
+                        "type": "double[]",
+                        "appliesTo": "layers",
+						"default": [5.0, 13.0]
+                    },
+                    "my_custom_double": {
+                        "type": "double",
+                        "appliesTo": "prims",
+						"default": 12.0
+                    }
+                }
+            }
+        }
+    ]
+}

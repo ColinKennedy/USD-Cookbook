@@ -1,0 +1,15 @@
+#usda 1.0
+
+def "SomePrim1"
+(
+	my_custom_double = 10.0
+){
+
+}
+
+def "SomePrim2"
+(
+	my_custom_double = 10.0
+){
+
+}
