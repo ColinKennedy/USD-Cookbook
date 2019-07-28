@@ -10,9 +10,10 @@ set(CMAKE_CXX_FLAGS "-Wno-deprecated ${CMAKE_CXX_FLAGS}")
 # Make compile_commands.json in the build directory (useful for linter tools)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-set(USD_ROOT_DIR /usr/local/USD-19.05)
-set(USD_LIB_DIR ${USD_ROOT_DIR}/lib)
+set(USD_ROOT_DIR $ENV{USD_INSTALL_ROOT})
 set(USD_INC_DIR ${USD_ROOT_DIR}/include)
+
+link_directories($ENV{USD_INSTALL_ROOT}/lib)
 
 add_executable(run_it
 	main.cpp
@@ -29,10 +30,10 @@ PUBLIC
 target_link_libraries(
 run_it
 	${PYTHON_LIBRARY}
-	${USD_LIB_DIR}/libboost_python.so
-	${USD_LIB_DIR}/libsdf.so
-	${USD_LIB_DIR}/libtf.so
-	${USD_LIB_DIR}/libusd.so
-	${USD_LIB_DIR}/libusdGeom.so
-	${USD_LIB_DIR}/libvt.so
+	boost_python
+	sdf
+	tf
+	usd
+	usdGeom
+	vt
 )
