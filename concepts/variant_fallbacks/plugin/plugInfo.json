@@ -1,0 +1,13 @@
+{
+    "Plugins": [
+        {
+			"Name": "Variant Set Fallbacks",
+			"Type": "resource",
+            "Info": {
+				"UsdVariantFallbacks": {
+					"some_variant_set_name": ["possible_fallback_1", "possible_fallback_2", "possible_fallback_3", "foo", "bar"]
+				}
+            }
+        }
+    ]
+}
