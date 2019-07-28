@@ -110,6 +110,8 @@ a recommended viewing order:
 
 [usdview_auto_reloader](tricks/usdview_auto_reloader)
 
+[variant_fallbacks](concepts/variant_fallbacks)
+
 [plugin_metadata](concepts/plugin_metadata)
 
 [custom_resolver](concepts/custom_resolver)
