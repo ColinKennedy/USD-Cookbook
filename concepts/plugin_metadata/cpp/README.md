@@ -15,6 +15,7 @@ need but for our simple project, this is all you have to do to run it:
 
 
 ```bash
+cd ..
 PXR_PLUGINPATH_NAME=`dirname $PWD`/definition ./build/run_it
 ```
 
