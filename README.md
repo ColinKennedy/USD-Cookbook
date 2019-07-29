@@ -44,10 +44,9 @@ make
 ./run_it
 ```
 
-`USD_INSTALL_ROOT` typically defaults is `/usr/local/USD`
-on Linux but your location may vary. See [USD's build
-documentation](https://github.com/PixarAnimationStudios/USD#3-run-the-sc
-ript) for details.
+`USD_INSTALL_ROOT` typically defaults to `/usr/local/USD`
+on Linux but your location may vary. 
+See [USD's build documentation](https://github.com/PixarAnimationStudios/USD#3-run-the-script) for details.
 
 
 ### Python
