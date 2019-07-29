@@ -4,7 +4,7 @@ Build this project as you normally would. For example:
 
 ```bash
 cd build
-cmake ..
+USD_INSTALL_ROOT=/wherever/you/installed/USD/to cmake ..
 make
 ```
 

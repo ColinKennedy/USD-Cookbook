@@ -3,7 +3,7 @@ Build this project as normal:
 
 ```bash
 cd build
-cmake ..
+USD_INSTALL_ROOT=/wherever/you/installed/USD/to cmake ..
 make
 ```
 
