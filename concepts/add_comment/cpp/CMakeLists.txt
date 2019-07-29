@@ -13,12 +13,12 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(USD_ROOT_DIR $ENV{USD_INSTALL_ROOT})
 set(USD_INC_DIR ${USD_ROOT_DIR}/include)
 
-find_library(USD_PYTHON boost_python HINTS /usr/local/USD-19.07/lib)
-find_library(USD_SDF sdf HINTS /usr/local/USD-19.07/lib)
-find_library(USD_TF tf HINTS /usr/local/USD-19.07/lib)
-find_library(USD_USD usd HINTS /usr/local/USD-19.07/lib)
-find_library(USD_USDGEOM usdGeom HINTS /usr/local/USD-19.07/lib)
-find_library(USD_VT vt HINTS /usr/local/USD-19.07/lib)
+find_library(USD_PYTHON boost_python HINTS $ENV{USD_INSTALL_ROOT}/lib)
+find_library(USD_SDF sdf HINTS $ENV{USD_INSTALL_ROOT}/lib)
+find_library(USD_TF tf HINTS $ENV{USD_INSTALL_ROOT}/lib)
+find_library(USD_USD usd HINTS $ENV{USD_INSTALL_ROOT}/lib)
+find_library(USD_USDGEOM usdGeom HINTS $ENV{USD_INSTALL_ROOT}/lib)
+find_library(USD_VT vt HINTS $ENV{USD_INSTALL_ROOT}/lib)
 
 add_executable(run_it
 	main.cpp
