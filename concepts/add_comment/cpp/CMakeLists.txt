@@ -1,34 +1,35 @@
+# 1. Requirements
 cmake_minimum_required(VERSION 2.8.11)
-
 project(add_comment)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# 2.Configuration
 set(CMAKE_CXX_FLAGS "-Wno-deprecated ${CMAKE_CXX_FLAGS}")
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)  # This line is optional. It's just for certain IDEs to use
 
-# Make compile_commands.json in the build directory (useful for linter tools)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+# 3. Boilerplate
+set(USD_LIBRARY_DIRECTORY $ENV{USD_INSTALL_ROOT}/lib)
+set(USD_INCLUDE_DIRECTORY $ENV{USD_INSTALL_ROOT}/include)
 
-set(USD_ROOT_DIR $ENV{USD_INSTALL_ROOT})
-set(USD_INC_DIR ${USD_ROOT_DIR}/include)
+find_library(USD_PYTHON boost_python HINTS ${USD_LIBRARY_DIRECTORY})
+find_library(USD_SDF sdf HINTS ${USD_LIBRARY_DIRECTORY})
+find_library(USD_TF tf HINTS ${USD_LIBRARY_DIRECTORY})
+find_library(USD_USD usd HINTS ${USD_LIBRARY_DIRECTORY})
+find_library(USD_USDGEOM usdGeom HINTS ${USD_LIBRARY_DIRECTORY})
+find_library(USD_VT vt HINTS ${USD_LIBRARY_DIRECTORY})
 
-find_library(USD_PYTHON boost_python HINTS $ENV{USD_INSTALL_ROOT}/lib)
-find_library(USD_SDF sdf HINTS $ENV{USD_INSTALL_ROOT}/lib)
-find_library(USD_TF tf HINTS $ENV{USD_INSTALL_ROOT}/lib)
-find_library(USD_USD usd HINTS $ENV{USD_INSTALL_ROOT}/lib)
-find_library(USD_USDGEOM usdGeom HINTS $ENV{USD_INSTALL_ROOT}/lib)
-find_library(USD_VT vt HINTS $ENV{USD_INSTALL_ROOT}/lib)
+find_package(PythonLibs)
 
+# 4. Include/Link Everything
 add_executable(run_it
 	main.cpp
 )
 
-find_package(PythonLibs)
-
 target_include_directories(run_it
 PUBLIC
-	${USD_INC_DIR}
+	${USD_INCLUDE_DIRECTORY}
 	${PYTHON_INCLUDE_PATH}
 )
 
