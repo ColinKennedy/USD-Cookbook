@@ -1,6 +1,5 @@
 # 1. Requirements
 cmake_minimum_required(VERSION 2.8.11)
-
 project(stl_iteration)
 
 set(CMAKE_CXX_STANDARD 14)
