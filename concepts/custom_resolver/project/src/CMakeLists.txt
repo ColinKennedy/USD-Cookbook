@@ -1,4 +1,4 @@
-# TODO: Refactor this file, later
+# 4. Include/Link everything
 set(PLUGIN_NAME URIResolver)
 
 link_directories(${USD_LIBRARY_DIR})
