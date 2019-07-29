@@ -62,9 +62,14 @@ int main() {
 
     std::sort(std::begin(all_prims_including_child_prims), std::end(all_prims_including_child_prims));
 
+    // XXX : This print statement should say "3", because `TraverseAll`
+    // includes class Prims whereas `traverse_instanced_children`
+    // currently does not. But `traverse_instanced_children` also finds
+    // all of the instanced children, which is why there's still more
+    //
     std::cout << "The instanced Prims list found \"" << all_prims_including_child_prims.size() - all_uninstanced_prims.size() << "\" more Prims than TraverseAll.\n";
 
-    for (auto const &prim : all_prims_including_child_prims) {
+    for (auto const &prim : all_uninstanced_prims) {
         std::cout << prim.GetPath() << std::endl;
     }
 
