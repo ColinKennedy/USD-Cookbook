@@ -39,10 +39,14 @@ and executes using the following commands:
 
 ```bash
 cd {some_concept_cpp_folder}/build
-cmake ..
+USD_INSTALL_ROOT=/wherever/you/installed/USD/to cmake ..
 make
 ./run_it
 ```
+
+[USD's build documentation](https://github.com/PixarAnimationStudios/USD#3-run-the-script) for details.
+`USD_INSTALL_ROOT` typically defaults is `/usr/local/USD` on Linux but your location may vary. See
+
 
 ### Python
 Python modules can always run using `python name_of_module.py`
