@@ -1,3 +1,4 @@
+# TODO: Refactor this file, later
 set(PLUGIN_NAME URIResolver)
 
 link_directories(${USD_LIBRARY_DIR})
