@@ -15,12 +15,13 @@ applications.
 
 int main() {
     auto stage = pxr::UsdStage::CreateInMemory();
-    pxr::UsdUtilsStageCache::Get();
+    auto cache = pxr::UsdUtilsStageCache::Get();
 
-    // {
-    //     pxr::UsdStageCacheContext context(cache);
-    //     std::cout << "This should be false " << cache.Contains(stage) << '\n';
-    // }
+    {
+        pxr::UsdStageCacheContext context(cache);
+        std::cout << std::boolalpha;
+        std::cout << "This should be false: " << cache.Contains(stage) << '\n';
+    }
 
     return 0;
 }
