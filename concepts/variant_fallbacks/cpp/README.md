@@ -17,5 +17,6 @@ Instead, we need to add the directory of `plugInfo.json` to the
 `PXR_PLUGINPATH_NAME` environment variable:
 
 ```bash
-PXR_PLUGINPATH_NAME=`dirname $PWD`/plugin ./run_it
+cd ..
+PXR_PLUGINPATH_NAME=`dirname $PWD`/plugin ./build/run_it
 ```
