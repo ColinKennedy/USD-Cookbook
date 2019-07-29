@@ -1,39 +1,47 @@
+# 1. Requirements
 cmake_minimum_required(VERSION 2.8.11)
-
 project(usd_caching)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# 2.Configuration
 set(CMAKE_CXX_FLAGS "-Wno-deprecated ${CMAKE_CXX_FLAGS}")
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)  # This line is optional. It's just for certain IDEs to use
 
-# Make compile_commands.json in the build directory (useful for linter tools)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+# 3. Boilerplate
+set(USD_LIBRARY_DIRECTORY $ENV{USD_INSTALL_ROOT}/lib)
+set(USD_INCLUDE_DIRECTORY $ENV{USD_INSTALL_ROOT}/include)
 
-set(USD_ROOT_DIR /usr/local/USD-19.05)
-set(USD_LIB_DIR ${USD_ROOT_DIR}/lib)
-set(USD_INC_DIR ${USD_ROOT_DIR}/include)
+find_library(USD_ARCH arch HINTS ${USD_LIBRARY_DIRECTORY})
+find_library(USD_BOOST_PYTHON boost_python HINTS ${USD_LIBRARY_DIRECTORY})
+find_library(USD_SDF sdf HINTS ${USD_LIBRARY_DIRECTORY})
+find_library(USD_TBB tbb HINTS ${USD_LIBRARY_DIRECTORY})
+find_library(USD_TF tf HINTS ${USD_LIBRARY_DIRECTORY})
+find_library(USD_USD usd HINTS ${USD_LIBRARY_DIRECTORY})
+find_library(USD_USDGEOM usdGeom HINTS ${USD_LIBRARY_DIRECTORY})
 
+find_package(PythonLibs)
+
+# 4. Include/Link Everything
 add_executable(run_it
     main.cpp
 )
 
-find_package(PythonLibs)
-
 target_include_directories(run_it
 PUBLIC
-    ${USD_INC_DIR}
     ${PYTHON_INCLUDE_PATH}
+    ${USD_INCLUDE_DIRECTORY}
 )
 
 target_link_libraries(
 run_it
     ${PYTHON_LIBRARY}
-    ${USD_LIB_DIR}/libarch.so
-    ${USD_LIB_DIR}/libboost_python.so
-    ${USD_LIB_DIR}/libsdf.so
-    ${USD_LIB_DIR}/libtbb.so
-    ${USD_LIB_DIR}/libtf.so
-    ${USD_LIB_DIR}/libusd.so
-    ${USD_LIB_DIR}/libusdGeom.so
+    ${USD_ARCH}
+    ${USD_BOOST_PYTHON}
+    ${USD_SDF}
+    ${USD_TBB}
+    ${USD_TF}
+    ${USD_USDGEOM}
+    ${USD_USD}
 )
