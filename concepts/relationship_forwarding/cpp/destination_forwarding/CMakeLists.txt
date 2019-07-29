@@ -28,8 +28,8 @@ add_executable(run_it
 
 target_include_directories(run_it
 PUBLIC
-	${USD_INCLUDE_DIRECTORY}
 	${PYTHON_INCLUDE_PATH}
+	${USD_INCLUDE_DIRECTORY}
 )
 
 target_link_libraries(
