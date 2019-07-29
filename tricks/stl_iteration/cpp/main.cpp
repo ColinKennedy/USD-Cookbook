@@ -27,7 +27,8 @@ int main() {
             return std::move(text) + "\n" + pxr::TfStringify(prim.GetPath());
         }
     );
-    std::cout << text << '\n';
+
+    std::cout << text << "\n\n";
 
     // XXX : This is a bit strange but `prim` must be `pxr::UsdPrim
     // const` on my machine, even though we immediately wrap it in
