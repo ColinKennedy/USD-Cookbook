@@ -65,7 +65,7 @@ void _prepare_prims_with_stage(pxr::UsdStageRefPtr const &stage) {
     {
         TF_DEBUG_TIMED_SCOPE(
             PRIMSPEC_CREATED,
-            "The time it took to create layers with the Sdf API"
+            "The time it took to create layers with the Usd API"
         );
 
         for (auto const &path : PATHS) {
@@ -126,7 +126,7 @@ int main() {
 
     std::vector<std::string> stage_export_lines;
     boost::split(stage_export_lines, stage_export, [](char character){return character == '\n';});
-    stage_export_lines.erase(std::begin(stage_export_lines), std::begin(stage_export_lines) + 5);
+    stage_export_lines.erase(std::begin(stage_export_lines), std::begin(stage_export_lines) + 1);
     stage_export = boost::algorithm::join(stage_export_lines, "\n");
 
     std::vector<std::string> layer_export_lines;
@@ -134,6 +134,7 @@ int main() {
     layer_export_lines.erase(std::begin(layer_export_lines));
     layer_export = boost::algorithm::join(layer_export_lines, "\n");
 
+    std::cout << std::boolalpha;
     std::cout << "These exports should be exactly the same " << (stage_export == layer_export) << '\n';
     return 0;
 }
