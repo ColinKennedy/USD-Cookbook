@@ -131,6 +131,8 @@ a recommended viewing order:
 
 [sdf_change_block](concepts/sdf_change_block)
 
+[batch_namespace_edit](concepts/batch_namespace_edit)
+
 [caching](concepts/caching)
 
 [multi_payload](concepts/multi_payload)
