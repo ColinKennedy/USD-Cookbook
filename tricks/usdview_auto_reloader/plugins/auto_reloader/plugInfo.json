@@ -7,7 +7,7 @@
                 "Types": {
                     "auto_reloader.AutoReloaderContainer": {
                         "bases": ["pxr.Usdviewq.plugin.PluginContainer"],
-                        "displayName": "Usdview Tutorial Plugin"
+                        "displayName": "Reload usdview automatically"
                     }
                 }
             }
