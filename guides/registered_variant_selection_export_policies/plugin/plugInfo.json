@@ -1,0 +1,20 @@
+{
+	"Plugins": [
+		{
+			"Name": "Variant Selection Export Policies",
+			"Type": "resource",
+			"Info": {
+				"UsdUtilsPipeline": {
+					"RegisteredVariantSets": {
+						"some_variant_set": {
+							"selectionExportPolicy": "never"
+						},
+						"standin": {
+							"selectionExportPolicy": "never"
+						}
+					}
+				}
+			}
+		}
+	]
+}

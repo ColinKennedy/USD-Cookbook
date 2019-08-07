@@ -117,6 +117,8 @@ a recommended viewing order:
 
 [variant_fallbacks](concepts/variant_fallbacks)
 
+[registered_variant_selection_export_polices](guides/registered_variant_selection_export_polices)
+
 [plugin_metadata](concepts/plugin_metadata)
 
 [custom_resolver](concepts/custom_resolver)
