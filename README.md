@@ -113,6 +113,8 @@ a recommended viewing order:
 
 [enable_debugging](concepts/enable_debugging)
 
+[profiling](guides/profiling_usd.md)
+
 [usdview_auto_reloader](tricks/usdview_auto_reloader)
 
 [variant_fallbacks](concepts/variant_fallbacks)
