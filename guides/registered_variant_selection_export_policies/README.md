@@ -150,4 +150,5 @@ Maybe it was a typo that was mistakenly not fixed?
 
 ## See Also
 https://graphics.pixar.com/usd/docs/api/pipeline_8h.html#af8c5904ce00b476edc137bb4ae0e114d
+https://graphics.pixar.com/usd/docs/api/struct_usd_utils_registered_variant_set.html#a2b2b4d4a3287ed9efc76aaa85fb76d9c
 https://graphics.pixar.com/usd/docs/api/class_plug_registry.html
