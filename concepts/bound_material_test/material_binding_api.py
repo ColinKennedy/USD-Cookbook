@@ -11,6 +11,7 @@ Warning:
     heavily unittest this function before using it in production.
 
 """
+
 # IMPORT THIRD-PARTY LIBRARIES
 from pxr import Usd, UsdShade
 
