@@ -138,7 +138,7 @@ def get_bound_material(
         if not prim.IsValid():
             return None
 
-        return prim
+        return UsdShade.Material(prim)
 
     if not prim.IsValid():
         raise ValueError('Prim "{prim}" is not valid.'.format(prim=prim))
