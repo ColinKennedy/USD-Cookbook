@@ -127,3 +127,10 @@ very useful.
 [UsdUtils complianceChecker script](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae
 19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/usdUtils/complianceChecker.py#L39
 6-L421).
+
+
+https://graphics.pixar.com/usd/docs/api/class_usd_shade_material_binding_a_p_i.html#a08ca12ce6b9929448e74e5a0ee310c05
+https://graphics.pixar.com/usd/docs/UsdShade-Material-Assignment.html#UsdShadeMaterialAssignment-MaterialResolve:DeterminingtheBoundMaterialforanyGeometryPrim
+https://graphics.pixar.com/usd/docs/api/class_usd_shade_material.html#a52c7fe053819a1b71103f7a2b6a730e8
+https://graphics.pixar.com/usd/docs/api/class_usd_collection_a_p_i_1_1_membership_query.html
+https://graphics.pixar.com/usd/docs/api/class_usd_shade_material_binding_a_p_i.html
