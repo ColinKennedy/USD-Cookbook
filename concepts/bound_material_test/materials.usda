@@ -1,0 +1,52 @@
+#usda 1.0
+
+def Material "PreviewMaterial"
+{
+    token outputs:glslfx:surface.connect = </PreviewMaterial/pbsSurface.outputs:out>
+
+    def Shader "pbsSurface"
+    {
+    }
+}
+
+def Material "Skin"
+{
+    token outputs:ri:surface.connect = </Skin/pxrSurface1.outputs:out>
+
+    def Shader "pxrSurface1"
+    {
+    }
+}
+
+def Material "Leather"
+{
+    token outputs:surface.connect = </Leather/uberSurface.outputs:out>
+
+    def Shader "uberSurface"
+    {
+    }
+}
+
+def Xform "Bob"
+{
+    rel material:binding:preview = </PreviewMaterial>
+
+    def Xform "Geom"
+    {
+        def Mesh "Body"
+        {
+            rel material:binding:full = </Skin>
+        }
+
+        def Mesh "Belt"
+        {
+            rel material:binding = </Leather>
+        }
+    }
+}
+
+def Xform "BrokenBindingPrim"
+{
+    rel material:binding = </DoesNotExist>
+}
+

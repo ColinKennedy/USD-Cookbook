@@ -1,0 +1,37 @@
+#usda 1.0
+
+over "Office_set"
+{
+    def Scope "Materials"
+    {
+        def Material "Default"
+        {
+        }
+
+        def Material "PinkPearl"
+        {
+        }
+
+        def Material "YellowPaint"
+        {
+        }
+    }
+
+    over "Desk_Assembly"
+    {
+        rel material:binding = </Office_set/Materials/Default>
+        rel material:binding:collection:Erasers = [
+            </Office_set/Materials/PinkPearl>,
+            </Office_set/Desk_Assembly/Cup_grp.collection:Erasers>,
+        ] (
+            bindMaterialAs = "strongerThanDescendants"
+        )
+        rel material:binding:collection:Shafts = [
+            </Office_set/Materials/YellowPaint>,
+            </Office_set/Desk_Assembly/Cup_grp.collection:Shafts>,
+        ] (
+            bindMaterialAs = "strongerThanDescendants"
+        )
+    }
+}
+
