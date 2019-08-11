@@ -148,7 +148,7 @@ pxr::UsdShadeMaterial get_bound_material(
 
                 auto membership = binding_collection.ComputeMembershipQuery();
 
-                if (membership.IsPathIncluded(parent.GetPath()) && (!material || _is_collection_binding_stronger_than_descendents(binding))) {
+                if (membership.IsPathIncluded(parent.GetPath()) && (!material || _is_collection_binding_stronger_than_descendents(collection_binding))) {
                     material = collection_binding.GetMaterial();
                 }
             }
