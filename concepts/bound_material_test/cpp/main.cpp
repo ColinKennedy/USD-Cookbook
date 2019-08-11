@@ -168,20 +168,20 @@ int main() {
     auto stage = pxr::UsdStage::Open("../../usda/office_set.usda");
 
     auto prim = stage->GetPrimAtPath(pxr::SdfPath {"/Office_set/Desk_Assembly/Cup_grp"});
-    std::cout << "The next 3 prints should be </Office_set/Materials/Default> because no collections don't include Cup_grp's path.\n";
+    std::cout << "The next 3 prints should be /Office_set/Materials/Default because no collections don't include Cup_grp's path.\n";
     std::cout << get_bound_material(prim, pxr::UsdShadeTokens->allPurpose, "Erasers").GetPath() << '\n';
     std::cout << get_bound_material(prim, pxr::UsdShadeTokens->allPurpose, "Shafts").GetPath() << '\n';
     std::cout << get_bound_material(prim).GetPath() << '\n';
 
     prim = stage->GetPrimAtPath(pxr::SdfPath {"/Office_set/Desk_Assembly/Cup_grp/Pencil_1/Geom/Shaft"});
-    std::cout << "The next 2 prints should be </Office_set/Materials/YellowPaint> even though only the first line specifies the \"Shafts\" collection. The reason is because the last found collection is found if no name is given.\n";
+    std::cout << "The next 2 prints should be /Office_set/Materials/YellowPaint even though only the first line specifies the \"Shafts\" collection. The reason is because the last found collection is found if no name is given.\n";
     std::cout << get_bound_material(prim, pxr::UsdShadeTokens->allPurpose, "Shafts").GetPath() << '\n';
     std::cout << get_bound_material(prim).GetPath() << '\n';
 
     prim = stage->GetPrimAtPath(
         pxr::SdfPath {"/Office_set/Desk_Assembly/Cup_grp/Pencil_1/Geom/EraserHead"}
     );
-    std::cout << "The next 2 prints should be </Office_set/Materials/PinkPearl> even though only the first line specifies the \"Erasers\" collection. The reason is because the last found collection is found if no name is given.\n";
+    std::cout << "The next 2 prints should be /Office_set/Materials/PinkPearl even though only the first line specifies the \"Erasers\" collection. The reason is because the last found collection is found if no name is given.\n";
     std::cout << get_bound_material(prim, pxr::UsdShadeTokens->allPurpose, "Erasers").GetPath() << '\n';
     std::cout << get_bound_material(prim).GetPath() << '\n';
 

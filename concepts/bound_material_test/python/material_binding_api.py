@@ -197,7 +197,7 @@ def main():
 
     prim = stage.GetPrimAtPath("/Office_set/Desk_Assembly/Cup_grp")
     print(
-        "The next 3 prints should be </Office_set/Materials/Default> because no collections don't include Cup_grp's path."
+        "The next 3 prints should be /Office_set/Materials/Default because no collections don't include Cup_grp's path."
     )
     print(get_bound_material(prim, collection="Erasers").GetPath())
     print(get_bound_material(prim, collection="Shafts").GetPath())
@@ -205,7 +205,7 @@ def main():
 
     prim = stage.GetPrimAtPath("/Office_set/Desk_Assembly/Cup_grp/Pencil_1/Geom/Shaft")
     print(
-        'The next 2 prints should be </Office_set/Materials/YellowPaint> even though only the first line specifies the "Shafts" collection. The reason is because the last found collection is found if no name is given.'
+        'The next 2 prints should be /Office_set/Materials/YellowPaint even though only the first line specifies the "Shafts" collection. The reason is because the last found collection is found if no name is given.'
     )
     print(get_bound_material(prim, collection="Shafts").GetPath())
     print(get_bound_material(prim).GetPath())
@@ -214,7 +214,7 @@ def main():
         "/Office_set/Desk_Assembly/Cup_grp/Pencil_1/Geom/EraserHead"
     )
     print(
-        'The next 2 prints should be </Office_set/Materials/PinkPearl> even though only the first line specifies the "Erasers" collection. The reason is because the last found collection is found if no name is given.'
+        'The next 2 prints should be /Office_set/Materials/PinkPearl even though only the first line specifies the "Erasers" collection. The reason is because the last found collection is found if no name is given.'
     )
     print(get_bound_material(prim, collection="Erasers").GetPath())
     print(get_bound_material(prim).GetPath())
