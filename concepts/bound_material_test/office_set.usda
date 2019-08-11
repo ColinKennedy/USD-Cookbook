@@ -23,15 +23,57 @@ over "Office_set"
         rel material:binding:collection:Erasers = [
             </Office_set/Materials/PinkPearl>,
             </Office_set/Desk_Assembly/Cup_grp.collection:Erasers>,
-        ] (
-            bindMaterialAs = "strongerThanDescendants"
-        )
+        ]
         rel material:binding:collection:Shafts = [
             </Office_set/Materials/YellowPaint>,
             </Office_set/Desk_Assembly/Cup_grp.collection:Shafts>,
-        ] (
-            bindMaterialAs = "strongerThanDescendants"
-        )
+        ]
+
+        over "Cup_grp"
+        {
+            uniform token collection:Erasers:expansionRule = "expandPrims"
+            rel collection:Erasers:includes = [
+                </Office_set/Desk_Assembly/Cup_grp/Pencil_1/Geom/EraserHead>,
+                </Office_set/Desk_Assembly/Cup_grp/Pencil_2/Geom/EraserHead>,
+                </Office_set/Desk_Assembly/Cup_grp/Pencil_3/Geom/EraserHead>,
+                </Office_set/Desk_Assembly/Cup_grp/Pencil_4/Geom/EraserHead>,
+            ]
+            uniform token collection:Shafts:expansionRule = "expandPrims"
+            rel collection:Shafts:includes = [
+                </Office_set/Desk_Assembly/Cup_grp/Pencil_1/Geom/Shaft>,
+                </Office_set/Desk_Assembly/Cup_grp/Pencil_2/Geom/Shaft>,
+                </Office_set/Desk_Assembly/Cup_grp/Pencil_3/Geom/Shaft>,
+                </Office_set/Desk_Assembly/Cup_grp/Pencil_4/Geom/Shaft>,
+            ]
+
+            def Xform "Pencil_1" (
+                instanceable = true
+                payload = @./pencil.usda@
+            )
+            {
+            }
+
+            def Xform "Pencil_2" (
+                instanceable = true
+                payload = @./pencil.usda@
+            )
+            {
+            }
+
+            def Xform "Pencil_3" (
+                instanceable = true
+                payload = @./pencil.usda@
+            )
+            {
+            }
+
+            def Xform "Pencil_4" (
+                instanceable = true
+                payload = @./pencil.usda@
+            )
+            {
+            }
+        }
     }
 }
 
