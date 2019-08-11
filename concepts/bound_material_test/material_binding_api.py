@@ -167,6 +167,10 @@ def get_bound_material(
                 binding, purpose
             ):
                 binding_collection = binding.GetCollection()
+
+                if collection and binding_collection.GetName() != collection:
+                    continue
+
                 membership = binding_collection.ComputeMembershipQuery()
 
                 if membership.IsPathIncluded(parent.GetPath()) and (
