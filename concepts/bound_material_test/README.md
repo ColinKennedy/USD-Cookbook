@@ -111,6 +111,10 @@ aterial.html#a7d254deef591583ada16825840dd49a9).
 The good news though is that the pseudo-code itself is fine, as long as
 you're willing to write it out. Which is what this project is for.
 
+Quick last note: it looks like `pxr::UsdShadeMaterial::AllPurpose` was
+moved to `pxr::UsdShadeTokens->allPurpose`? Not totally sure if that's
+correct.
+
 
 ## See Also
 USD ships with a command-line python module called "complianceChecker"
