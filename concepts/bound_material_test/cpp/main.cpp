@@ -1,9 +1,13 @@
 // IMPORT STANDARD LIBRARIES
+#include <algorithm>
 #include <iostream>
+#include <iterator>
 #include <set>
+#include <string>
 #include <vector>
 
 // IMPORT THIRD-PARTY LIBRARIES
+#include <pxr/base/tf/stringUtils.h>
 #include <pxr/base/tf/token.h>
 #include <pxr/usd/sdf/path.h>
 #include <pxr/usd/usd/prim.h>
@@ -42,17 +46,38 @@ bool _is_binding_stronger_than_descendents(
 }
 
 
-std::vector<pxr::UsdShadeMaterialBindingAPI::CollectionBinding> _get_collection_material_bindings_for_purpose(
+auto _get_collection_material_bindings_for_purpose(
     pxr::UsdShadeMaterialBindingAPI const &binding,
     pxr::TfToken const &purpose
-) {
+) -> std::vector<pxr::UsdShadeMaterialBindingAPI::CollectionBinding> {
     auto parent = binding.GetPrim();
 
     for (; not parent.IsPseudoRoot(); parent = parent.GetParent()) {
         auto binding = pxr::UsdShadeMaterialBindingAPI {parent};
 
         // TODO: Check if this function works in C++
-        auto material_bindings = binding.GetCollectionBindings(purpose);
+        // XXX : Note, Normally I'd just do
+        // `UsdShadeMaterialBindingAPI.GetCollectionBindings` but, for
+        // some reason, `binding.GetCollectionBindings(purpose)` does not
+        // yield the same result as parsing the relationships, manually.
+        // Maybe it's a bug?
+        //
+        // auto material_bindings = binding.GetCollectionBindings(purpose);
+        //
+        std::vector<pxr::UsdShadeMaterialBindingAPI::CollectionBinding> material_bindings;
+        auto bindings = binding.GetCollectionBindingRels(purpose);
+
+        if (bindings.empty()) {
+            continue;
+        }
+
+        material_bindings.reserve(bindings.size());
+
+        for (auto const &relationship : bindings) {
+            if (relationship.IsValid()) {
+                material_bindings.emplace_back(relationship);
+            }
+        }
 
         if (!material_bindings.empty()) {
             return material_bindings;
@@ -94,8 +119,12 @@ pxr::UsdShadeMaterial get_bound_material(
         throw "prim \"" + prim.GetPath().GetString() + "\" is not valid";
     }
 
-    if (std::find(std::begin(_ALLOWED_MATERIAL_PURPOSES), std::end(_ALLOWED_MATERIAL_PURPOSES), material_purpose) == std::end(_ALLOWED_MATERIAL_PURPOSES)) {
-
+    if (std::find(
+        std::begin(_ALLOWED_MATERIAL_PURPOSES),
+        std::end(_ALLOWED_MATERIAL_PURPOSES),
+        material_purpose
+    ) == std::end(_ALLOWED_MATERIAL_PURPOSES)) {
+        throw std::string{"Purpose \""} + pxr::TfStringify(material_purpose).c_str() + std::string {"\" is not valid. Options were, [pxr::UsdShadeTokens->full, pxr::UsdShadeTokens->preview, pxr::UsdShadeTokens->allPurpose]"};
     }
 
     std::set<pxr::TfToken> purposes = {material_purpose, pxr::UsdShadeTokens->allPurpose};
@@ -135,20 +164,26 @@ pxr::UsdShadeMaterial get_bound_material(
 }
 
 
-pxr::UsdShadeMaterial get_bound_material(
-    pxr::UsdPrim const &prim,
-    std::string const &collection=""
-) {
-    return get_bound_material(prim, pxr::UsdShadeTokens->allPurpose, collection);
-}
-
-
 int main() {
     auto stage = pxr::UsdStage::Open("../../usda/office_set.usda");
 
     auto prim = stage->GetPrimAtPath(pxr::SdfPath {"/Office_set/Desk_Assembly/Cup_grp"});
     std::cout << "The next 3 prints should be </Office_set/Materials/Default> because no collections don't include Cup_grp's path.\n";
-    std::cout << get_bound_material(prim, "Erasers").GetPath();
+    std::cout << get_bound_material(prim, pxr::UsdShadeTokens->allPurpose, "Erasers").GetPath() << '\n';
+    std::cout << get_bound_material(prim, pxr::UsdShadeTokens->allPurpose, "Shafts").GetPath() << '\n';
+    std::cout << get_bound_material(prim).GetPath() << '\n';
+
+    prim = stage->GetPrimAtPath(pxr::SdfPath {"/Office_set/Desk_Assembly/Cup_grp/Pencil_1/Geom/Shaft"});
+    std::cout << "The next 2 prints should be </Office_set/Materials/YellowPaint> even though only the first line specifies the \"Shafts\" collection. The reason is because the last found collection is found if no name is given.\n";
+    std::cout << get_bound_material(prim, pxr::UsdShadeTokens->allPurpose, "Shafts").GetPath() << '\n';
+    std::cout << get_bound_material(prim).GetPath() << '\n';
+
+    prim = stage->GetPrimAtPath(
+        pxr::SdfPath {"/Office_set/Desk_Assembly/Cup_grp/Pencil_1/Geom/EraserHead"}
+    );
+    std::cout << "The next 2 prints should be </Office_set/Materials/PinkPearl> even though only the first line specifies the \"Erasers\" collection. The reason is because the last found collection is found if no name is given.\n";
+    std::cout << get_bound_material(prim, pxr::UsdShadeTokens->allPurpose, "Erasers").GetPath() << '\n';
+    std::cout << get_bound_material(prim).GetPath() << '\n';
 
     return 0;
 }
