@@ -10,7 +10,7 @@ Load [example.usda](python/example.usda) and you'll see what I mean.
 The Prim "SomePrimThatWillNotExist" will not be in usdview but it is
 defined in the .usda file.
 
-But if you try to actually programmatically write the samae code, it
+But if you try to actually programmatically write the same code, it
 will raise an exception (because it is technically wrong).
 
 The best way to make sure that you don't raise an exception while

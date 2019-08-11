@@ -5,7 +5,7 @@ a decent job of explaining how it works but I was hoping to put it in
 simpler terms. Both for my understanding and others.
 
 It may be an over-simplification but `specializes` is a way of
-preventing "protecting" changes that are made to a specialized Prim.
+preventing and "protecting" changes that are made to a specialized Prim.
 
 This folder shows a scenario where `specializes` is used to prevent
 edits from other, stronger layers.

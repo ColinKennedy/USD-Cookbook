@@ -37,7 +37,7 @@ While reading through the USD documentation, it makes several mentions
 of a "Composition Compendium" and even says "We will work through this
 example in the USD reference manual."
 
-To my konwledge, neither references exist. So for now, I figured I'd
+To my knowledge, neither references exist. So for now, I figured I'd
 make my own reference.
 
 
