@@ -14,7 +14,7 @@ from pxr import Usd, UsdShade
 
 def main():
     """Run the main execution of the current script."""
-    stage = Usd.Stage.Open("../assets/materials.usda")
+    stage = Usd.Stage.Open("../usda/materials.usda")
 
     # XXX : It looks as though the `GetBindingRel` and
     # `GetBoundMaterial` work but only for the `material:binding`

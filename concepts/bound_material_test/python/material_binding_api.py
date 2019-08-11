@@ -192,7 +192,7 @@ def get_bound_material(
 
 def main():
     """Run the main execution of the current script."""
-    stage = Usd.Stage.Open("../assets/office_set.usda")
+    stage = Usd.Stage.Open("../usda/office_set.usda")
 
     prim = stage.GetPrimAtPath("/Office_set/Desk_Assembly/Cup_grp")
     print(
