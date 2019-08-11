@@ -35,9 +35,8 @@ bool _is_binding_stronger_than_descendents(
 }
 
 
-bool _is_binding_stronger_than_descendents(
-    pxr::UsdShadeMaterialBindingAPI::CollectionBinding const &binding,
-    pxr::TfToken const &purpose
+bool _is_collection_binding_stronger_than_descendents(
+    pxr::UsdShadeMaterialBindingAPI::CollectionBinding const &binding
 ) {
     static pxr::TfToken const strength {"strongerThanDescendents"};
 
@@ -149,7 +148,7 @@ pxr::UsdShadeMaterial get_bound_material(
 
                 auto membership = binding_collection.ComputeMembershipQuery();
 
-                if (membership.IsPathIncluded(parent.GetPath()) && (!material || _is_binding_stronger_than_descendents(binding, purpose))) {
+                if (membership.IsPathIncluded(parent.GetPath()) && (!material || _is_collection_binding_stronger_than_descendents(binding))) {
                     material = collection_binding.GetMaterial();
                 }
             }

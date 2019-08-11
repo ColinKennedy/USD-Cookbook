@@ -62,6 +62,14 @@ def get_bound_material(
             The strongest bound material, if one is assigned.
 
     """
+    def is_collection_binding_stronger_than_descendents(binding):
+        return (
+            UsdShade.MaterialBindingAPI.GetMaterialBindingStrength(
+                binding.GetBindingRel()
+            )
+            == "strongerThanDescendents"
+        )
+
     def is_binding_stronger_than_descendents(binding, purpose):
         """bool: Check if the given binding/purpose is allowed to override any descendent bindings."""
         return (
@@ -180,7 +188,9 @@ def get_bound_material(
 
                 if membership.IsPathIncluded(parent.GetPath()) and (
                     not material
-                    or is_binding_stronger_than_descendents(collection_binding, purpose)
+                    or is_collection_binding_stronger_than_descendents(
+                        collection_binding
+                    )
                 ):
                     material = collection_binding.GetMaterial()
 
