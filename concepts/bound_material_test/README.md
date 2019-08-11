@@ -56,12 +56,27 @@ tml).
 
 But this page has several problems.
 
+
 #### The provided material USDA example file doesn't work
 - The materials example in this page doesn't work.
    - e.g. If you copy/paste the "Resolving Hierarchically-bound
    Materials" into a USD file, it'll syntax error because `token` is
    missing from outputs.
-   - It's simple to fix but, for the uninitiated, this is a point of friction.
+
+
+#### The provided Set-Shaded Office_set has multiple syntax errors
+The lines that define `collection:*:includes = ` need to end in `[` or USD 19.07 will syntax error. Also every `expansionRule` needs to be a token / uniform token, not a Relationship.
+
+```usda
+uniform token collection:Erasers:expansionRule = "expandPrims"
+rel collection:Erasers:includes = [
+	</Office_set/Desk_Assembly/Cup_grp/Pencil_1/Geom/EraserHead>,
+	...
+```
+
+Someone may dislike these nitpicks since they're simple fixes but it's
+the most documentation that we have currently and it doesn't work. For
+the uninitiated, this is a point of friction.
 
 
 #### The Pseudo-code "GetBoundMaterial" is deprecated
