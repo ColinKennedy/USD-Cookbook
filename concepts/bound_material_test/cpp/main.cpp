@@ -111,8 +111,8 @@ pxr::UsdShadeMaterial get_bound_material(
                 material = _get_direct_bound_material_for_purpose(binding, purpose);
             }
 
-            for (auto const &binding : _get_collection_material_bindings_for_purpose(binding, purpose)) {
-                auto binding_collection = binding.GetCollection();
+            for (auto const &collection_binding : _get_collection_material_bindings_for_purpose(binding, purpose)) {
+                auto binding_collection = collection_binding.GetCollection();
 
                 if (!collection.empty() && binding_collection.GetName() != collection) {
                     continue;
@@ -121,7 +121,7 @@ pxr::UsdShadeMaterial get_bound_material(
                 auto membership = binding_collection.ComputeMembershipQuery();
 
                 if (membership.IsPathIncluded(parent.GetPath()) && (!material || _is_binding_stronger_than_descendents(binding, purpose))) {
-                    material = binding.GetMaterial();
+                    material = collection_binding.GetMaterial();
                 }
             }
         }

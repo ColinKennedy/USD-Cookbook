@@ -14,7 +14,10 @@ set(USD_LIBRARY_DIRECTORY $ENV{USD_INSTALL_ROOT}/lib)
 set(USD_INCLUDE_DIRECTORY $ENV{USD_INSTALL_ROOT}/include)
 
 find_library(USD_BOOST_PYTHON boost_python HINTS ${USD_LIBRARY_DIRECTORY})
+find_library(USD_SDF sdf HINTS ${USD_LIBRARY_DIRECTORY})
+find_library(USD_TF tf HINTS ${USD_LIBRARY_DIRECTORY})
 find_library(USD_USD usd HINTS ${USD_LIBRARY_DIRECTORY})
+find_library(USD_USDSHADE usdShade HINTS ${USD_LIBRARY_DIRECTORY})
 
 find_package(PythonLibs)
 
@@ -33,5 +36,8 @@ target_link_libraries(
 run_it
 	${PYTHON_LIBRARY}
 	${USD_BOOST_PYTHON}
+	${USD_SDF}
+	${USD_TF}
 	${USD_USD}
+    ${USD_USDSHADE}
 )
