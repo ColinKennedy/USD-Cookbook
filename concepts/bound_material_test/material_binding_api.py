@@ -35,6 +35,9 @@ def get_bound_material(
     If no material is found for `prim`, this function will check every
     ancestor of Prim for a bound material and return that, instead.
 
+    Reference:
+        https://graphics.pixar.com/usd/docs/UsdShade-Material-Assignment.html#UsdShadeMaterialAssignment-MaterialResolve:DeterminingtheBoundMaterialforanyGeometryPrim
+
     Args:
         prim (`pxr.Usd.Prim`):
             The path to begin looking for material bindings.
