@@ -146,7 +146,8 @@ def get_bound_material(
     if material_purpose not in _ALLOWED_MATERIAL_PURPOSES:
         raise ValueError(
             'Purpose "{material_purpose}" is not valid. Options were, "{options}".'.format(
-                material_purpose=material_purpose, options=sorted(_ALLOWED_MATERIAL_PURPOSES)
+                material_purpose=material_purpose,
+                options=sorted(_ALLOWED_MATERIAL_PURPOSES),
             )
         )
 
