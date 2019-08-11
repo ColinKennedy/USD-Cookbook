@@ -125,6 +125,8 @@ a recommended viewing order:
 
 [custom_resolver](concepts/custom_resolver)
 
+[bound_material_finder](concepts/bound_material_finder)
+
 [fast_export](tricks/fast_export)
 
 [flatten_layer_stack](tricks/flatten_layer_stack)
