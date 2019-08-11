@@ -50,8 +50,9 @@ simple use-case.
 
 
 #### Disadvantages to using specializes as a fallback mechanism
-I won't like, the disadvantages are many. Like mentioned earlier, it's almost always
-better to define your own type and use that. Otherwise if you use `specializes`, you'll run into these issues:
+I won't lie, the disadvantages are many. Like mentioned earlier, 
+it's almost always better to define your own type and use that. 
+Otherwise if you use `specializes`, you'll run into these issues:
 
 - You'll need to have the `specializes` Composition Arc anywhere in
 your code where you need a fallback value. And since `specializes` has
