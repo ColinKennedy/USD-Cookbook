@@ -95,6 +95,7 @@ def get_bound_material(
         # Maybe it's a bug?
         #
         # return binding.GetCollectionBindings(purpose)
+        #
         parent = binding.GetPrim()
 
         # TODO : We're doing quadratic work here... not sure how to improve this section
@@ -167,10 +168,10 @@ def get_bound_material(
             if not material or is_binding_stronger_than_descendents(binding, purpose):
                 material = get_direct_bound_material_for_purpose(binding, purpose)
 
-            for binding in get_collection_material_bindings_for_purpose(
+            for collection_binding in get_collection_material_bindings_for_purpose(
                 binding, purpose
             ):
-                binding_collection = binding.GetCollection()
+                binding_collection = collection_binding.GetCollection()
 
                 if collection and binding_collection.GetName() != collection:
                     continue
@@ -179,9 +180,9 @@ def get_bound_material(
 
                 if membership.IsPathIncluded(parent.GetPath()) and (
                     not material
-                    or is_binding_stronger_than_descendents(binding, purpose)
+                    or is_binding_stronger_than_descendents(collection_binding, purpose)
                 ):
-                    material = binding.GetMaterial()
+                    material = collection_binding.GetMaterial()
 
             # Keep searching ancestors until we hit the scene root
             parent = parent.GetParent()
