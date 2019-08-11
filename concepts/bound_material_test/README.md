@@ -1,7 +1,8 @@
 ## Quick Explanation
-The USD documentation is a bit old, when it comes to the new USD
-Collections API. This section is has one purpose - provide an up-to-date
-way of working with material bindings.
+The USD documentation is a few issues when it comes to the new USD
+Collections API. It's partly out of date and also is missing key
+information to be useful. This section is has one purpose - provide an
+up-to-date reference for discovering material bindings.
 
 Note:
     In the future, new information / reference material may be found that
@@ -17,6 +18,7 @@ too](https://graphics.pixar.com/usd/docs/UsdShade-Material-Assignment.ht
 ml#UsdShadeMaterialAssignment-UsdShadeAPI) but they don't go into detail
 on how to use it.
 
+If you check out 
 Here's how you can query all of the material bindings on a Prim.
 
 

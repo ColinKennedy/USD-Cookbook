@@ -1,0 +1,21 @@
+#usda 1.0
+(
+    defaultPrim = "Pencil"
+)
+
+def Xform "Pencil"
+{
+    def Scope "Geom" (
+        "I didn't bother actually positioning these child Prims because it's just a demo."
+    )
+    {
+        def Sphere "EraserHead"
+        {
+        }
+
+        def Cylinder "Shaft"
+        {
+        }
+    }
+}
+
