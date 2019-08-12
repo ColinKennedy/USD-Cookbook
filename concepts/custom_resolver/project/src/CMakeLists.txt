@@ -14,7 +14,7 @@ add_library(${PLUGIN_NAME}
 		${SRC}
 )
 
-find_package(PythonLibs)
+find_package(PythonLibs REQUIRED)
 
 target_link_libraries(${PLUGIN_NAME}
     PUBLIC

@@ -23,7 +23,7 @@ find_library(USD_USDGEOM usdGeom HINTS ${USD_LIBRARY_DIRECTORY})
 find_library(USD_USDSHADE usdShade HINTS ${USD_LIBRARY_DIRECTORY})
 find_library(USD_VT vt HINTS ${USD_LIBRARY_DIRECTORY})
 
-find_package(PythonLibs)
+find_package(PythonLibs REQUIRED)
 
 # 4. Include/Link Everything
 add_executable(run_it

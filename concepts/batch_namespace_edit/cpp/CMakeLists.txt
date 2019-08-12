@@ -17,7 +17,7 @@ find_library(USD_BOOST_PYTHON boost_python HINTS ${USD_LIBRARY_DIRECTORY})
 find_library(USD_SDF sdf HINTS ${USD_LIBRARY_DIRECTORY})
 find_library(USD_TF tf HINTS ${USD_LIBRARY_DIRECTORY})
 
-find_package(PythonLibs)
+find_package(PythonLibs REQUIRED)
 
 # 4. Include/Link Everything
 add_executable(run_it
