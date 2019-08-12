@@ -7,7 +7,7 @@
 from __future__ import print_function
 
 # IMPORT THIRD-PARTY LIBRARIES
-from pxr import Tf
+from pxr import Tf, Usd
 
 
 class Sender(object):
@@ -17,7 +17,15 @@ class Sender(object):
 
     """
 
-    pass
+    def __init__(self, stage):
+        """Store some stage so that it can be retrieved, later."""
+        super(Sender, self).__init__()
+
+        self._stage = stage
+
+    def get_stage(self):
+        """`pxr.Usd.Stage`: The stored object that was added to this instance."""
+        return self._stage
 
 
 class Callback(object):
@@ -46,7 +54,7 @@ class Callback(object):
         was used to register this method. But it doesn't have to be.
 
         """
-        raise ValueError(notice.GetStage())
+        print("Stored stage", sender.get_stage())
         print("Got notice?", notice is self.notice)
         print("Got sender?", sender is self.sender)
         self.counter += 1
@@ -55,11 +63,12 @@ class Callback(object):
 def send_custom():
     """Print out notice information when different senders are sent."""
     notice = Tf.Notice()
-    sender = Sender()
+    some_stage = Usd.Stage.CreateInMemory()
+    sender = Sender(some_stage)
     callback = Callback(Tf.Notice, notice, sender)
     listener = Tf.Notice.Register(Tf.Notice, callback.callback, sender)
 
-    sender2 = Sender()
+    sender2 = Sender(some_stage)
     listener2 = Tf.Notice.Register(Tf.Notice, callback.callback, sender2)
 
     print("Custom count", callback.counter)
