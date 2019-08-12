@@ -7,8 +7,9 @@ class Callback : public pxr::TfWeakBase {
         Callback (int identity, pxr::TfNotice const &notice) : identity(identity), notice(notice) {}
 
         void ProcessNotice(
-            pxr::TfNotice &notice,
+            const pxr::TfNotice &notice,
             pxr::TfWeakPtr<Callback> const &sender
+
         ) {
             std::cout << std::boolalpha;
             std::cout << "Got sender? " << (sender->identity == this->identity) << '\n';
@@ -39,8 +40,8 @@ int main() {
     // provided to `Tf.Notice.Register`. Otherwise, the `callback1` method
     // will never be run.
     //
-    notice.Send(sender);
-    notice.Send(sender2);
+    notice.Send(sender);  // XXX : This will print true
+    notice.Send(sender2);  // XXX : This will print false
 
     pxr::TfNotice::Revoke(key);
     notice.Send(sender);
