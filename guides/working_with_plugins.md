@@ -27,16 +27,16 @@ using a reserved plugin key or source code will iterate over every
 plugin and filter by some condition, like "X plugin is a subclass of Foo
 base plugin".
 
-Skip to [How To Find Where To Look](How-To-Find-Where-To-Look) to find
+Skip to [How To Find Where To Look](#How-To-Find-Where-To-Look) to find
 out how to search these definitions by yourself.
 
 
-## Usage Table Of Contents
+## Table Of Contents
 Here's a quick list of both styles that USD uses to query plugins.
 
 ### "By-Name" Plugins
-- UsdGeomMetrics - [Set Your Default Scene Up Axis](Set-Your-Default-Scene-Up-Axis)
-- UsdColorConfigFallbacks - [Set Up Color Management](Set-Up-Color-Management)
+- UsdGeomMetrics - [Set Your Default Scene Up Axis](#Set-Your-Default-Scene-Up-Axis)
+- UsdColorConfigFallbacks - [Set Up Color Management](#Set-Up-Color-Management)
 - UsdUtilsPipeline
     - MaterialsScopeName
     - PrimaryCameraName
