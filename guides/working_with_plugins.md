@@ -43,10 +43,11 @@ Here's a quick list of both styles that USD uses to query plugins.
     - RegisteredVariantSets - [Set Up Variant Selection Export Policies](#Set-Up-Variant-Selection-Export-Policies)
 - DefaultMaterialsScopeName - [Set Up A Registered Material Prim](#Set-Up-A-Registered-Material-Prim)
 - DefaultPrimaryCameraName - [Set Up A Default Camera Name](#Set-Up-A-Default-Camera)
+- UsdVariantFallbacks - [Set Up Variant Selection Fallbacks](#Set-Up-Variant-Selection-Fallbacks)
 
 
 ### Filtered Plugins
-TODO: Write here
+- SdfMetadata - [Extend Metadata](#Extend-Metadata)
 
 
 ## How To Query Discovered Plugins
@@ -405,6 +406,64 @@ const std::set<UsdUtilsRegisteredVariantSet>& UsdUtilsGetRegisteredVariantSets()
 ```
 
 
+### Extend Metadata
+There's already an example project for this plugin, located at
+[concepts/plugin_metadata](../concepts/plugin_metadata). But, for
+completion, let's also summarize the information here, too.
+
+**Summary**: Registry new metadata types so you can add your own custom metadata onto layers, attributes, prims, and more.
+
+**Key**: SdfMetadata
+
+**Related Links**:
+- [A very detailed description of how to extend metadata](https://graphics.pixar.com/usd/docs/api/sdf_page_front.html#sdf_plugin_metadata)
+- [Object Model and How the Classes Work Together](https://graphics.pixar.com/usd/docs/api/_usd__page__object_model.html)
+
+**Source Code Link**:
+ - [Where metadata is extended](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/sdf/schema.cpp#L1570-L1742)
+
+**Plugin Sample Text**:
+
+`plugInfo.json`
+```json
+{
+    "Plugins": [
+        {
+			"Name": "Plugin double extension",
+			"Type": "resource",
+            "Info": {
+                "SdfMetadata": {
+                    "another_metadata": {
+                        "type": "double[]",
+                        "appliesTo": "layers",
+						"default": [5.0, 13.0]
+                    },
+                    "my_custom_double": {
+                        "type": "double",
+                        "appliesTo": "prims",
+						"default": 12.0
+                    }
+                }
+            }
+        }
+    ]
+}
+```
+
+**Relevant Commands**:
+
+TODO : Do Python
+
+```cpp
+TfToken SdfSchemaBase::SpecDefinition::GetMetadataFieldDisplayGroup(const TfToken& name) const
+TfTokenVector SdfSchemaBase::SpecDefinition::GetMetadataFields() const;
+bool SdfSchemaBase::SpecDefinition::IsMetadataField(const TfToken& name) const;
+const VtValue& SdfSchemaBase::GetFallback(const TfToken &fieldKey) const;
+const VtValue& SdfSpec::GetFallbackForInfo( const TfToken & key ) const
+std::vector<TfToken> SdfSpec::GetMetaDataInfoKeys() const;
+```
+
+
 ## TODO unsorted
 This repository already covers a
 hdxPrman
@@ -417,10 +476,6 @@ RMAN_RIXPLUGINPATH
 
 std::string rmantree = TfGetenv("RMANTREE");
  - lib/plugins/Args
-
-
-metadata
- -
 
 
 Kinds
