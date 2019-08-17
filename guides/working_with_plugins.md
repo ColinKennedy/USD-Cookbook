@@ -37,12 +37,12 @@ Here's a quick list of both styles that USD uses to query plugins.
 ### "By-Name" Plugins
 - UsdGeomMetrics - [Set Your Default Scene Up Axis](#Set-Your-Default-Scene-Up-Axis)
 - UsdColorConfigFallbacks - [Set Up Color Management](#Set-Up-Color-Management)
-- UsdUtilsPipeline
+- UsdUtilsPipeline - [UsdUtilsPipeline](#UsdUtilsPipeline)
     - MaterialsScopeName
-    - PrimaryCameraName
+    - PrimaryCameraName - [Set Up A Default Camera Name](#Set-Up-A-Default-Camera)
     - RegisteredVariantSets
 - DefaultMaterialsScopeName
-- DefaultPrimaryCameraName
+- DefaultPrimaryCameraName - [Set Up A Default Camera Name](#Set-Up-A-Default-Camera)
 
 
 ### Filtered Plugins
@@ -106,8 +106,8 @@ documentation](https://graphics.pixar.com/usd/docs/api/class_plug_registry.html)
 **Key**: UsdGeomMetrics
 
 **Related Links**:
- - https://graphics.pixar.com/usd/docs/api/group___usd_geom_up_axis__group.html#gaf16b05f297f696c58a086dacc1e288b5
- - https://graphics.pixar.com/usd/docs/api/group___usd_geom_up_axis__group.html
+ - [UsdGeomGetFallbackUpAxis](https://graphics.pixar.com/usd/docs/api/group___usd_geom_up_axis__group.html#gaf16b05f297f696c58a086dacc1e288b5)
+ - [Encoding Stage UpAxis](https://graphics.pixar.com/usd/docs/api/group___usd_geom_up_axis__group.html)
 
 **Source Code Link**: [pxr/usd/lib/usdGeom/metrics.cpp](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/usdGeom/metrics.cpp#L89-L164)
 
@@ -146,25 +146,41 @@ print(UsdGeom.GetStageUpAxis(stage))  # Prints "Y" normally but will print "Z" i
 ### Set Up Color Management
 **Summary**: A way to store and interpret per-attribute color-space values
 
-**Key**: "UsdColorConfigFallbacks"
+**Key**: UsdColorConfigFallbacks
 
 **Description**: USD lets you set colorspace information in layers
-    and attribute as metadata. If there's nothing authored, the color
-    configuration fallback plugin is queried, instead. This is very useful
-    because it lets different projects use different configurations.
+    and attribute as metadata. If there's nothing authored, the
+    color configuration fallback plugin is queried, instead. This
+    is very useful because it lets different projects use different
+    configurations without changing any USD files.
 
 **Source Code Link**: [pxr/usd/lib/stage.cpp](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/usd/stage.cpp#L127-L181)
 
 **Related Links**:
- - https://graphics.pixar.com/usd/docs/api/class_usd_stage.html#Usd_ColorConfigurationAPI
+- [Color Configuration API](https://graphics.pixar.com/usd/docs/api/class_usd_stage.html#Usd_ColorConfigurationAPI)
+    - Warning: The example plugInfo.json in the documentation has a syntax error ("colorConfiguration" = "https://github.com/imageworks/OpenColorIO-Configs/blob/master/aces_1.0.1/config.ocio"). Refer to the sample text below, instead:
 
 **Plugin Sample Text**:
 
 `plugInfo.json`
 ```json
+{
+    "Plugins": [
+        {
+            "Type": "resource",
+            "Name": "color_management_definition",
+            "Info": {
+                "UsdColorConfigFallbacks": {
+                    "colorConfiguration": "https://github.com/imageworks/OpenColorIO-Configs/blob/master/aces_1.0.1/config.ocio",
+                    "colorManagementSystem": "OpenColorIO"
+                }
+            }
+        }
+    ]
+}
 ```
 
-**Relevant Source Code**:
+**Defining Values in USDA, Explicitly**:
 
 [Looks.usda](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/plugin/usdMtlx/testenv/testUsdMtlxFileFormat.testenv/baseline/Looks.usda#L1-L7)
 (This code can be used to explicitly set color management settings, per-layer)
@@ -197,6 +213,50 @@ void UsdStage::SetColorManagementSystem(const TfToken &cms) const;
 TfToken UsdStage::GetColorManagementSystem() const;
 ```
 
+
+### UsdUtilsPipeline
+The `UsdUtilsPipeline` plugin key is a plugin that configures some default
+USD stage settings.
+
+#### Set Up A Default Camera Name
+**Summary**: Store the name of the "primary/preferred camera" of your USD stage. 
+
+**Description**: If you define a PrimaryCameraName in UsdUtilsPipeline, that camera name is used. Otherwise, USD falls back to the site-defined DefaultPrimaryCameraName.
+
+**Default**: If no primary camera name is given using this plugin, USD falls back to "main_cam".
+
+**Key**:
+ - [[UsdUtilsPipeline][PrimaryCameraName]](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/usdUtils/pipeline.cpp#L365)
+ - [DefaultPrimaryCameraName](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/usdUtils/pipeline.cpp#L366)
+
+**Related Links**:
+ - [UsdUtilsGetPrimaryCameraName](https://graphics.pixar.com/usd/docs/api/pipeline_8h.html#a7b291555b813b2fa2665531dd98995a2)
+
+**Source Code Link**:
+ - [The main function that discovers all UsdUtilsPipeline-related plugins](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/usdUtils/pipeline.cpp#L258-L330)
+
+**Plugin Sample Text**:
+```json
+{
+    "Plugins": [
+        {
+            "Name": "Default Camera Name",
+            "Type": "resource",
+            "Info": {
+                "UsdUtilsPipeline": {
+                    "PrimaryCameraName": "SomeCameraName"
+                }
+            }
+        }
+    ]
+}
+```
+
+**Relevant Commands**:
+TODO : do Python, too
+```cpp
+TfToken UsdUtilsGetPrimaryCameraName(const bool forceDefault);
+```
 
 
 ## TODO unsorted
