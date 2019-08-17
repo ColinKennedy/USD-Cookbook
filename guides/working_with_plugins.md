@@ -38,10 +38,10 @@ Here's a quick list of both styles that USD uses to query plugins.
 - UsdGeomMetrics - [Set Your Default Scene Up Axis](#Set-Your-Default-Scene-Up-Axis)
 - UsdColorConfigFallbacks - [Set Up Color Management](#Set-Up-Color-Management)
 - UsdUtilsPipeline - [UsdUtilsPipeline](#UsdUtilsPipeline)
-    - MaterialsScopeName
+    - MaterialsScopeName - [Set Up A Registered Material Prim](#Set-Up-A-Registered-Material-Prim)
     - PrimaryCameraName - [Set Up A Default Camera Name](#Set-Up-A-Default-Camera)
-    - RegisteredVariantSets
-- DefaultMaterialsScopeName
+    - RegisteredVariantSets - [Set Up Variant Selection Export Policies](#Set-Up-Variant-Selection-Export-Policies)
+- DefaultMaterialsScopeName - [Set Up A Registered Material Prim](#Set-Up-A-Registered-Material-Prim)
 - DefaultPrimaryCameraName - [Set Up A Default Camera Name](#Set-Up-A-Default-Camera)
 
 
@@ -219,7 +219,7 @@ The `UsdUtilsPipeline` plugin key is a plugin that configures some default
 USD stage settings.
 
 #### Set Up A Default Camera Name
-**Summary**: Store the name of the "primary/preferred camera" of your USD stage. 
+**Summary**: Store the name of the "primary/preferred camera" of your USD stage.
 
 **Description**: If you define a PrimaryCameraName in UsdUtilsPipeline, that camera name is used. Otherwise, USD falls back to the site-defined DefaultPrimaryCameraName.
 
@@ -236,6 +236,8 @@ USD stage settings.
  - [The main function that discovers all UsdUtilsPipeline-related plugins](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/usdUtils/pipeline.cpp#L258-L330)
 
 **Plugin Sample Text**:
+
+`plugInfo.json`
 ```json
 {
     "Plugins": [
@@ -245,7 +247,8 @@ USD stage settings.
             "Info": {
                 "UsdUtilsPipeline": {
                     "PrimaryCameraName": "SomeCameraName"
-                }
+                },
+                "DefaultPrimaryCameraName": "SomeFallbackName"
             }
         }
     ]
@@ -256,6 +259,149 @@ USD stage settings.
 TODO : do Python, too
 ```cpp
 TfToken UsdUtilsGetPrimaryCameraName(const bool forceDefault);
+```
+
+
+#### Set Up A Registered Material Prim
+**Summary**: Let USD know that Prims given a certain name have materials
+as its child Prims.
+
+**Description**: From the USD documentation: "The name of the USD prim
+under which materials are expected to be authored"
+
+**Key**:
+ - [[UsdUtilsPipeline][MaterialsScopeName]](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/usdUtils/pipeline.cpp#L352)
+ - [DefaultMaterialsScopeName](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/usdUtils/pipeline.cpp#L353)
+
+**Related Links**:
+ - [UsdUtilsGetMaterialsScopeName](https://graphics.pixar.com/usd/docs/api/pipeline_8h.html#a589b8a95736d7cd9b0ce9f6ac9fc147c)
+
+**Source Code Link**:
+ - [The main function that discovers all UsdUtilsPipeline-related plugins](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/usdUtils/pipeline.cpp#L258-L330)
+
+**Plugin Sample Text**:
+
+`plugInfo.json`
+```json
+{
+    "Plugins": [
+        {
+            "Name": "Default Material Prim Container",
+            "Type": "resource",
+            "Info": {
+                "UsdUtilsPipeline": {
+                    "MaterialsScopeName": "SomePrimName"
+                },
+                "DefaultMaterialsScopeName": "SomeFallbackPrimName"
+            }
+        }
+    ]
+}
+```
+
+**Relevant Commands**:
+
+TODO : do Python, too
+```cpp
+TfToken UsdUtilsGetMaterialsScopeName(const bool forceDefault);
+```
+
+
+### Set Up Variant Selection Fallbacks
+There's already an example project for this plugin, located at
+[concepts/variant_fallbacks](../concepts/variant_fallbacks). But, for
+completion, let's also summarize the information here, too.
+
+**Summary**: If a VariantSet has no selection, this plugin can control
+which variant gets selected, if needed, by-default.
+
+**Key**: UsdVariantFallbacks
+
+**Related Links**:
+ - [GetGlobalVariantFallbacks](https://graphics.pixar.com/usd/docs/api/class_usd_stage.html#a34d1d78fe8e31f0ba439d2265d694af5)
+ - [SetGlobalVariantFallbacks](https://graphics.pixar.com/usd/docs/api/class_usd_stage.html#addaffc14d334e5cb1e3a90c02fadcaf6)
+
+
+**Source Code Link**:
+ - [pxr/usr/lib/stage.cpp](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/usd/stage.cpp#L183-L222)
+
+**Plugin Sample Text**:
+```json
+{
+    "Plugins": [
+        {
+			"Name": "Variant Set Fallbacks",
+			"Type": "resource",
+            "Info": {
+				"UsdVariantFallbacks": {
+					"some_variant_set_name": ["possible_fallback_1", "possible_fallback_2", "possible_fallback_3", "foo", "bar"]
+				}
+            }
+        }
+    ]
+}
+```
+
+**Relevant Commands**:
+
+TODO : Do C++
+```python
+# Set variant fallbacks explicitly (this will override any plugInfo.json fallbacks)
+Usd.Stage.SetGlobalVariantFallbacks({"some_variant_set_name": ["foo", "bar"]})  # Must be done before creating a stage
+Usd.Stage.GetGlobalVariantFallbacks()
+```
+
+
+#### Set Up Variant Selection Export Policies
+There's already an example project for this plugin, located at
+[guides/registered_variant_selection_export_policies](../guides/registered_variant_selection_export_policies/README.md).
+But, for completion, let's also summarize the information here, too.
+
+**Summary**: Decide which USD VariantSet is allowed to be written to disk and under what conditions
+
+**Description**: This plugin doesn't appear to do anything at the API
+level. It seems to be more like a reference for tools to use on-export
+to decide how to deal with VariantSets. USD uses this plugin in a number
+of places, mainly in Katana and Maya's translator plugins.
+
+**Key**: RegisteredVariantSets
+
+**Related Links**:
+- [UsdUtilsGetRegisteredVariantSets](https://graphics.pixar.com/usd/docs/api/pipeline_8h.html#af8c5904ce00b476edc137bb4ae0e114d)
+
+**Source Code Link**:
+ - [The part of UsdUtilsPipeline that discovers VariantSet selection export policies](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/usdUtils/pipeline.cpp#L135-L185)
+
+**Plugin Sample Text**:
+
+`plugInfo.json`
+```json
+{
+    "Plugins": [
+        {
+            "Name": "Variant Selection Export Policies",
+            "Type": "resource",
+            "Info": {
+                "UsdUtilsPipeline": {
+                    "RegisteredVariantSets": {
+                        "some_variant_set": {
+                            "selectionExportPolicy": "never"
+                        },
+                        "standin": {
+                            "selectionExportPolicy": "never"
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}
+```
+
+**Relevant Commands**
+TODO : Do Python, too
+```cpp
+const std::set<UsdUtilsRegisteredVariantSet>& UsdUtilsGetRegisteredVariantSets();
 ```
 
 
@@ -325,14 +471,6 @@ void ArSetPreferredResolver(const std::string& resolverTypeName);
 
 
 
-UsdVariantFallbacks
- - already covered this one
- - TODO link to wherever I've got that in the cookbook
- - pxr/usr/lib/stage.cpp
- - https://graphics.pixar.com/usd/docs/api/class_usd_stage.html#a34d1d78fe8e31f0ba439d2265d694af5
-
-
-
 ```cpp
 /* static */
 UsdMayaPrimReaderRegistry::ReaderFactoryFn
@@ -354,18 +492,6 @@ UsdSchemaRegistry::GetTypeFromName(const TfToken& typeName){
 pxr/usd/lib/ar/resolver.cpp
 - TODO wtf are package resolvers?
 
-
-UsdUtilsPipeline
- - I have an example for this already
- - pxr/usd/lib/usdUtils/pipeline.cpp
-
-UsdUtilsPipeline
-    (UsdUtilsPipeline)
-        (MaterialsScopeName)
-        (PrimaryCameraName)
-    GetPrimaryCameraName
- - https://graphics.pixar.com/usd/docs/api/pipeline_8h.html#a589b8a95736d7cd9b0ce9f6ac9fc147c
- - https://graphics.pixar.com/usd/docs/api/pipeline_8h.html#a7b291555b813b2fa2665531dd98995a2
 
 ```json
 "UsdImagingOpenVDBAssetAdapter": {
