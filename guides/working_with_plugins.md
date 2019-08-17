@@ -97,19 +97,21 @@ or
 [The Custom Resolver Plugin](../concepts/custom_resolver/README.md)
 projects to find out more information.
 Also, there's [the USD PluginRegistry
-documentation](https://graphics.pixar.com/usd/docs/api/class_plug_regist
-ry.html)
+documentation](https://graphics.pixar.com/usd/docs/api/class_plug_registry.html)
 
 
 ### Set Your Default Scene Up Axis
-Summary: Set a value for the up axis for USD scenes that don't have an authored up-axis value
-Key: UsdGeomMetrics
-Related Links:
+**Summary**: Set a value for the up axis for USD scenes that don't have an authored up-axis value
+
+**Key**: UsdGeomMetrics
+
+**Related Links**:
  - https://graphics.pixar.com/usd/docs/api/group___usd_geom_up_axis__group.html#gaf16b05f297f696c58a086dacc1e288b5
  - https://graphics.pixar.com/usd/docs/api/group___usd_geom_up_axis__group.html
-Source Code Link: [pxr/usd/lib/usdGeom/metrics.cpp](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/usdGeom/metrics.cpp#L89-L164)
 
-Plugin Sample Text:
+**Source Code Link**: [pxr/usd/lib/usdGeom/metrics.cpp](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/usdGeom/metrics.cpp#L89-L164)
+
+**Plugin Sample Text**:
 
 `plugInfo.json`
 ```json
@@ -129,7 +131,7 @@ Plugin Sample Text:
 ```
 
 TODO : Add Python and C++ commands
-Relevant Commands:
+**Relevant Commands**:
 ```cpp
 SdfSchema::GetInstance().GetFallback(UsdGeomTokens->upAxis)
 ```
@@ -142,22 +144,28 @@ print(UsdGeom.GetStageUpAxis(stage))  # Prints "Y" normally but will print "Z" i
 
 
 ### Set Up Color Management
-Summary: A way to store and interpret per-attribute color-space values
-Key: "UsdColorConfigFallbacks"
-Description: USD lets you set colorspace information in layers
+**Summary**: A way to store and interpret per-attribute color-space values
+
+**Key**: "UsdColorConfigFallbacks"
+
+**Description**: USD lets you set colorspace information in layers
     and attribute as metadata. If there's nothing authored, the color
     configuration fallback plugin is queried, instead. This is very useful
     because it lets different projects use different configurations.
-Source Code Link: [pxr/usd/lib/stage.cpp](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/usd/stage.cpp#L127-L181)
-Related Links:
+
+**Source Code Link**: [pxr/usd/lib/stage.cpp](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/usd/stage.cpp#L127-L181)
+
+**Related Links**:
  - https://graphics.pixar.com/usd/docs/api/class_usd_stage.html#Usd_ColorConfigurationAPI
-Plugin Sample Text:
+
+**Plugin Sample Text**:
 
 `plugInfo.json`
 ```json
 ```
 
-Relevant Source Code:
+**Relevant Source Code**:
+
 [Looks.usda](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/plugin/usdMtlx/testenv/testUsdMtlxFileFormat.testenv/baseline/Looks.usda#L1-L7)
 (This code can be used to explicitly set color management settings, per-layer)
 ```usda
@@ -179,7 +187,7 @@ color3f inputs:otherColor6 = (0.1, 0.1, 0.1) (
 ```
 
 
-Relevant Commands:
+**Relevant Commands**:
 
 TODO : Add Python commands
 ```cpp
