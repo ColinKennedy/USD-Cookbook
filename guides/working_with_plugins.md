@@ -39,10 +39,10 @@ Here's a quick list of both styles that USD uses to query plugins.
 - UsdColorConfigFallbacks - [Set Up Color Management](#Set-Up-Color-Management)
 - UsdUtilsPipeline - [UsdUtilsPipeline](#UsdUtilsPipeline)
     - MaterialsScopeName - [Set Up A Registered Material Prim](#Set-Up-A-Registered-Material-Prim)
-    - PrimaryCameraName - [Set Up A Default Camera Name](#Set-Up-A-Default-Camera)
+    - PrimaryCameraName - [Set Up A Default Camera Name](#Set-Up-A-Default-Camera-Name)
     - RegisteredVariantSets - [Set Up Variant Selection Export Policies](#Set-Up-Variant-Selection-Export-Policies)
 - DefaultMaterialsScopeName - [Set Up A Registered Material Prim](#Set-Up-A-Registered-Material-Prim)
-- DefaultPrimaryCameraName - [Set Up A Default Camera Name](#Set-Up-A-Default-Camera)
+- DefaultPrimaryCameraName - [Set Up A Default Camera Name](#Set-Up-A-Default-Camera-Name)
 - UsdVariantFallbacks - [Set Up Variant Selection Fallbacks](#Set-Up-Variant-Selection-Fallbacks)
 
 
@@ -134,6 +134,7 @@ documentation](https://graphics.pixar.com/usd/docs/api/class_plug_registry.html)
 ```
 
 TODO : Add Python and C++ commands
+
 **Relevant Commands**:
 ```cpp
 SdfSchema::GetInstance().GetFallback(UsdGeomTokens->upAxis)
@@ -564,13 +565,13 @@ converted into? All of the examples online that I see convert to either
                     "UsdUsdcFileFormat": {
                         "bases": [
                             "SdfFileFormat"
-                        ], 
-                        "displayName": "USD Crate File Format", 
+                        ],
+                        "displayName": "USD Crate File Format",
                         "extensions": [
                             "usdc"
-                        ], 
-                        "formatId": "usdc", 
-                        "primary": true, 
+                        ],
+                        "formatId": "usdc",
+                        "primary": true,
                         "target": "usd"
                     }
 
@@ -583,6 +584,7 @@ converted into? All of the examples online that I see convert to either
 ```
 
 **Relevant Commands**:
+
 [Everything from the FileFormatRegistry class](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/sdf/fileFormatRegistry.h#L56-L75)
 
 TODO : Do python
