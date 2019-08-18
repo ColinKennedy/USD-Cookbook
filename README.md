@@ -147,6 +147,11 @@ a recommended viewing order:
 
 [notice_send](concepts/notice_send)
 
+[where_to_find_resources](guides/where_to_find_resources.md)
+
+[working_with_plugins](guides/working_with_plugins.md)
+
+
 There's also Anki deck for this repository, which you can download
 [by clicking here](https://drive.google.com/file/d/1qx8N9wwL2ufviuWcQrY3zT2S6GN6nrg7/view?usp=sharing)
 
