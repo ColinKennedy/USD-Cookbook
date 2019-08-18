@@ -1016,3 +1016,11 @@ And possibly others that just aren't listed here yet.
 So keep that in mind while searching. If you search by-registry and
 can't find what you're looking for, consider the idea that you may need
 to be looking for a different registry.
+
+
+### Search Online
+There's a USD repository called
+[parallax/ar-export](https://github.com/parallax/ar-export/tree/master/libs/USDPython/USD/usd)
+that has a list of many `plugInfo.json` file examples that is a decent
+reference. There's also repositories from VFX companies, like Luma and
+RodeoFX. Many of those repositories will have example plugin uses.
