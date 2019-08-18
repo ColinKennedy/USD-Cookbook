@@ -743,7 +743,7 @@ is enabled. This environment variable is mainly used for debugging
 purposes. Internal adapters stay on.
 - _primTypeName_ - string - The USD Prim type that the adapter is for
 
-**Key**: UsdImagingPrimAdapter (must be derived from these)
+**Key**: UsdImagingPrimAdapter (must be derived from this class)
 
 **Related Links**:
  - [Explanation for "isInternal"](https://graphics.pixar.com/usd/docs/api/class_usd_imaging_adapter_registry.html#a44227db6636d587bcd6500275f9de4f6)
@@ -867,10 +867,10 @@ class types.
 The USD documentation is fairly extensive about this plugin so, instead
 of re-iterating its points, links will be provided, below:
 
-[UsdShade Based Shader Definition](https://graphics.pixar.com/usd/docs/api/usd_shade_page_front.html#UsdShadeShaderDefinition)
-[NdfParserPlugin](https://graphics.pixar.com/usd/docs/api/class_ndr_parser_plugin.html)
-[UsdShadeShaderDefUtils::GetNodeDiscoveryResults](https://graphics.pixar.com/usd/docs/api/class_usd_shade_shader_def_utils.html#a769e7fcf038cb078b2419735759630be)
-[UsdShadeShaderDefParserPlugin](https://graphics.pixar.com/usd/docs/api/class_usd_shade_shader_def_parser_plugin.html)
+- [UsdShade Based Shader Definition](https://graphics.pixar.com/usd/docs/api/usd_shade_page_front.html#UsdShadeShaderDefinition)
+- [NdfParserPlugin](https://graphics.pixar.com/usd/docs/api/class_ndr_parser_plugin.html)
+- [UsdShadeShaderDefUtils::GetNodeDiscoveryResults](https://graphics.pixar.com/usd/docs/api/class_usd_shade_shader_def_utils.html#a769e7fcf038cb078b2419735759630be)
+- [UsdShadeShaderDefParserPlugin](https://graphics.pixar.com/usd/docs/api/class_usd_shade_shader_def_parser_plugin.html)
 
 
 
@@ -1005,11 +1005,11 @@ will find many plugins, right away.
 The only thing to keep in mind with this search method is that there are
 multiple registries in USD. There's:
 
-- [KindRegistry](https://graphics.pixar.com/usd/docs/api/class_kind_registry.html)
-- [PlugRegistry](https://graphics.pixar.com/usd/docs/api/class_plug_registry.html)
-- [Sdf_FileFormatRegistry](https://graphics.pixar.com/usd/docs/api/file_format_registry_8h.html)
-- [ShaderResourceRegistry](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/imaging/lib/hio/glslfx.cpp#L88-L94)
-- [UsdImagingAdapterRegistry](https://graphics.pixar.com/usd/docs/api/class_usd_imaging_adapter_registry.html)
+ - [KindRegistry](https://graphics.pixar.com/usd/docs/api/class_kind_registry.html)
+ - [PlugRegistry](https://graphics.pixar.com/usd/docs/api/class_plug_registry.html)
+ - [Sdf_FileFormatRegistry](https://graphics.pixar.com/usd/docs/api/file_format_registry_8h.html)
+ - [ShaderResourceRegistry](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/imaging/lib/hio/glslfx.cpp#L88-L94)
+ - [UsdImagingAdapterRegistry](https://graphics.pixar.com/usd/docs/api/class_usd_imaging_adapter_registry.html)
 
 And possibly others that just aren't listed here yet.
 
