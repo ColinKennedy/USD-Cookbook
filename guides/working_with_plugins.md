@@ -535,17 +535,17 @@ and from USD.
 **Description**:
 This plugin takes a dictionary with a number of allowed keys:
 
-- bases - The registered File Format name that this plugin inherits. It
+- _bases_ - The registered File Format name that this plugin inherits. It
 must inherit from a type that inherits from SdfFileFormat or it must
 inherit SdfFileFormat, directly.
 - extensions - list of strings. It's the filetype extensions that can be
 processed by this formatter
-- formatId - string - A unique ID that is used to find this file format
+- _formatId_ - string - A unique ID that is used to find this file format
 plugin. Usually this value matches the extension of the file format. But
 it's not a requirement.
-- primary - If this file format plugin should be the preferred plugin
+- _primary_ - If this file format plugin should be the preferred plugin
 for its extensions
-- target - To be honest, I'm not really sure what this is for. Maybe
+- _target_ - To be honest, I'm not really sure what this is for. Maybe
 it's the file format that this registered file format is meant to be
 converted into? All of the examples online that I see convert to either
 "usd" or "sdf", which seems to support that idea.
@@ -620,7 +620,7 @@ resolver's job is to convert that string into a path on-disk like
 
 **Plugin Sample Text**:
 
-`plugInfo.json` (Copied file from the generated results of [this custom resolver project](../concepts/custom_resolver/cpp))
+`plugInfo.json` (Copied file from the generated results of [this custom resolver project](../concepts/custom_resolver))
 ```json
 {
     "Plugins": [
@@ -658,12 +658,12 @@ pxr/usd/lib/ar/resolver.cpp
 **Summary**: Add a usdImaging Adapter Type for a given USD Prim type.
 
 **Description**: This plugin has 3 main keys:
-- base - list of strings - The USD adapter class that this adapter is based off of.
-- isInternal - bool - External adapters can be turned on and off
+- _bases_ - list of strings - The USD adapter class that this adapter is based off of.
+- _isInternal_ - bool - External adapters can be turned on and off
 depending on if the `USDIMAGING_ENABLE_PLUGINS` environment variable
 is enabled. This environment variable is mainly used for debugging
 purposes. Internal adapters stay on.
-- primTypeName - string - The USD Prim type that the adapter is for
+- _primTypeName_ - string - The USD Prim type that the adapter is for
 
 **Key**: UsdImagingPrimAdapter (must be derived from these)
 
@@ -786,7 +786,6 @@ UsdSchemaRegistry::GetTypeFromName(const TfToken& typeName){
 
 
 pxr/imaging/lib/glf/rankedTypeMap.h - Honorable mention (not sure how it's used)
-
 
 
 ## How To Find Where To Look
