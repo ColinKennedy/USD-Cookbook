@@ -47,6 +47,7 @@ Here's a quick list of both styles that USD uses to query plugins.
 
 
 ### Filtered Plugins
+- Kinds - [Subclass Your Own Kind](#Subclass-Your-Own-Kind)
 - SdfMetadata - [Extend Metadata](#Extend-Metadata)
 
 
@@ -406,6 +407,59 @@ const std::set<UsdUtilsRegisteredVariantSet>& UsdUtilsGetRegisteredVariantSets()
 ```
 
 
+### Subclass Your Own Kind
+**Summary**: Create a custom Kind by using one of USD's existing Kinds
+as a base class.
+
+**Key**: Kinds
+
+**Related Links**:
+ - [Extending the KindRegistry](https://graphics.pixar.com/usd/docs/api/kind_page_front.html#kind_extensions)
+
+**Source Code Link**:
+ - [pxr/usd/lib/kind/registry.cpp](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/kind/registry.cpp#L174-L220)
+
+**Plugin Sample Text**:
+
+`plugInfo.json` (This was copy/pasted from [pxr/usd/lib/kind/testenv/testKindRegistry/lib/python/plugInfo.json](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/kind/testenv/testKindRegistry/lib/python/plugInfo.json#L1-L19))
+```json
+{
+    "Plugins": [
+        {
+            "Type": "python",
+            "Name": "TestKindModule",
+            "Info": {
+                "Kinds": {
+                    # Add "test_model_kind" as a kind of model.
+                    "test_model_kind": {
+                        "baseKind": "model"
+                    },
+                    # Add "test_root_kind" as a root kind.
+                    "test_root_kind": {
+                    }
+                }
+            }
+        }
+    ]
+}
+```
+
+Important: It's highly recommended to inherit from an existing Kind,
+rather than create a new root kind. USD traversals use predicate flags
+to quickly get models. Custom root kinds can still be traversed normally
+but it will be much slower. It's faster to inherit from a model Kind and
+use UsdPrimRange like normal. You can still make a root kind of course,
+it's just not recommended.
+[Source conversation here](https://groups.google.com/forum/#!searchin/usd-interest/custom$20kind|sort:date/usd-interest/J_tLjVaaePM/HeIp47EzAwAJ).
+
+
+**Relevant Commands**:
+```cpp
+UsdPrimRange::Stage(const UsdStagePtr &stage, const Usd_PrimFlagsPredicate &predicate);
+UsdPrimRange::UsdPrimRange(Usd_PrimDataConstPtr begin, Usd_PrimDataConstPtr end, const SdfPath& proxyPrimPath, const Usd_PrimFlagsPredicate &predicate = UsdPrimDefaultPredicate);
+```
+
+
 ### Extend Metadata
 There's already an example project for this plugin, located at
 [concepts/plugin_metadata](../concepts/plugin_metadata). But, for
@@ -476,14 +530,6 @@ RMAN_RIXPLUGINPATH
 
 std::string rmantree = TfGetenv("RMANTREE");
  - lib/plugins/Args
-
-
-Kinds
- - dict
-  - the key is the name
-   - baseKind - str
- - https://graphics.pixar.com/usd/docs/api/kind_page_front.html#kind_extensions
- - pxr/usd/lib/kind/registry.cpp
 
 
 
