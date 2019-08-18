@@ -57,6 +57,7 @@ Here's a quick list of both styles that USD uses to query plugins.
 - ShaderResources - [Add Shader Resources To Hydra](#Add-Shader-Resources-To-Hydra)
 - UsdSchemaBase - [Create A Custom Schema](#Create-A-Custom-Schema)
 - NdrParserPlugin - [Encode Shaders As USD Prims](#Encode-Shaders-As-USD-Prims)
+- GlfImage - [OpenGL USD Types](#OpenGL-USD-Types)
 
 
 ## How To Query Discovered Plugins
@@ -653,6 +654,7 @@ std::vector<TfType> ArGetAvailableResolvers();
 
 ### Adding A Package Resolver
 **Summary**: Like "Adding A Custom Resolver" but for USD package resolvers.
+
 **Description**: There's not that much documentation about package resolvers. That
 said, USD package resolvers are similar in concept to an asset
 resolver but with the following differences:
@@ -847,7 +849,66 @@ of re-iterating its points, links will be provided, below:
 [UsdShadeShaderDefParserPlugin](https://graphics.pixar.com/usd/docs/api/class_usd_shade_shader_def_parser_plugin.html)
 
 
-pxr/imaging/lib/glf/rankedTypeMap.h - Honorable mention (not sure how it's used)
+
+### OpenGL USD Types
+**Summary**: To be honest, I'm not read up enough on OpenGL and how it
+is consumed by USD to discuss this particular plugin. Maybe this section
+can be filled in once someone with experience sees this.
+
+Judging from the `plugInfo.json` file, it looks like this plugin is
+used to define classes to consume texture file types for viewport
+rendering. It has some kind of a ranked ordering, using "precedence" as
+the ordering key. But this is all just a guess.
+
+**Key**: GlfImage
+
+**Related Links**:
+ - [GlfRankedTypeMap](https://graphics.pixar.com/usd/docs/api/class_glf_ranked_type_map.html)
+ 
+**Source Code Link**:
+ - [pxr/imaging/lib/glf/rankedTypeMap.h](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/imaging/lib/glf/rankedTypeMap.h#L94-L179)
+
+**Plugin Sample Text**:
+
+`plugInfo.json` (Copied from [plugInfo.json](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/imaging/lib/glf/plugInfo.json))
+```json
+{
+    "Plugins": [
+        {
+            "Info": {
+                "ShaderResources": "shaders",
+                "Types": {                                                                  
+                    "Glf_OIIOImage" : {
+                        "bases": ["GlfImage"],
+                        "imageTypes": ["bmp", "exr", "jpg", "png", "tif", "zfile", "tx"],
+                        "precedence": 0 
+                    },
+                    "Glf_StbImage" : {
+                        "bases": ["GlfImage"],
+                        "imageTypes": ["bmp", "jpg", "png", "tga", "hdr"],
+                        "precedence": 2
+                    },
+                    "GlfPtexTexture" : {
+                        "bases": ["GlfTexture"],
+                        "textureTypes": ["ptx", "ptex"],
+                        "precedence": 1
+                    },
+                    "GlfUVTexture" : {
+                        "bases": ["GlfBaseTexture"],
+                        "textureTypes": ["*"],
+                        "precedence": 0
+                    }
+                }
+            },
+            "LibraryPath": "@PLUG_INFO_LIBRARY_PATH@",
+            "Name": "glf",
+            "ResourcePath": "@PLUG_INFO_RESOURCE_PATH@",
+            "Root": "@PLUG_INFO_ROOT@",
+            "Type": "library"
+        }
+    ]
+}
+```
 
 
 ## How To Find Where To Look
