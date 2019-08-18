@@ -590,15 +590,57 @@ converted into? All of the examples online that I see convert to either
 TODO : Do python
 
 
-### Resolver
-const TfType defaultResolverType = TfType::Find<ArDefaultResolver>();
+### Adding A Custom Resolver
+This plugin has been covered by the
+[custom_resolver](../concepts/custom_resolver) project in this
+repository. But, for completion, let's also summarize the information
+here, too.
 
-        PlugRegistry::GetAllDerivedTypes(
-            TfType::Find<ArResolver>(), &resolverTypes);
-pxr/usd/lib/ar/resolver.cpp
+**Summary**: A resolver plugin is used to convert any string to a
+path on-disk. For example, USD Asset paths may be a totally arbitrary
+string syntax, such as: "[foo][bar[bazz]??usda|v=001]". A custom
+resolver's job is to convert that string into a path on-disk like
+"/tmp/foo_folder/bar_bazz_v001.usda".
 
+**Key**: ArResolver (any plugin that inherits this class)
+
+**Related Links**:
+ - [Implementing a Custom Resolver](https://graphics.pixar.com/usd/docs/api/ar_page_front.html#ar_implementing_resolver)
+ - [ArDefaultResolver class reference](https://graphics.pixar.com/usd/docs/api/class_ar_default_resolver.html)
+
+**Source Code Link**:
+ - [pxr/usd/lib/ar/resolver.cpp](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/ar/resolver.cpp#L104-L147)
+ - [The code that sets USD's default resolver](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/ar/resolver.cpp#L560-L593)
+
+**Plugin Sample Text**:
+
+`plugInfo.json` (Copied file from the generated results of [this custom resolver project](../concepts/custom_resolver/cpp))
+```json
+{
+    "Plugins": [
+        {
+            "Info": {
+                "Types": {
+                    "URIResolver" : {
+                        "bases": ["ArResolver"]
+                    }
+                }
+            },
+            "LibraryPath": "../libURIResolver.so",
+            "Name": "URIResolver",
+            "Type": "library"
+        }
+    ]
+}
+```
+**Relevant Commands**:
+
+TODO Do Python
+```cpp
 void ArSetPreferredResolver(const std::string& resolverTypeName);
- - used when getting ar plugins
+ArResolver& ArGetResolver();
+std::vector<TfType> ArGetAvailableResolvers();
+```
 
 
 ### Package Resolvers
