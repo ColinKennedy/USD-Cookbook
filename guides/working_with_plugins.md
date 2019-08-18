@@ -334,12 +334,12 @@ which variant gets selected, if needed, by-default.
 {
     "Plugins": [
         {
-			"Name": "Variant Set Fallbacks",
-			"Type": "resource",
+            "Name": "Variant Set Fallbacks",
+            "Type": "resource",
             "Info": {
-				"UsdVariantFallbacks": {
-					"some_variant_set_name": ["possible_fallback_1", "possible_fallback_2", "possible_fallback_3", "foo", "bar"]
-				}
+                "UsdVariantFallbacks": {
+                    "some_variant_set_name": ["possible_fallback_1", "possible_fallback_2", "possible_fallback_3", "foo", "bar"]
+                }
             }
         }
     ]
@@ -485,19 +485,19 @@ completion, let's also summarize the information here, too.
 {
     "Plugins": [
         {
-			"Name": "Plugin double extension",
-			"Type": "resource",
+            "Name": "Plugin double extension",
+            "Type": "resource",
             "Info": {
                 "SdfMetadata": {
                     "another_metadata": {
                         "type": "double[]",
                         "appliesTo": "layers",
-						"default": [5.0, 13.0]
+                        "default": [5.0, 13.0]
                     },
                     "my_custom_double": {
                         "type": "double",
                         "appliesTo": "prims",
-						"default": 12.0
+                        "default": 12.0
                     }
                 }
             }
