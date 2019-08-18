@@ -22,10 +22,10 @@ With that said, this guide will teach:
 
 
 ## Plugin Summary
-USD has two main methods of querying plugins. It either queries plugins
-using a reserved plugin key or source code will iterate over every
-plugin and filter by some condition, like "X plugin is a subclass of Foo
-base plugin".
+USD has two main methods of querying plugins. USD either iterates over
+all plugins and searches for a specific key or it searches for plugins
+that inherit from a known USD type. We'll call these "By-Name" Plugins
+and "By-Type" Plugins, respectively.
 
 Skip to [How To Find Where To Look](#How-To-Find-Where-To-Look) to find
 out how to search these definitions by yourself.
@@ -47,7 +47,7 @@ Here's a quick list of both styles that USD uses to query plugins.
 - UsdVariantFallbacks - [Set Up Variant Selection Fallbacks](#Set-Up-Variant-Selection-Fallbacks)
 
 
-### Filtered Plugins
+### "By-Type" Plugins
 - Kinds - [Subclass Your Own Kind](#Subclass-Your-Own-Kind)
 - SdfMetadata - [Extend Metadata](#Extend-Metadata)
 - SdfFileFormat - [Register A File Format](#Register-A-File-Format)
