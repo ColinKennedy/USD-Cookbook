@@ -912,8 +912,83 @@ the ordering key. But this is all just a guess.
 
 
 ## How To Find Where To Look
+Like mentioned in past sections, there's no one way of finding out
+how USD uses its own plugins. At best, you can query what plugins are
+currently being used and work backwards from there.
+
+That said, it's not all hopeless. Here's a few methods for searching that were
+used to write this article
+
+### Search for plugInfo.json files
+USD's plugin system relies on these files so it makes sense that we can find
+pretty much any plugin under the sun just by searching for those files
+
+Linux:
+```
+git clone https://github.com/PixarAnimationStudios/USD && cd USD
+find -type f -name "plugInfo.json"
+```
+
+Plugins are typically "found" in USD by either a special key under "Info", like
+"UsdUtilsPipeline"
+
+```json
+{
+    "Plugins": [
+        {
+            "Name": "Default Camera Name",
+            "Type": "resource",
+            "Info": {
+                "UsdUtilsPipeline": {
+                    # ...
+                }
+            }
+        }
+    ]
+}
+```
+
+or USD will search for a specific type, using the "bases" key of a plugin, like this
+
+```json
+{
+    "Plugins": [
+        {
+            "Info": {
+                "Types": {
+                    "URIResolver" : {
+                        "bases": ["ArResolver"]
+                    }
+                }
+            }
+        }
+    ]
+}
+```
+
+In both cases, once you see a plugInfo.json, you can read the keys
+under "Info" or search for PluginRegistry for methods that require
+`ArResolver` and you're pretty likely to find exactly where that
+`plugInfo.json` is meant to be used.
 
 
-https://github.com/parallax/ar-export/blob/master/libs/USDPython/USD/usd/sdf/resources/plugInfo.json
+### Search for uses of registry classes
+Searching C++ code for phrases like `GetAllPlugins`,
+`GetAllDerivedTypes`, and really any public
+member function in [the PlugRegistry class](https://graphics.pixar.com/usd/docs/api/class_plug_registry.html)
+will find many plugins, right away.
 
-Check out what GetAllDerivedTypes does
+The only thing to keep in mind with this search method is that there are
+multiple registries in USD. There's:
+
+- [KindRegistry](https://graphics.pixar.com/usd/docs/api/class_kind_registry.html)
+- [PlugRegistry](https://graphics.pixar.com/usd/docs/api/class_plug_registry.html)
+- [Sdf_FileFormatRegistry](https://graphics.pixar.com/usd/docs/api/file_format_registry_8h.html)
+- [ShaderResourceRegistry](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/imaging/lib/hio/glslfx.cpp#L88-L94)
+- [UsdImagingAdapterRegistry](https://graphics.pixar.com/usd/docs/api/class_usd_imaging_adapter_registry.html)
+
+And possibly others that just aren't listed here yet.
+
+So keep that in mind while searching. If you search by-registry and
+can't find what you're looking for, consider the idea that you may need
+to be looking for a different registry.
