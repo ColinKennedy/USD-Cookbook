@@ -590,28 +590,7 @@ converted into? All of the examples online that I see convert to either
 TODO : Do python
 
 
-## TODO unsorted
-This repository already covers a
-hdxPrman
- resources/shaders (path)
-
-
-RMAN_RIXPLUGINPATH
- - all paths
-
-
-std::string rmantree = TfGetenv("RMANTREE");
- - lib/plugins/Args
-
-
-
-Check out what GetAllDerivedTypes does
- - pxr/usd/lib/ndr/registry.cpp
- - third_party/houdini/lib/gusd/USD_CustomTraverse.cpp
-
-
-
-
+### Resolver
 const TfType defaultResolverType = TfType::Find<ArDefaultResolver>();
 
         PlugRegistry::GetAllDerivedTypes(
@@ -622,29 +601,12 @@ void ArSetPreferredResolver(const std::string& resolverTypeName);
  - used when getting ar plugins
 
 
-
-```cpp
-/* static */
-UsdMayaPrimReaderRegistry::ReaderFactoryFn
-UsdMayaPrimReaderRegistry::Find(const TfToken& usdTypeName)
-```
-
-TODO Check what runs this function to find out what type names Maya allows
-
-
-
-TODO Check this too
-TfType
-UsdSchemaRegistry::GetTypeFromName(const TfToken& typeName){
-    return PlugRegistry::GetInstance().FindDerivedTypeByName(
-        *_schemaBaseType, typeName.GetString());
-}
-
-
+### Package Resolvers
 pxr/usd/lib/ar/resolver.cpp
 - TODO wtf are package resolvers?
 
 
+### Adapter Bois
 ```json
 "UsdImagingOpenVDBAssetAdapter": {
     "bases": [
@@ -662,14 +624,8 @@ pxr/usd/lib/ar/resolver.cpp
 }
 ```
 
-- isInternal - bool - used by Pixar to allow users to disable plugins that are crashing or executing slowly. Not meant to be used by clients of USD
-- primTypeName - string - the name of the Prim that the plugin is meant for
- - Driven by by the USDIMAGING_ENABLE_PLUGINS environment variable.
- - https://graphics.pixar.com/usd/docs/api/class_usd_imaging_adapter_registry.html#a44227db6636d587bcd6500275f9de4f6
 
-pxr/usdImaging/lib/usdImaging/adapterRegistry.cpp
-
-
+### Shader Resources
 shaderResources -
 ```json
 {
@@ -692,12 +648,13 @@ shaderResources -
 - pxr/imaging/lib/hio/glslfx.cpp
 
 
-pxr/imaging/lib/glf/rankedTypeMap.h - Honorable mention (not sure how it's used)
+### Renderman Shader Resources
+This repository already covers a
+hdxPrman
+ resources/shaders (path)
 
-https://github.com/parallax/ar-export/blob/master/libs/USDPython/USD/usd/sdf/resources/plugInfo.json
 
-
-
+### Computable Extents
 - implementsComputeExtent
  - It's a type-specific plugin
  - requires a function to be defined in the generated schema's .cpp file
@@ -715,4 +672,51 @@ https://github.com/parallax/ar-export/blob/master/libs/USDPython/USD/usd/sdf/res
 
 
 
+### isInternal ??
+
+- isInternal - bool - used by Pixar to allow users to disable plugins that are crashing or executing slowly. Not meant to be used by clients of USD
+- primTypeName - string - the name of the Prim that the plugin is meant for
+ - Driven by by the USDIMAGING_ENABLE_PLUGINS environment variable.
+ - https://graphics.pixar.com/usd/docs/api/class_usd_imaging_adapter_registry.html#a44227db6636d587bcd6500275f9de4f6
+
+pxr/usdImaging/lib/usdImaging/adapterRegistry.cpp
+
+
+## Misc
+Check out what GetAllDerivedTypes does
+ - pxr/usd/lib/ndr/registry.cpp
+ - third_party/houdini/lib/gusd/USD_CustomTraverse.cpp
+
+
+## TODO Check if this is needed
+```cpp
+/* static */
+UsdMayaPrimReaderRegistry::ReaderFactoryFn
+UsdMayaPrimReaderRegistry::Find(const TfToken& usdTypeName)
+```
+
+TODO Check what runs this function to find out what type names Maya allows
+
+
+
+## TODO unsorted
+
+TODO Check this too
+TfType
+UsdSchemaRegistry::GetTypeFromName(const TfToken& typeName){
+    return PlugRegistry::GetInstance().FindDerivedTypeByName(
+        *_schemaBaseType, typeName.GetString());
+}
+
+
+
+pxr/imaging/lib/glf/rankedTypeMap.h - Honorable mention (not sure how it's used)
+
+
+
 ## How To Find Where To Look
+
+
+https://github.com/parallax/ar-export/blob/master/libs/USDPython/USD/usd/sdf/resources/plugInfo.json
+
+Check out what GetAllDerivedTypes does
