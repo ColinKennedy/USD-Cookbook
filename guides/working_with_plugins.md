@@ -669,6 +669,15 @@ pxr/usd/lib/ar/resolver.cpp
 ```
 
 
+- isInternal - bool - used by Pixar to allow users to disable plugins that are crashing or executing slowly. Not meant to be used by clients of USD
+- primTypeName - string - the name of the Prim that the plugin is meant for
+ - Driven by by the USDIMAGING_ENABLE_PLUGINS environment variable.
+ - https://graphics.pixar.com/usd/docs/api/class_usd_imaging_adapter_registry.html#a44227db6636d587bcd6500275f9de4f6
+
+pxr/usdImaging/lib/usdImaging/adapterRegistry.cpp
+
+
+
 ### Add Shader Resources To Hydra
 **Summary**: A way to add additional shader definitions to Hydra.
 
@@ -723,17 +732,6 @@ hdxPrman
 
  - https://graphics.pixar.com/usd/docs/api/boundable_compute_extent_8h.html#a4564996409a8ce82ca1c8c7aa41a16ac
  - pxr/usr/lib/usdGeom/boundableComputeExtent.cpp
-
-
-
-### isInternal ??
-
-- isInternal - bool - used by Pixar to allow users to disable plugins that are crashing or executing slowly. Not meant to be used by clients of USD
-- primTypeName - string - the name of the Prim that the plugin is meant for
- - Driven by by the USDIMAGING_ENABLE_PLUGINS environment variable.
- - https://graphics.pixar.com/usd/docs/api/class_usd_imaging_adapter_registry.html#a44227db6636d587bcd6500275f9de4f6
-
-pxr/usdImaging/lib/usdImaging/adapterRegistry.cpp
 
 
 ### NdrShader
