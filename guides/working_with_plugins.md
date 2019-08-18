@@ -56,6 +56,7 @@ Here's a quick list of both styles that USD uses to query plugins.
 - UsdImagingPrimAdapter - [Pair A usdImaging Adapter Class With A Usd Prim Type](#Pair-A-usdImaging-Adapter-Class-With-A-Usd-Prim-Type)
 - ShaderResources - [Add Shader Resources To Hydra](#Add-Shader-Resources-To-Hydra)
 - UsdSchemaBase - [Create A Custom Schema](#Create-A-Custom-Schema)
+- NdrParserPlugin - [Encode Shaders As USD Prims](#Encode-Shaders-As-USD-Prims)
 
 
 ## How To Query Discovered Plugins
@@ -836,35 +837,14 @@ class types.
 [Everything in the UsdSchemaRegistry class](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/usd/schemaRegistry.h#L42-L267)
 
 
-### NdrShader
-https://graphics.pixar.com/usd/docs/api/usd_shade_page_front.html#UsdShadeShaderDefinition
+### Encode Shaders As USD Prims
+The USD documentation is fairly extensive about this plugin so, instead
+of re-iterating its points, links will be provided, below:
 
-
-## Misc
-Check out what GetAllDerivedTypes does
- - pxr/usd/lib/ndr/registry.cpp
- - third_party/houdini/lib/gusd/USD_CustomTraverse.cpp
-
-
-## TODO Check if this is needed
-```cpp
-/* static */
-UsdMayaPrimReaderRegistry::ReaderFactoryFn
-UsdMayaPrimReaderRegistry::Find(const TfToken& usdTypeName)
-```
-
-TODO Check what runs this function to find out what type names Maya allows
-
-
-## TODO unsorted
-
-TODO Check this too
-TfType
-UsdSchemaRegistry::GetTypeFromName(const TfToken& typeName){
-    return PlugRegistry::GetInstance().FindDerivedTypeByName(
-        *_schemaBaseType, typeName.GetString());
-}
-
+[UsdShade Based Shader Definition](https://graphics.pixar.com/usd/docs/api/usd_shade_page_front.html#UsdShadeShaderDefinition)
+[NdfParserPlugin](https://graphics.pixar.com/usd/docs/api/class_ndr_parser_plugin.html)
+[UsdShadeShaderDefUtils::GetNodeDiscoveryResults](https://graphics.pixar.com/usd/docs/api/class_usd_shade_shader_def_utils.html#a769e7fcf038cb078b2419735759630be)
+[UsdShadeShaderDefParserPlugin](https://graphics.pixar.com/usd/docs/api/class_usd_shade_shader_def_parser_plugin.html)
 
 
 pxr/imaging/lib/glf/rankedTypeMap.h - Honorable mention (not sure how it's used)
