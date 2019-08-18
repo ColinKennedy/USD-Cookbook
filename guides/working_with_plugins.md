@@ -144,7 +144,7 @@ documentation](https://graphics.pixar.com/usd/docs/api/class_plug_registry.html)
 **Relevant Commands**:
 ```cpp
 SdfSchema::GetInstance().GetFallback(UsdGeomTokens->upAxis)
-USDGEOM_API TfToken UsdGeomGetFallbackUpAxis();
+TfToken UsdGeomGetFallbackUpAxis();
 ```
 
 ```python
@@ -369,11 +369,15 @@ which variant gets selected, if needed, by-default.
 
 **Relevant Commands**:
 
-TODO : Do C++
+```cpp
+static PcpVariantFallbackMap GetGlobalVariantFallbacks();
+static void SetGlobalVariantFallbacks(const PcpVariantFallbackMap &fallbacks);
+```
+
 ```python
+Usd.Stage.GetGlobalVariantFallbacks()
 # Set variant fallbacks explicitly (this will override any plugInfo.json fallbacks)
 Usd.Stage.SetGlobalVariantFallbacks({"some_variant_set_name": ["foo", "bar"]})  # Must be done before creating a stage
-Usd.Stage.GetGlobalVariantFallbacks()
 ```
 
 
@@ -424,11 +428,13 @@ of places, mainly in Katana and Maya's translator plugins.
 ```
 
 **Relevant Commands**
-TODO : Do Python, too
 ```cpp
 const std::set<UsdUtilsRegisteredVariantSet>& UsdUtilsGetRegisteredVariantSets();
 ```
 
+```python
+UsdUtils.GetRegisteredVariantSets()
+```
 
 ### Subclass Your Own Kind
 **Summary**: Create a custom Kind by using one of USD's existing Kinds
@@ -529,8 +535,6 @@ completion, let's also summarize the information here, too.
 
 **Relevant Commands**:
 
-TODO : Do Python
-
 ```cpp
 TfToken SdfSchemaBase::SpecDefinition::GetMetadataFieldDisplayGroup(const TfToken& name) const
 TfTokenVector SdfSchemaBase::SpecDefinition::GetMetadataFields() const;
@@ -538,8 +542,14 @@ bool SdfSchemaBase::SpecDefinition::IsMetadataField(const TfToken& name) const;
 const VtValue& SdfSchemaBase::GetFallback(const TfToken &fieldKey) const;
 const VtValue& SdfSpec::GetFallbackForInfo( const TfToken & key ) const
 std::vector<TfToken> SdfSpec::GetMetaDataInfoKeys() const;
+TfToken GetMetaDataDisplayGroup(TfToken const &key) const;
 ```
 
+```python
+Sdf.Spec.GetFallbackForInfo()
+Sdf.Spec.GetMetadataInfoKeys()
+Sdf.Spec.GetMetadataDisplayGroup()
+```
 
 ### Register A File Format
 **Summary**: Add a file format so that it can be natively converted to
@@ -608,8 +618,6 @@ converted into? All of the examples online that I see convert to either
 
 [Everything from the FileFormatRegistry class](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/sdf/fileFormatRegistry.h#L56-L75)
 
-TODO : Do python
-
 
 ### Adding A Custom Resolver
 This plugin has been covered by the
@@ -656,11 +664,15 @@ resolver's job is to convert that string into a path on-disk like
 ```
 **Relevant Commands**:
 
-TODO Do Python
 ```cpp
 void ArSetPreferredResolver(const std::string& resolverTypeName);
 ArResolver& ArGetResolver();
 std::vector<TfType> ArGetAvailableResolvers();
+```
+
+```python
+Ar.SetPreferredResolver()
+Ar.GetResolver()
 ```
 
 
