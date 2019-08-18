@@ -52,9 +52,10 @@ Here's a quick list of both styles that USD uses to query plugins.
 - SdfMetadata - [Extend Metadata](#Extend-Metadata)
 - SdfFileFormat - [Register A File Format](#Register-A-File-Format)
 - ArResolver - [Adding A Custom Resolver](#Adding-A-Custom-Resolver)
-- ShaderResources - [Add Shader Resources To Hydra](#Add-Shader-Resources-To-Hydra)
+- ArPackageResolver - [Adding a Package Resolver](#Adding-A-Package-Resolver)
 - UsdImagingPrimAdapter - [Pair A usdImaging Adapter Class With A Usd Prim Type](#Pair-A-usdImaging-Adapter-Class-With-A-Usd-Prim-Type)
-
+- ShaderResources - [Add Shader Resources To Hydra](#Add-Shader-Resources-To-Hydra)
+- UsdSchemaBase - [Create A Custom Schema](#Create-A-Custom-Schema)
 
 
 ## How To Query Discovered Plugins
@@ -649,9 +650,59 @@ std::vector<TfType> ArGetAvailableResolvers();
 ```
 
 
-### Package Resolvers
-pxr/usd/lib/ar/resolver.cpp
-- TODO wtf are package resolvers?
+### Adding A Package Resolver
+**Summary**: Like "Adding A Custom Resolver" but for USD package resolvers.
+**Description**: There's not that much documentation about package resolvers. That
+said, USD package resolvers are similar in concept to an asset
+resolver but with the following differences:
+
+ - You aren't supposed to instantiate package resolvers yourself. USD
+ does this internally, for you. Always prefer ArGetResolver
+ - The ArResolver class [converts a logical path (a string or URI) into a physical path](https://graphics.pixar.com/usd/docs/api/class_ar_resolver.html).
+ - The ArPackageResolver class specifically handles "package"
+ file formats like files with ".pack" extension. It is responsible
+ for [resolving information about assets stored within that
+ package](https://graphics.pixar.com/usd/docs/api/class_ar_package_resolv
+ er.html)
+ - In other words, ArPackageResolver resolves a subset of a file on
+ disk (an asset within a package file) and ArResolver resolves a whole
+ file, instead.
+
+So the question is, how do you define a package resolver?
+You do it the same way as an asset resolver, just with a different key.
+
+**Key**: ArPackageResolver
+
+**Related Links**:
+ - [A required macro to registry a package resolver, AR_DEFINE_PACKAGE_RESOLVER](https://graphics.pixar.com/usd/docs/api/define_package_resolver_8h.html)
+ - [ArPackageResolver - Read the Detailed Description Section](https://graphics.pixar.com/usd/docs/api/class_ar_package_resolver.html)
+ - [ArResolver - Read the Detailed Description Section](https://graphics.pixar.com/usd/docs/api/class_ar_resolver.html)
+
+**Source Code Link**:
+ - [pxr/usd/lib/ar/resolver.cpp](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/ar/resolver.cpp#L629-L695)
+
+**Plugin Sample Text**:
+
+`plugInfo.json` (Copied from [The ArPackageResolver documentation](https://graphics.pixar.com/usd/docs/api/class_ar_package_resolver.html))
+```json
+{
+    "Plugins": [
+        {
+            "Info": {
+                "Types" : {
+                    "CustomPackageResolver" : {
+                        "bases": [ "ArPackageResolver" ],
+                        "extensions": [ "pack" ]
+                    }
+                }
+            },
+            ...
+        },
+        ...
+    ]
+
+}
+```
 
 
 ### Pair A usdImaging Adapter Class With A Usd Prim Type
@@ -731,27 +782,58 @@ purposes. Internal adapters stay on.
 [Anything in the ShaderResourceRegistry class](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/imaging/lib/hio/glslfx.cpp#L88-L94)
 
 
-### Renderman Shader Resources
-This repository already covers a
-hdxPrman
- resources/shaders (path)
+### Create A Custom Schema
+**Summary**: Define a USD type to use in your C++ / Python projects.
+This system is the same as the one that USD itself uses for most of its
+class types.
 
+**Key**: UsdSchemaBase
 
-### Computable Extents
-- implementsComputeExtent
- - It's a type-specific plugin
- - requires a function to be defined in the generated schema's .cpp file
- ```cpp
-  TF_REGISTRY_FUNCTION(UsdGeomBoundable)
-  {
-      UsdGeomRegisterComputeExtentFunction<MyPrim>(MyComputeExtentFunction);
-  }
+**Related Links**:
+ - [UsdSchemaBase](https://graphics.pixar.com/usd/docs/api/class_usd_schema_base.html)
+ - [UsdSchemaRegistry](https://graphics.pixar.com/usd/docs/api/class_usd_schema_registry.html)
+ - [API Schema](https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGlossary-APISchema)
+ - [IsA Schema](https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGlossary-IsASchema)
+ - [UsdGeomComputeExtentFunction](https://graphics.pixar.com/usd/docs/api/boundable_compute_extent_8h.html#a4564996409a8ce82ca1c8c7aa41a16ac)
+ - [UsdGeomRegisterComputeExtentFunction. A function that must be defined to compute extents of USD types](https://graphics.pixar.com/usd/docs/api/boundable_compute_extent_8h.html#aba77ec2a17618b2a25980f0b644afc26)
+ - [Working With Schema Classes](https://graphics.pixar.com/usd/docs/api/_usd__page__common_idioms.html#Usd_WorkingWithSchemas)
 
- ```
+**Source Code Link**:
+ - [The function that discovers all registered schemas](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/usd/schemaRegistry.cpp#L169-L270)
+ - [pxr/usd/lib/usdGeom/boundableComputeExtent.cpp](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/usdGeom/boundableComputeExtent.cpp#L87-L134)
 
+**Plugin Sample Text**:
 
- - https://graphics.pixar.com/usd/docs/api/boundable_compute_extent_8h.html#a4564996409a8ce82ca1c8c7aa41a16ac
- - pxr/usr/lib/usdGeom/boundableComputeExtent.cpp
+```json
+{
+    "Plugins": [
+        {
+            "Info": {
+                "Types": {
+                    # ...
+
+                    "UsdGeomCube": {
+                        "alias": {
+                            "UsdSchemaBase": "Cube"
+                        },
+                        "autoGenerated": true,
+                        "bases": [
+                            "UsdGeomGprim"
+                        ],
+                        "implementsComputeExtent": true
+                    }
+
+                    # ...
+                }
+            }
+        }
+    ]
+}
+```
+
+**Relevant Commands**:
+
+[Everything in the UsdSchemaRegistry class](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/usd/schemaRegistry.h#L42-L267)
 
 
 ### NdrShader
