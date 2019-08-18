@@ -689,8 +689,7 @@ resolver but with the following differences:
  - The ArPackageResolver class specifically handles "package"
  file formats like files with ".pack" extension. It is responsible
  for [resolving information about assets stored within that
- package](https://graphics.pixar.com/usd/docs/api/class_ar_package_resolv
- er.html)
+ package](https://graphics.pixar.com/usd/docs/api/class_ar_package_resolver.html)
  - In other words, ArPackageResolver resolves a subset of a file on
  disk (an asset within a package file) and ArResolver resolves a whole
  file, instead.
@@ -1021,6 +1020,6 @@ to be looking for a different registry.
 ### Search Online
 There's a USD repository called
 [parallax/ar-export](https://github.com/parallax/ar-export/tree/master/libs/USDPython/USD/usd)
-that has a list of many `plugInfo.json` file examples that is a decent
-reference. There's also repositories from VFX companies, like Luma and
-RodeoFX. Many of those repositories will have example plugin uses.
+that has many `plugInfo.json` file examples. There's also 
+repositories from VFX companies, like Luma and RodeoFX. 
+Many of those repositories will have example plugin uses.
