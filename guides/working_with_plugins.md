@@ -141,15 +141,16 @@ documentation](https://graphics.pixar.com/usd/docs/api/class_plug_registry.html)
 }
 ```
 
-TODO : Add Python and C++ commands
-
 **Relevant Commands**:
 ```cpp
 SdfSchema::GetInstance().GetFallback(UsdGeomTokens->upAxis)
+USDGEOM_API TfToken UsdGeomGetFallbackUpAxis();
 ```
 
 ```python
 from pxr import Usd, UsdGeom
+UsdGeom.GetFallbackUpAxis()
+
 stage = Usd.Stage.CreateInMemory()
 print(UsdGeom.GetStageUpAxis(stage))  # Prints "Y" normally but will print "Z" if the plugin is installed
 ```
@@ -217,12 +218,18 @@ color3f inputs:otherColor6 = (0.1, 0.1, 0.1) (
 
 **Relevant Commands**:
 
-TODO : Add Python commands
 ```cpp
-UsdStage::SetColorConfiguration(const SdfAssetPath &colorConfig) const;
 SdfAssetPath UsdStage::GetColorConfiguration() const;
-void UsdStage::SetColorManagementSystem(const TfToken &cms) const;
 TfToken UsdStage::GetColorManagementSystem() const;
+UsdStage::SetColorConfiguration(const SdfAssetPath &colorConfig) const;
+void UsdStage::SetColorManagementSystem(const TfToken &cms) const;
+```
+
+```python
+Usd.Stage.GetColorConfiguration()
+Usd.Stage.GetColorManagementSystem()
+Usd.Stage.SetColorConfiguration()
+Usd.Stage.SetColorManagementSystem()
 ```
 
 
@@ -269,11 +276,13 @@ USD stage settings.
 ```
 
 **Relevant Commands**:
-TODO : do Python, too
 ```cpp
 TfToken UsdUtilsGetPrimaryCameraName(const bool forceDefault);
 ```
 
+```python
+UsdUtils.GetPrimaryCameraName()
+```
 
 #### Set Up A Registered Material Prim
 **Summary**: Let USD know that Prims given a certain name have materials
@@ -314,9 +323,12 @@ under which materials are expected to be authored"
 
 **Relevant Commands**:
 
-TODO : do Python, too
 ```cpp
 TfToken UsdUtilsGetMaterialsScopeName(const bool forceDefault);
+```
+
+```python
+UsdUtils.GetMaterialsScopeName()
 ```
 
 
