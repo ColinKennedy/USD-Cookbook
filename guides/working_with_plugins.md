@@ -34,6 +34,7 @@ out how to search these definitions by yourself.
 ## Table Of Contents
 Here's a quick list of both styles that USD uses to query plugins.
 
+
 ### "By-Name" Plugins
 - UsdGeomMetrics - [Set Your Default Scene Up Axis](#Set-Your-Default-Scene-Up-Axis)
 - UsdColorConfigFallbacks - [Set Up Color Management](#Set-Up-Color-Management)
@@ -52,6 +53,8 @@ Here's a quick list of both styles that USD uses to query plugins.
 - SdfFileFormat - [Register A File Format](#Register-A-File-Format)
 - ArResolver - [Adding A Custom Resolver](#Adding-A-Custom-Resolver)
 - ShaderResources - [Add Shader Resources To Hydra](#Add-Shader-Resources-To-Hydra)
+- UsdImagingPrimAdapter - [Pair A usdImaging Adapter Class With A Usd Prim Type](#Pair-A-usdImaging-Adapter-Class-With-A-Usd-Prim-Type)
+
 
 
 ## How To Query Discovered Plugins
@@ -223,6 +226,7 @@ TfToken UsdStage::GetColorManagementSystem() const;
 ### UsdUtilsPipeline
 The `UsdUtilsPipeline` plugin key is a plugin that configures some default
 USD stage settings.
+
 
 #### Set Up A Default Camera Name
 **Summary**: Store the name of the "primary/preferred camera" of your USD stage.
@@ -650,7 +654,28 @@ pxr/usd/lib/ar/resolver.cpp
 - TODO wtf are package resolvers?
 
 
-### Adapter Bois
+### Pair A usdImaging Adapter Class With A Usd Prim Type
+**Summary**: Add a usdImaging Adapter Type for a given USD Prim type.
+
+**Description**: This plugin has 3 main keys:
+- base - list of strings - The USD adapter class that this adapter is based off of.
+- isInternal - bool - External adapters can be turned on and off
+depending on if the `USDIMAGING_ENABLE_PLUGINS` environment variable
+is enabled. This environment variable is mainly used for debugging
+purposes. Internal adapters stay on.
+- primTypeName - string - The USD Prim type that the adapter is for
+
+**Key**: UsdImagingPrimAdapter (must be derived from these)
+
+**Related Links**:
+ - [Explanation for "isInternal"](https://graphics.pixar.com/usd/docs/api/class_usd_imaging_adapter_registry.html#a44227db6636d587bcd6500275f9de4f6)
+
+**Source Code Link**:
+ - [pxr/usdImaging/lib/usdImaging/adapterRegistry.cpp](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usdImaging/lib/usdImaging/adapterRegistry.cpp#L62-L128)
+
+**Plugin Sample Text**
+
+`plugInfo.json` (Copied from [pxr/usdImaging/lib/usdVolImaging/plugInfo.json](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usdImaging/lib/usdVolImaging/plugInfo.json))
 ```json
 "UsdImagingOpenVDBAssetAdapter": {
     "bases": [
@@ -668,14 +693,9 @@ pxr/usd/lib/ar/resolver.cpp
 }
 ```
 
+**Relevant Commands**:
 
-- isInternal - bool - used by Pixar to allow users to disable plugins that are crashing or executing slowly. Not meant to be used by clients of USD
-- primTypeName - string - the name of the Prim that the plugin is meant for
- - Driven by by the USDIMAGING_ENABLE_PLUGINS environment variable.
- - https://graphics.pixar.com/usd/docs/api/class_usd_imaging_adapter_registry.html#a44227db6636d587bcd6500275f9de4f6
-
-pxr/usdImaging/lib/usdImaging/adapterRegistry.cpp
-
+[Everything in the UsdImagingAdapterRegistry class](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usdImaging/lib/usdImaging/adapterRegistry.h#L53-L93)
 
 
 ### Add Shader Resources To Hydra
