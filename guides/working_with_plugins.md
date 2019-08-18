@@ -49,6 +49,7 @@ Here's a quick list of both styles that USD uses to query plugins.
 ### Filtered Plugins
 - Kinds - [Subclass Your Own Kind](#Subclass-Your-Own-Kind)
 - SdfMetadata - [Extend Metadata](#Extend-Metadata)
+- SdfFileFormat - [Register A File Format](#Register-A-File-Format)
 
 
 ## How To Query Discovered Plugins
@@ -518,6 +519,75 @@ std::vector<TfToken> SdfSpec::GetMetaDataInfoKeys() const;
 ```
 
 
+### Register A File Format
+**Summary**: Add a file format so that it can be natively converted to
+and from USD.
+
+**Key**: SdfFileFormat
+
+**Description**:
+This plugin takes a dictionary with a number of allowed keys:
+
+- bases - The registered File Format name that this plugin inherits. It
+must inherit from a type that inherits from SdfFileFormat or it must
+inherit SdfFileFormat, directly.
+- extensions - list of strings. It's the filetype extensions that can be
+processed by this formatter
+- formatId - string - A unique ID that is used to find this file format
+plugin. Usually this value matches the extension of the file format. But
+it's not a requirement.
+- primary - If this file format plugin should be the preferred plugin
+for its extensions
+- target - To be honest, I'm not really sure what this is for. Maybe
+it's the file format that this registered file format is meant to be
+converted into? All of the examples online that I see convert to either
+"usd" or "sdf", which seems to support that idea.
+
+**Related Links**:
+ - [A brief mention about custom file formats](https://graphics.pixar.com/usd/docs/api/sdf_page_front.html#sdf_fileFormatPlugin)
+
+**Source Code Link**:
+ - [pxr/usd/lib/sdf/fileFormatRegistry.cpp](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/sdf/fileFormatRegistry.cpp#L169-L428)
+ - [plugin tokens definition](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/sdf/fileFormatRegistry.cpp#L43-L48)
+
+**Plugin Sample Text**:
+
+`plugInfo.json` (This was copied from [USD's usd module](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/usd/plugInfo.json#L144-L155))
+```json
+{
+    "Plugins": [
+        {
+            "Info": {
+                "Types": {
+                    # ...
+
+                    "UsdUsdcFileFormat": {
+                        "bases": [
+                            "SdfFileFormat"
+                        ], 
+                        "displayName": "USD Crate File Format", 
+                        "extensions": [
+                            "usdc"
+                        ], 
+                        "formatId": "usdc", 
+                        "primary": true, 
+                        "target": "usd"
+                    }
+
+                    # ...
+                }
+            }
+        }
+    ]
+}
+```
+
+**Relevant Commands**:
+[Everything from the FileFormatRegistry class](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usd/lib/sdf/fileFormatRegistry.h#L56-L75)
+
+TODO : Do python
+
+
 ## TODO unsorted
 This repository already covers a
 hdxPrman
@@ -538,27 +608,6 @@ Check out what GetAllDerivedTypes does
  - third_party/houdini/lib/gusd/USD_CustomTraverse.cpp
 
 
-
-
-
-
-SdfFileFormats
- - any plugin that derives from SdfFileFormat
-All derived SdfFileFormat types
-
-    TfType formatBaseType = TfType::Find<SdfFileFormat>();
-
-    if (TF_VERIFY(!formatBaseType.IsUnknown()))
-        PlugRegistry::GetAllDerivedTypes(formatBaseType, &formatTypes);
-
-- formatId - string
-- extensions - list of strings. It's the filetype extension
-- target - the location it will go in(?)
-- primary - if this file format plugin should be the preferred plugin for its extensions
--  pxr/usd/lib/sdf/fileFormatRegistry.cpp
-- TODO find a file that registers this. Alembic should be one good example
-- https://graphics.pixar.com/usd/docs/api/sdf_page_front.html#sdf_fileFormatPlugin
-    - couldn't find a better link
 
 
 const TfType defaultResolverType = TfType::Find<ArDefaultResolver>();
