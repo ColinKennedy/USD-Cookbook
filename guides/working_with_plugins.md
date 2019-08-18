@@ -50,6 +50,8 @@ Here's a quick list of both styles that USD uses to query plugins.
 - Kinds - [Subclass Your Own Kind](#Subclass-Your-Own-Kind)
 - SdfMetadata - [Extend Metadata](#Extend-Metadata)
 - SdfFileFormat - [Register A File Format](#Register-A-File-Format)
+- ArResolver - [Adding A Custom Resolver](#Adding-A-Custom-Resolver)
+- ShaderResources - [Add Shader Resources To Hydra](#Add-Shader-Resources-To-Hydra)
 
 
 ## How To Query Discovered Plugins
@@ -667,8 +669,17 @@ pxr/usd/lib/ar/resolver.cpp
 ```
 
 
-### Shader Resources
-shaderResources -
+### Add Shader Resources To Hydra
+**Summary**: A way to add additional shader definitions to Hydra.
+
+**Key**: [[Info][ShaderResources]](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/imaging/lib/hdx/plugInfo.json#L4-L6)
+
+**Source Code Link**:
+ - [pxr/imaging/lib/hio/glslfx.cpp](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/imaging/lib/hio/glslfx.cpp#L101-L120)
+
+**Plugin Sample Text**:
+
+`plugInfo.json` (Copied from [pxr/imaging/lib/hdx/plugInfo.json](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/imaging/lib/hdx/plugInfo.json))
 ```json
 {
     "Plugins": [
@@ -686,8 +697,9 @@ shaderResources -
 }
 ```
 
-- shaderResources - string - A folder to shaders to load into hydra
-- pxr/imaging/lib/hio/glslfx.cpp
+**Relevant Commands**:
+
+[Anything in the ShaderResourceRegistry class](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/imaging/lib/hio/glslfx.cpp#L88-L94)
 
 
 ### Renderman Shader Resources
@@ -738,7 +750,6 @@ UsdMayaPrimReaderRegistry::Find(const TfToken& usdTypeName)
 ```
 
 TODO Check what runs this function to find out what type names Maya allows
-
 
 
 ## TODO unsorted
