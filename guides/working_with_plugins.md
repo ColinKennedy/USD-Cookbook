@@ -736,6 +736,10 @@ hdxPrman
 pxr/usdImaging/lib/usdImaging/adapterRegistry.cpp
 
 
+### NdrShader
+https://graphics.pixar.com/usd/docs/api/usd_shade_page_front.html#UsdShadeShaderDefinition
+
+
 ## Misc
 Check out what GetAllDerivedTypes does
  - pxr/usd/lib/ndr/registry.cpp
