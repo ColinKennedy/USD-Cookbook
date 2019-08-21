@@ -1,4 +1,4 @@
-# Asset Composition Arcs - The </root> of all evil
+# Asset Composition Arcs - The `</root>` of all evil
 
 USD has 3 composition arcs that read files from disk: SubLayers,
 References, and Payloads. Between the 3, SubLayers is the simplest and
@@ -87,14 +87,14 @@ is authored directly on "/Prim" but that reference is still weaker than
 
 So now that the problem is well defined, what can we do about it?
 There's multiple ways of dealing this problem. Here's one simple
-solution: Use a </root> Prim.
+solution: Use a `</root>` Prim.
 
 
-## </root> As A Composition Arc Manager
+## `</root>` As A Composition Arc Manager
 Here's the idea. USD doesn't allow you to reference the root
 (pseudo-root) of another layer. But if your target layer has a prim in
-it called </root> and that </root> Prim contains every other Prim in it,
-you __can__ target </root> and make that a reference.
+it called `</root>` and that `</root>` Prim contains every other Prim in it,
+you __can__ target `</root>` and make that a reference.
 
 So instead of this:
 
@@ -169,7 +169,7 @@ Now, instead of getting `2` from "sublayer.usda", </root/Prim> will get
 `3` from "reference.usda"!
 
 
-### Advantages Of </root>
+### Advantages Of `</root>`
 #### You Can Now Choose How Strong Another Layer Will Be
 If we want to make "sublayer.usda" stronger again, all you have to do is
 sublayer it into "main.usda" like you normally would.
@@ -196,14 +196,14 @@ the opinions from both layers will sublayer correctly.
 
 
 #### When Referencing, You Don't Need To Add An Explicit primPath
-Any layer that uses </root> as the container for all Prims can re-use
+Any layer that uses `</root>` as the container for all Prims can re-use
 that Prim as the defaultPrim for the layer. Any other layer that needs
 to reference it in can just point to the file on-disk because we know
 that the layer already has the proper defaultPrim assigned.
 
 
-### Disadvantages Of </root>
-If you bring in a layer's </root> as a reference, that entire layer's
+### Disadvantages Of `</root>`
+If you bring in a layer's `</root>` as a reference, that entire layer's
 direct opinions will be weaker than references that are added to the
 current layer. The demonstration above proves this. But when you do
 this, you're making a conscious decision to make the referenced layer
@@ -212,7 +212,7 @@ sublayer so this will affect all arcs in the current layer.
 
 This could be considered as an advantage, depending on what you're looking for.
 
-The other disadvantage of using a reference </root> instead of a
+The other disadvantage of using a reference `</root>` instead of a
 sublayer is that sublayers are easier to understand and resolve faster.
 You take a performance hit by preferring references over sublayers doing
 this.
