@@ -2,7 +2,7 @@
 
 USD has 3 composition arcs that read files from disk: SubLayers,
 References, and Payloads. Between the 3, SubLayers is the simplest and
-readest for USD to read. And then References / Payloads are next.
+readest for USD to read.
 
 SubLayers is great but you can't sublayer 50% of another layer.
 Or rename any Prim that the layer includes. The good news is that
