@@ -143,6 +143,8 @@ a recommended viewing order:
 
 [multi_payload](concepts/multi_payload)
 
+[asset_composition_arcs](guides/asset_composition_arcs.md)
+
 [notices](concepts/notices)
 
 [notice_send](concepts/notice_send)
