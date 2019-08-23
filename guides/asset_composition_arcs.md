@@ -4,14 +4,139 @@ USD has 3 composition arcs that read files from disk: SubLayers,
 References, and Payloads. Between the 3, SubLayers is the simplest and
 readest for USD to read.
 
-SubLayers is great but you can't sublayer 50% of another layer.
-Or rename any Prim that the layer includes. The good news is that
-references can do both of those tasks.
+SubLayers is great but strict about what you can and can't do with it.
+- you can't sublayer 50% of another layer.
+- you can't rename any Prim that the layer includes. 
+- you can't list-edit sublayers. Which means if you have a 3-chain list
+  of sublayers, you cannot remove and replace a nested sublayer.
 
-But there's one other problem with sublayers which is not obvious that
-references cannot solve. This problem, and its consequences, will be the
-subject of this article. And that is: LIVRPS value resolution.
+The good news though is that references can fix all 3 issues, with a
+little bit of engineering.
 
+The solution is to take every root Prim that would be in a layer and put
+them in a single root layer (for the sake of this article, we'll
+call it `</root>`).
+
+
+## Why `</root>` works
+USD doesn't allow you to reference the root (pseudo-root) of another
+layer. But if your target layer has a prim in it called `</root>` and
+that `</root>` Prim contains every other Prim in it, you __can__ target
+`</root>` and make that a reference. And that'd effectively be the same
+as if you __could__ target the pseudoRoot.
+
+For example, say you have 3 layers, like this:
+
+
+`model_v1.usda`
+```usda
+#usda 1.0
+
+def Sphere "SomePrim"
+{
+}
+
+```
+
+`surfacing.usda`
+```usda
+#usda 1.0
+(
+    subLayers = [
+        @./model_v1.usda@
+    ]
+)
+```
+
+`rigging.usda`
+```usda
+#usda 1.0
+(
+    subLayers = [
+        @./surfacing.usda@
+    ]
+)
+```
+
+If you're a rigger, you may want to update `model_v1.usda` to
+`model_v2.usda` to do your work. But you can't, because you'd have to
+reach through `surfacing.usda` to do it. And, as mentioned before,
+sublayers will not let you do that.
+
+Now consider the same layers, but with `</root>`
+
+`model_v1.usda`
+```usda
+#usda 1.0
+(
+	defaultPrim = "root"
+)
+
+def Scope "root"
+{
+    def Sphere "SomePrim"
+    {
+    }
+}
+```
+
+`model_v2.usda`
+```usda
+#usda 1.0
+(
+	defaultPrim = "root"
+)
+
+def Scope "root"
+{
+    def Sphere "SomePrim"
+    {
+	    double radius = 3.0
+    }
+}
+```
+
+`surfacing.usda`
+```usda
+#usda 1.0
+(
+	defaultPrim = "root"
+)
+
+def Scope "root" (
+    add references = @./model_v1.usda@
+)
+{
+}
+```
+
+```usda
+#usda 1.0
+
+def Scope "root" (
+    delete references = @model_v1.usda@
+    add references = @./surfacing.usda@
+    prepend references = @/tmp/model_v2.usda@
+)
+{
+}
+```
+
+The value of `</root/SomePrim.radius>`, in this case, is 3. Because we removed
+`model_v1.usda` and replaced it with `model_v2.usda`!
+
+This works because USD's reference composition arc has unlimited
+referencing. That said, this makes avoid using references as a
+replacement for sublayers if you can because keeping track of all those
+layers makes references much slower than sublayers. But if you can't
+avoid needing this feature then the `</root>` technique will no doubt be
+helpful.
+
+
+There's one more use-case for `</root>` which will be explained, below.
+
+
+## `</root>` As A Composition Arc Manager
 Pretend you have a layer that looks like this:
 
 
@@ -35,15 +160,15 @@ of sphere and "final_refererence.usda" also has a Sphere, which we
 reference.
 
 If both layers author an opinion for the `radius` Attribute, which
-opinion in which layer will win?
+opinion in which layer will be used?
 
-The answer is "it depends on sublayer.usda". If "sublayer.usda" and
-"final_refererence.usda" both offer direct opinions on a `radius`, the
-reference's `radius` is ignored. Instead, USD will prefer the `radius`
-opinion on the sublayer. Because in LIVRPS, local opinions in sublayers
-are treated as if the opinion was authored in the current layer.
+The answer is "it depends on the contents of sublayer.usda". If
+"sublayer.usda" and "final_refererence.usda" both offer direct
+opinions on a `radius`, the reference's `radius` is ignored. Because
+a local opinion in a sublayer is stronger than a reference. (See
+[LIVRPS](https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGlossary-LIVRPSStrengthOrdering) if you're confused).
 
-You can try this yourself easily, with this code:
+You can try this yourself using this code:
 
 `main.usda`
 ```usda
@@ -81,74 +206,47 @@ def Sphere "Another"
 }
 ```
 
-You might thing that `radius` would be `3` because the "reference.usda"
-is authored directly on "/Prim" but that reference is still weaker than
-"sublayer.usda". Instead, `sublayer.usda` adds `2` to the stage.
+You might think that `radius` would be `3` because the "reference.usda"
+is authored directly on "/Prim" but the reference composition arc is
+still weaker than "sublayer.usda". Instead, `sublayer.usda` adds `2` to
+the stage.
 
-So now that the problem is well defined, what can we do about it?
-There's multiple ways of dealing this problem. Here's one simple
-solution: Use a `</root>` Prim.
+Now that the problem is well defined, what can we do about it? There's
+multiple ways of dealing this problem. Again, `</root>` can be used to
+address the issue.
 
 
-## `</root>` As A Composition Arc Manager
-Here's the idea. USD doesn't allow you to reference the root
-(pseudo-root) of another layer. But if your target layer has a prim in
-it called `</root>` and that `</root>` Prim contains every other Prim in it,
-you __can__ target `</root>` and make that a reference.
+## `</root>` Makes Layer Opinions Weaker
+When you choose to reference a stage using `</root>`,
 
-So instead of this:
+the referenced layer's local opinions are not stronger than any other
+reference in `main.usda`.
 
-```usda
-def ""
-```
-If you have two layers that look like this:
-
-`sublayer.usda`
-```usda
-#usda 1.0
-
-def Sphere "Prim"
-{
-	double radius = 2
-}
-```
-
-You do this:
-
-`sublayer.usda`
+Old
+`main.usda`
 ```usda
 #usda 1.0
 (
-    defaultPrim = "root"
+    subLayers = [
+	    @./sublayer.usda@
+	]
 )
 
-def Scope "root" {
-	def Sphere "Prim"
+def Scope "root"
+{
+	over "Prim" (
+		add references = @./reference.usda@</Another>
+	)
 	{
-		double radius = 2
 	}
 }
 ```
 
-And then in the `main.usda`, instead of using a sublayer, you reference
-instead.
+In this example, if `reference.usda` and `sublayer.usda` both had a
+local opinion for the property `</root.Prim.radius>`, `sublayer.usda`'s
+opinion would win.
 
-`main.usda`
-```usda
-#usda 1.0
-
-def Scope "root" (
-	add references = @./sublayer.usda@
-)
-{
-	# ...
-}
-```
-
-Because the "sublayer.usda" is brought in as a reference, its local
-opinions are not stronger than any other reference in `main.usda`.
-
-
+New
 `main.usda`
 ```usda
 #usda 1.0
@@ -165,11 +263,20 @@ def Scope "root" (
 }
 ```
 
-Now, instead of getting `2` from "sublayer.usda", </root/Prim> will get
-`3` from "reference.usda"!
+And in this example, `reference.usda`'s opinion would win, instead.
+
+Of course, you always have the option of adding `</root>` in your USD
+stages and then sublayering each layer in anyway. But now you can have
+greater control over how value resolution occurs.
 
 
 ### Advantages Of `</root>`
+#### You Can "List-Edit" Another Layer
+By using a reference `</root>`, you get the effects of sublayering by
+using the references composition arc. The references composition arc is
+list-editable and can edit any nested layer(s). Whereas sublayers cannot
+edit nested layers.
+
 #### You Can Now Choose How Strong Another Layer Will Be
 If we want to make "sublayer.usda" stronger again, all you have to do is
 sublayer it into "main.usda" like you normally would.
