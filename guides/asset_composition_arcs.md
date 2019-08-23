@@ -14,16 +14,16 @@ The good news though is that references can fix all 3 issues, with a
 little bit of engineering.
 
 The solution is to take every root Prim that would be in a layer and put
-them in a single root layer (for the sake of this article, we'll
+them in a single root Prim (for the sake of this article, we'll
 call it `</root>`).
 
 
 ## Why `</root>` works
 USD doesn't allow you to reference the root (pseudo-root) of another
-layer. But if your target layer has a prim in it called `</root>` and
+layer. But if your target layer has a Prim in it called `</root>` and
 that `</root>` Prim contains every other Prim in it, you __can__ target
 `</root>` and make that a reference. And that'd effectively be the same
-as if you __could__ target the pseudoRoot.
+as if you __could__ target the pseudoRoot as a sublayer!
 
 For example, say you have 3 layers, like this:
 
@@ -69,7 +69,7 @@ Now consider the same layers, but with `</root>`
 ```usda
 #usda 1.0
 (
-	defaultPrim = "root"
+    defaultPrim = "root"
 )
 
 def Scope "root"
@@ -84,14 +84,14 @@ def Scope "root"
 ```usda
 #usda 1.0
 (
-	defaultPrim = "root"
+    defaultPrim = "root"
 )
 
 def Scope "root"
 {
     def Sphere "SomePrim"
     {
-	    double radius = 3.0
+        double radius = 3.0
     }
 }
 ```
@@ -100,7 +100,7 @@ def Scope "root"
 ```usda
 #usda 1.0
 (
-	defaultPrim = "root"
+    defaultPrim = "root"
 )
 
 def Scope "root" (
@@ -126,12 +126,10 @@ The value of `</root/SomePrim.radius>`, in this case, is 3. Because we removed
 `model_v1.usda` and replaced it with `model_v2.usda`!
 
 This works because USD's reference composition arc has unlimited
-referencing. That said, this makes avoid using references as a
-replacement for sublayers if you can because keeping track of all those
-layers makes references much slower than sublayers. But if you can't
-avoid needing this feature then the `</root>` technique will no doubt be
-helpful.
-
+referencing. That said, avoid using references as a replacement for
+sublayers if you can help it. Keeping track of nested layers makes
+references much slower than sublayers. But if you can't avoid needing
+this feature then the `</root>` technique will no doubt be helpful.
 
 There's one more use-case for `</root>` which will be explained, below.
 
@@ -192,7 +190,7 @@ over "Prim" (
 
 def Sphere "Prim"
 {
-	double radius = 2
+    double radius = 2
 }
 ```
 
@@ -222,23 +220,22 @@ When you choose to reference a stage using `</root>`,
 the referenced layer's local opinions are not stronger than any other
 reference in `main.usda`.
 
-Old
-`main.usda`
+Old `main.usda`
 ```usda
 #usda 1.0
 (
     subLayers = [
-	    @./sublayer.usda@
-	]
+        @./sublayer.usda@
+    ]
 )
 
 def Scope "root"
 {
-	over "Prim" (
-		add references = @./reference.usda@</Another>
-	)
-	{
-	}
+    over "Prim" (
+        add references = @./reference.usda@</Another>
+    )
+    {
+    }
 }
 ```
 
@@ -246,28 +243,29 @@ In this example, if `reference.usda` and `sublayer.usda` both had a
 local opinion for the property `</root.Prim.radius>`, `sublayer.usda`'s
 opinion would win.
 
-New
-`main.usda`
+New `main.usda`
 ```usda
 #usda 1.0
 
 def Scope "root" (
-	add references = @./sublayer.usda@
+    add references = @./sublayer.usda@
 )
 {
-	over "Prim" (
-		add references = @./reference.usda@</Another>
-	)
-	{
-	}
+    over "Prim" (
+        add references = @./reference.usda@</Another>
+    )
+    {
+    }
 }
 ```
 
 And in this example, `reference.usda`'s opinion would win, instead.
 
-Of course, you always have the option of adding `</root>` in your USD
-stages and then sublayering each layer in anyway. But now you can have
-greater control over how value resolution occurs.
+The beauty of `</root>` is that you don't have to use references. If
+your 2 layers both contain `</root>`, you can still sublayer them
+normally. The difference with a USD stage that doesn't use `</root>`
+and one that does is, __you now you have greater control over how value
+resolution occurs.__
 
 
 ### Advantages Of `</root>`
@@ -285,16 +283,16 @@ sublayer it into "main.usda" like you normally would.
 ```usda
 #usda 1.0
 (
-	subLayers = @./sublayer.usda@
+    subLayers = @./sublayer.usda@
 )
 
 over Scope "root"
 {
-	over "Prim" (
-		add references = @./reference.usda@</Another>
-	)
-	{
-	}
+    over "Prim" (
+        add references = @./reference.usda@</Another>
+    )
+    {
+    }
 }
 ```
 
@@ -305,11 +303,12 @@ the opinions from both layers will sublayer correctly.
 #### When Referencing, You Don't Need To Add An Explicit primPath
 Any layer that uses `</root>` as the container for all Prims can re-use
 that Prim as the defaultPrim for the layer. Any other layer that needs
-to reference it in can just point to the file on-disk because we know
-that the layer already has the proper defaultPrim assigned.
+to reference a USD layer with `</root>` in it can then be referred to by
+its asset path.
 
 
 ### Disadvantages Of `</root>`
+#### Weaker Opinions
 If you bring in a layer's `</root>` as a reference, that entire layer's
 direct opinions will be weaker than references that are added to the
 current layer. The demonstration above proves this. But when you do
@@ -319,6 +318,8 @@ sublayer so this will affect all arcs in the current layer.
 
 This could be considered as an advantage, depending on what you're looking for.
 
+
+#### References Will Be Slower Than SubLayers
 The other disadvantage of using a reference `</root>` instead of a
 sublayer is that sublayers are easier to understand and resolve faster.
 You take a performance hit by preferring references over sublayers doing
