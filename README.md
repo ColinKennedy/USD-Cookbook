@@ -145,6 +145,8 @@ a recommended viewing order:
 
 [asset_composition_arcs](guides/asset_composition_arcs.md)
 
+[export_usdskel_from_scratch](tricks/export_usdskel_from_scratch)
+
 [notices](concepts/notices)
 
 [notice_send](concepts/notice_send)
