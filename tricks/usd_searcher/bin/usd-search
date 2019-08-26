@@ -1,0 +1,118 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""A command-line utility that searches USD Layers and Assets for text."""
+
+# IMPORT STANDARD LIBRARIES
+import argparse
+import logging
+import sys
+
+# IMPORT THIRD-PARTY LIBRARIES
+try:
+    import pxr as _
+except ImportError:
+    raise EnvironmentError("USD's Python bindings could not be imported.")
+
+import usd_searcher
+
+LOGGER = logging.getLogger("usd_search")
+_HANDLER = logging.StreamHandler(sys.stdout)
+_HANDLER.setLevel(logging.INFO)
+_FORMATTER = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+_HANDLER.setFormatter(_FORMATTER)
+_HANDLER.setLevel(logging.INFO)
+LOGGER.addHandler(_HANDLER)
+
+
+def _parse_arguments():
+    """Parse the user's input which will be used to configure their search."""
+    parser = argparse.ArgumentParser(
+        description="A CLI that searches USD files recursively, line-by-line, for text.",
+        version="0.1.0",
+    )
+
+    parser.add_argument(
+        "phrase", help="The text to search for in USD Layers or Asset files."
+    )
+
+    parser.add_argument("path", help="A USD file to begin a search from.")
+
+    parser.add_argument(
+        "-r",
+        "--regex",
+        help="Search for `phrase` as a regular expression.",
+        action="store_true",
+    )
+
+    parser.add_argument(
+        "-l",
+        "--exclude-layers",
+        help="Remove USD Layer files from the search results.",
+        action="store_true",
+    )
+
+    parser.add_argument(
+        "-a",
+        "--include-assets",
+        help="Include Asset files in the search results.",
+        action="store_true",
+    )
+
+    parser.add_argument(
+        "-b",
+        "--include-binary",
+        help="Add USD crate files in the search results.",
+        action="store_true",
+    )
+
+    parser.add_argument(
+        "-u",
+        "--forbid-unresolved-paths",
+        help="If this flag is added and there are any Asset paths that "
+        "cannot be mapped to a file on-disk, this command will exit early.",
+        action="store_true",
+    )
+
+    return parser.parse_args()
+
+
+def main():
+    """Run the main execution of the current script."""
+    arguments = _parse_arguments()
+
+    try:
+        matches = usd_searcher.search(
+            arguments.phrase,
+            arguments.path,
+            regex=arguments.regex,
+            include_layers=not arguments.exclude_layers,
+            include_assets=arguments.include_assets,
+            ignore_binary=not arguments.include_binary,
+            ignore_unresolved=not arguments.forbid_unresolved_paths,
+        )
+    except usd_searcher.UnresolvedFound as error:
+        LOGGER.exception(
+            'The user set `ignore_unresolved` to "%s" and an unresolved path was found.',
+            not arguments.forbid_unresolved,
+        )
+
+        sys.exit('Unresolved paths were found: "{error.paths}".'.format(error=error))
+    except ValueError as error:
+        message = error.message
+
+        if arguments.exclude_layers and not arguments.include_assets:
+            message = "When --exclude-layers is given, you must also add --include-assets"
+
+        LOGGER.exception("An input error was found.")
+
+        sys.exit(message)
+
+    template = "{match.path}:{match.row}:{match.text}"
+
+    for match in matches:
+        print(template.format(match=match))
+
+
+if __name__ == "__main__":
+    main()
