@@ -115,6 +115,8 @@ a recommended viewing order:
 
 [profiling](guides/profiling_usd.md)
 
+[usd_searcher](tricks/usd_searcher)
+
 [usdview_auto_reloader](tricks/usdview_auto_reloader)
 
 [variant_fallbacks](concepts/variant_fallbacks)
