@@ -16,7 +16,7 @@ import sys
 from pxr import Tf
 from pxr.Usdviewq import plugin
 
-LOGGER = logging.getLogger('auto_reloader')
+LOGGER = logging.getLogger("recursive_loader")
 _HANDLER = logging.StreamHandler(sys.stdout)
 _FORMATTER = logging.Formatter(
     "%(asctime)s [%(levelname)s] %(module)s: %(message)s", datefmt="%m/%d/%Y %H:%M:%S"
@@ -29,7 +29,7 @@ WAS_INITIALIZED = False
 IS_ENABLED = False
 
 
-class AutoReloaderContainer(plugin.PluginContainer):
+class RecursiveLoaderContainer(plugin.PluginContainer):
     """The main registry class that initializes and runs the Auto-Reloader plugin."""
 
     def _toggle_reload_and_setup_reload(self, viewer):
@@ -72,7 +72,7 @@ class AutoReloaderContainer(plugin.PluginContainer):
 
         """
         self._toggle_auto_reload_command = registry.registerCommandPlugin(
-            "AutoReloaderContainer.printMessage",
+            "RecursiveLoaderContainer.printMessage",
             "Toggle Auto-Reload USD Stage",
             self._toggle_reload_and_setup_reload,
         )
@@ -83,31 +83,4 @@ class AutoReloaderContainer(plugin.PluginContainer):
         menu.addItem(self._toggle_auto_reload_command)
 
 
-def reload_layers(viewer):
-    """Reload every layer for the given viewer/Stage.
-
-    Reference:
-        https://groups.google.com/d/msg/usd-interest/w3-KivsOuTE/psDcH9p-AgAJ
-
-    Args:
-        viewer (`pxr.Usdviewq.usdviewApi.UsdviewApi`):
-            The USD API object that is used to communicate with usdview.
-
-    """
-    if not IS_ENABLED:
-        LOGGER.debug("Layer auto-reload is disabled.")
-        return
-
-    layers = viewer.stage.GetUsedLayers()
-    reloaded = [layer.Reload() for layer in layers if not layer.anonymous]
-
-    if not any(reloaded):
-        return
-
-    LOGGER.info('Layer reloaded at "%s"', datetime.datetime.now())
-    for layer, reloaded in zip(layers, reloaded):
-        if reloaded:
-            LOGGER.info('    "%s"', layer.identifier)
-
-
-Tf.Type.Define(AutoReloaderContainer)
+Tf.Type.Define(RecursiveLoaderContainer)

@@ -2,12 +2,12 @@
     "Plugins": [
         {
             "Type": "python",
-            "Name": "auto_reloader",
+            "Name": "recursive_loader",
             "Info": {
                 "Types": {
-                    "auto_reloader.AutoReloaderContainer": {
+                    "recursive_loader.RecursiveLoaderContainer": {
                         "bases": ["pxr.Usdviewq.plugin.PluginContainer"],
-                        "displayName": "Reload usdview automatically"
+                        "displayName": "Loader / Unloader"
                     }
                 }
             }
