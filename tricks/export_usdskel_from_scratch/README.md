@@ -77,5 +77,9 @@ the skeleton that already has been written to disk.
 
 ## References
 https://toolchefs.atlassian.net/wiki/spaces/ASD/blog/2018/09/03/198737921/Atoms+Cache+To+USD
+
 https://www.youtube.com/watch?v=ECS-ntgnf24
+
 https://atoms.toolchefs.com/
+
+https://github.com/meshula/usdskelutil
