@@ -2,17 +2,6 @@
 "Root Loader" lets you load or unload payloads at the selected Prims or
 any of the Prim's children.
 
-## Justification
-The "Load" / "Unload" buttons in usdview are too strict. If you have
-multiple Prims and even a single one of them doesn't have a payload
-assigned to it, the button gets greyed out so you cannot click on it.
-
-This can be very frustrating while opening large sets, because it
-requires you to know which Prims have payloads, click exactly those
-Prims and only those Prims, and dig through the stage Prim namespace
-for every Prim. "Root Loader" addresses these problems without forking
-usdview.
-
 
 # How To Run
 1. Run this command in the terminal:
@@ -25,4 +14,19 @@ PYTHONPATH=$PWD/plugins:$PYTHONPATH PXR_PLUGINPATH_NAME=$PWD/plugins/root_loader
 3. Go to the "Root Loader" menu and press "Root Unload"
 4. Go to the "Root Loader" menu and press "Root Load" to get the selected Prim back
 5. You should be able to select parent Prims and load/unload those, too
+
+
+# Justification
+usdview already comes with "Load" / "Unload" buttons, but they are too
+strict. If you have multiple Prims selected, every single Prim in the
+selection has to have a payload underneath it. Otherwise, the "Load" /
+"Unload" buttons get greyed out. Now imagine you have a set with 300
+payloads, they're each nested within other Prims, and you now have to
+expand the QTreeWidget in usdview, find exactly the Prims you're looking
+for, manually select each one, and then select "Unload".
+
+"Root Loader" lets you just select a single ancester Prim and every Prim
+underneath it will be unloaded. All without forking usdview or changing
+the way usdview works.
+
 
