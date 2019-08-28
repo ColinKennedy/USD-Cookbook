@@ -119,6 +119,8 @@ a recommended viewing order:
 
 [usdview_auto_reloader](tricks/usdview_auto_reloader)
 
+[usdview_root_loader](tricks/usdview_root_loader)
+
 [variant_fallbacks](concepts/variant_fallbacks)
 
 [registered_variant_selection_export_polices](guides/registered_variant_selection_export_polices)
