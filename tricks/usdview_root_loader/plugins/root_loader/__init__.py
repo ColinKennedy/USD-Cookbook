@@ -51,18 +51,7 @@ class RootLoaderContainer(plugin.PluginContainer):
         menu.addItem(self._toggle_root_unload_command)
 
 
-def load_gui(viewer, load):
-    """Load or Unload the user's selected Prims.
-
-    Args:
-        viewer (`pxr.Usdviewq.usdviewApi.UsdviewApi`): usdview's current state.
-        load (bool): A value that controls if selected Prims are loaded or unloaded.
-
-    """
-    load(set(viewer.dataModel.selection.getPrimPaths()), viewer.stage, load)
-
-
-def load(paths, stage, load):
+def _load(paths, stage, load):
     """Load or unload the given Prim paths.
 
     Args:
@@ -78,6 +67,17 @@ def load(paths, stage, load):
             root.Load()
         else:
             root.Unload()
+
+
+def load_gui(viewer, load):
+    """Load or Unload the user's selected Prims.
+
+    Args:
+        viewer (`pxr.Usdviewq.usdviewApi.UsdviewApi`): usdview's current state.
+        load (bool): A value that controls if selected Prims are loaded or unloaded.
+
+    """
+    _load(set(viewer.dataModel.selection.getPrimPaths()), viewer.stage, load)
 
 
 Tf.Type.Define(RootLoaderContainer)
