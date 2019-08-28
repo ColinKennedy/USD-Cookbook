@@ -1,0 +1,16 @@
+{
+    "Plugins": [
+        {
+            "Type": "python",
+            "Name": "auto_reloader",
+            "Info": {
+                "Types": {
+                    "auto_reloader.AutoReloaderContainer": {
+                        "bases": ["pxr.Usdviewq.plugin.PluginContainer"],
+                        "displayName": "Reload usdview automatically"
+                    }
+                }
+            }
+        }
+    ]
+}
