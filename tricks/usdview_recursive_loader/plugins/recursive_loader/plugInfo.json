@@ -2,10 +2,10 @@
     "Plugins": [
         {
             "Type": "python",
-            "Name": "recursive_loader",
+            "Name": "root_loader",
             "Info": {
                 "Types": {
-                    "recursive_loader.RecursiveLoaderContainer": {
+                    "root_loader.RootLoaderContainer": {
                         "bases": ["pxr.Usdviewq.plugin.PluginContainer"],
                         "displayName": "Loader / Unloader"
                     }

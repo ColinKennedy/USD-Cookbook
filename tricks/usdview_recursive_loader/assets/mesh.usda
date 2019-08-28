@@ -3,7 +3,13 @@
 def Scope "Meshes"
 {
     def "Thing" (
-        payload = @./payload.usda@</Mesh>
+        payload = @./payload1.usda@</Mesh>
+    )
+    {
+    }
+
+    def "Another" (
+        payload = @./payload2.usda@</Mesh>
     )
     {
     }

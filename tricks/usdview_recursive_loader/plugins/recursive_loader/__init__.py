@@ -1,22 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""A usdview plugin that can auto-reload the stage whenever there are layer changes."""
-
-# IMPORT FUTURE LIBRARIES
-from __future__ import print_function
+"""A usdview plugin that replaces the "Load" and "Unload" buttons in usdview."""
 
 # IMPORT STANDARD LIBRARIES
-import datetime
 import functools
 import logging
 import sys
 
 # IMPORT THIRD-PARTY LIBRARIES
-from pxr import Tf
+from pxr import Sdf, Tf, Usd
 from pxr.Usdviewq import plugin
 
-LOGGER = logging.getLogger("recursive_loader")
+LOGGER = logging.getLogger("root_loader")
 _HANDLER = logging.StreamHandler(sys.stdout)
 _FORMATTER = logging.Formatter(
     "%(asctime)s [%(levelname)s] %(module)s: %(message)s", datefmt="%m/%d/%Y %H:%M:%S"
@@ -25,62 +21,63 @@ _HANDLER.setFormatter(_FORMATTER)
 LOGGER.addHandler(_HANDLER)
 LOGGER.setLevel(logging.INFO)
 
-WAS_INITIALIZED = False
-IS_ENABLED = False
 
-
-class RecursiveLoaderContainer(plugin.PluginContainer):
-    """The main registry class that initializes and runs the Auto-Reloader plugin."""
-
-    def _toggle_reload_and_setup_reload(self, viewer):
-        """Create the Auto-Reloader and set it to enabled.
-
-        If the Auto-Reloader already exists then disable it.
-
-        Args:
-            viewer (`pxr.Usdviewq.usdviewApi.UsdviewApi`):
-                The USD API object that is used to communicate with usdview.
-
-        """
-        global WAS_INITIALIZED
-        global IS_ENABLED
-
-        try:
-            from PySide2 import QtCore
-        except ImportError:
-            from PySide import QtCore
-
-        IS_ENABLED = not IS_ENABLED
-
-        if WAS_INITIALIZED:
-            LOGGER.debug("The timer was already created. Nothing left to do here.")
-            return
-
-        # Add `timer` to this instance to keep it from going out of scope
-        self.timer = QtCore.QTimer()
-        self.timer.timeout.connect(functools.partial(reload_layers, viewer))
-        self.timer.start(500)
-
-        WAS_INITIALIZED = True
+class RootLoaderContainer(plugin.PluginContainer):
+    """The main registry class that initializes and runs the Root-Loader plugin."""
 
     def registerPlugins(self, registry, _):
-        """Add this Auto-Reloader plugin to usdview on-startup.
+        """Add this Root-Loader plugin to usdview on-startup.
 
         Args:
             registry (`pxr.Usdviewq.plugin.PluginRegistry`):
                 The USD-provided object that this plugin will be added to.
 
         """
-        self._toggle_auto_reload_command = registry.registerCommandPlugin(
-            "RecursiveLoaderContainer.printMessage",
-            "Toggle Auto-Reload USD Stage",
-            self._toggle_reload_and_setup_reload,
+        self._toggle_root_load_command = registry.registerCommandPlugin(
+            "RootLoaderContainer.Load",
+            "Root Load",
+            functools.partial(load_gui, load=True),
+        )
+        self._toggle_root_unload_command = registry.registerCommandPlugin(
+            "RootLoaderContainer.Unload",
+            "Root Unload",
+            functools.partial(load_gui, load=False),
         )
 
     def configureView(self, _, builder):
-        """Add a new menu item for the Auto-Reload function."""
-        menu = builder.findOrCreateMenu("Reloader")
-        menu.addItem(self._toggle_auto_reload_command)
+        """Add a new menu item for the Root-Loader function."""
+        menu = builder.findOrCreateMenu("Root Loader")
+        menu.addItem(self._toggle_root_load_command)
+        menu.addItem(self._toggle_root_unload_command)
 
 
-Tf.Type.Define(RecursiveLoaderContainer)
+def load_gui(viewer, load):
+    """Load or Unload the user's selected Prims.
+
+    Args:
+        viewer (`pxr.Usdviewq.usdviewApi.UsdviewApi`): usdview's current state.
+        load (bool): A value that controls if selected Prims are loaded or unloaded.
+
+    """
+    load(set(viewer.dataModel.selection.getPrimPaths()), viewer.stage, load)
+
+
+def load(paths, stage, load):
+    """Load or unload the given Prim paths.
+
+    Args:
+        paths (set[`pxr.Sdf.Path`]): The paths that will be loaded or unloaded.
+        stage (`pxr.Usd.Stage`): The user's current stage that contains `paths` as Prims.
+        load (bool): A value that controls if selected Prims are loaded or unloaded.
+
+    """
+    for root in Sdf.Path.RemoveDescendentPaths(paths):
+        root = stage.GetPrimAtPath(root)
+
+        if load:
+            root.Load()
+        else:
+            root.Unload()
+
+
+Tf.Type.Define(RootLoaderContainer)
