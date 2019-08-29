@@ -1,3 +1,4 @@
+# 4. Include/Link Everything
 add_library(${USDPLUGIN_NAME}
     SHARED
         api.h
@@ -42,8 +43,10 @@ install(
     DESTINATION plugin/usd/${USDPLUGIN_NAME}/resources
 )
 
+# 5. Export the compiled schema so that other C++ projects can use it
+# TODO : Write this!
 
-# Python bindings
+# 6. Add Python bindings for the schema plugin
 set(USDPLUGIN_PYTHON_NAME _${USDPLUGIN_NAME})
 set(MODULE_NAME Testout)
 
