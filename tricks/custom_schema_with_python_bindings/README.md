@@ -11,6 +11,11 @@ You need more than just the files that usdGenSchema creates)
 
 This project implements a "real-world setup" using Pixar's tutorial as its base.
 
+# TODO
+- Add the Python test project
+- Add the C++ test project
+- Link the documentation to every other documentation else
+
 
 ### What's Inside
 [compiling_the_schema](compiling_the_schema) creates the SimplePrim,
