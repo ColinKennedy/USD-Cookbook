@@ -155,6 +155,8 @@ a recommended viewing order:
 
 [notice_send](concepts/notice_send)
 
+[custom_schemas_with_python_bindings](tricks/custom_schemas_with_python_bindings)
+
 [where_to_find_resources](guides/where_to_find_resources.md)
 
 [working_with_plugins](guides/working_with_plugins.md)
