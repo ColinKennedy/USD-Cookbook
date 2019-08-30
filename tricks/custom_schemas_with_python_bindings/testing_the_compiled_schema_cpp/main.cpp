@@ -13,7 +13,6 @@ int main() {
 
     auto prim = stage->GetPrimAtPath(pxr::SdfPath("/Simple"));
     auto simple = pxr::UsdSchemaExamplesSimple(prim);
-    std::cout << "About to try" << std::endl;
     auto attribute = simple.GetIntAttrAttr();
     int value = 0;
     attribute.Get<int>(&value);
