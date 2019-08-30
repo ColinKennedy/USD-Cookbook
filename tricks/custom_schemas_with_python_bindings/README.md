@@ -25,7 +25,7 @@ The other folders,
 [testing_the_compiled_schema_python](testing_the_compiled_schema_python)
 , are test projects that include the custom schemas that you would have
 just built. These can be used to show how to include the schemas and
-also check to make sure nothing broke in te process.
+also check to make sure nothing broke in the process.
 
 
 ## References
