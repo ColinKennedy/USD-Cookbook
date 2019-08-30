@@ -16,13 +16,16 @@ This project implements a "real-world setup" using Pixar's tutorial as its base.
 First, compile the plugin with the
 [compiling_the_schema](compiling_the_schema).
 [compiling_the_schema](compiling_the_schema) creates the SimplePrim,
-ComplexPrim, and ParamsAPI schemas. Technically after that, you're done.
-But it's a good idea to run your compiled code against a C++ / Python
-project to make sure everything is working okay.
+ComplexPrim, and ParamsAPI schemas. Technically this is all you really
+need to do but it's a good idea to run your compiled code against
+a C++ / Python project to make sure everything is working okay.
 
-The other folders, [testing_the_compiled_schema_cpp](testing_the_compiled_schema_cpp)
-and [testing_the_compiled_schema_python](testing_the_compiled_schema_python),
-are there to show how to include and use custom schema classes in C++ and Python.
+The other folders,
+[testing_the_compiled_schema_cpp](testing_the_compiled_schema_cpp) and
+[testing_the_compiled_schema_python](testing_the_compiled_schema_python)
+, are test projects that include the custom schemas that you would have
+just built. These can be used to show how to include the schemas and
+also check to make sure nothing broke in te process.
 
 
 ## References

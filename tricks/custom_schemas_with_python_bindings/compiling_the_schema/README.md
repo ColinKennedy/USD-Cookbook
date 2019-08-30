@@ -38,9 +38,9 @@ Some files were created by-hand though. This is the full list:
 
 [moduleDeps.cpp](src/moduleDeps.cpp)
 
-[__init__.py](src/__init__.py)
+[`__init__.py`](src/__init__.py)
 
-[__packageinit__.py](src/__packageinit__.py)
+[`__packageinit__.py`](src/__packageinit__.py)
 
 
 The latter `.py` files are basically just to make the Python bindings
@@ -85,11 +85,15 @@ This is also why
 
 
 From what I can see searching online, it looks like when you add dynamic
-modules to your PYTHONPATH and try to import them in a Python script,
-it's expected for that module to have an "entry" function. Instead of
-doing that, "module.cpp" wraps the schema classes that were generated
-for you. Similarly, "moduleDeps.cpp" links USD libraries so that you
-don't get any linker errors when "module.cpp" is sourced.
+library to your PYTHONPATH and try to import them in a Python script,
+Python expects for that library to have an "entry" init function. USD
+does things a bit differently. Instead, "module.cpp" wraps the schema
+classes that you generated with `usdGenSchema`, which removes the need
+to define an init function yourself. Again, this is just a guess.
+Similarly, "moduleDeps.cpp" links USD libraries so that you don't get
+any linker errors when "module.cpp" is sourced.
+
+TODO : Check if that's true
 
 **Important**: From a quick test using Python, it looks like this schema
 example project doesn't need "moduleDeps.cpp". Only "module.cpp" is

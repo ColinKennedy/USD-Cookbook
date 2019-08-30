@@ -8,3 +8,5 @@ make
 ```
 
 Note: Update the `export` commands to point to the correct locations
+
+Mention that I had to use the old GCC version
