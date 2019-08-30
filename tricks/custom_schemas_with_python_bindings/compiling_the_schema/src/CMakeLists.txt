@@ -66,17 +66,17 @@ install(
 # 6. Create a Config.cmake file so that other C++ projects can use
 # `find_package` to get the namespace that was exported in step #5
 #
-# Reference: https://pabloariasal.github.io/2018/02/19/its-time-to-do-cmake-right/
+# Reference: https://pabloariasal.github.io/2018/02/19/its-time-to-do-cmake-right
 #
 include(CMakePackageConfigHelpers)
 
-configure_package_config_file(${CMAKE_CURRENT_LIST_DIR}/cmake/TestoutTargetsConfig.cmake
-    ${CMAKE_CURRENT_BINARY_DIR}/TestoutTargetsConfig.cmake
+configure_package_config_file(${CMAKE_CURRENT_LIST_DIR}/cmake/TestoutConfig.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/TestoutConfig.cmake
     INSTALL_DESTINATION ${INSTALL_CONFIGURATION_DIRECTORY}
 )
 
 install(FILES
-    ${CMAKE_CURRENT_BINARY_DIR}/TestoutTargetsConfig.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/TestoutConfig.cmake
     DESTINATION ${INSTALL_CONFIGURATION_DIRECTORY}
 )
 

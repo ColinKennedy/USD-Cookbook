@@ -24,7 +24,7 @@ find_library(USD_VT vt HINTS ${USD_LIBRARY_DIRECTORY})
 # variables such as `CMAKE_PREFIX_PATH` or `CustomSchemas_DIR` so that
 # `CustomSchemas` can be discovered by CMake.
 #
-find_package(CustomSchemas REQUIRED PATHS ../making_schema/build/install/lib/cmake/CustomSchemas)
+find_package(Testout REQUIRED PATHS ../compiling_the_schema/build/install/lib/cmake/TestoutSchemas)
 find_package(PythonLibs REQUIRED)
 
 # 4. Include/Link Everything
@@ -47,5 +47,5 @@ run_it
     ${USD_TF}
     ${USD_USD}
     ${USD_VT}
-    CustomSchemas::CustomSchemas
+    testout::testout
 )
