@@ -90,9 +90,20 @@ install(FILES
 # `write_basic_package_version_file` to do it, here.
 #
 # Reference: https://github.com/pabloariasal/modern-cmake-sample/blob/master/libjsonutils/CMakeLists.txt#L70-L74
-#
+
 # 7. Copy the schema header files so that other C++ projects can include them
-# TODO : Check if this is actually needed
+#
+# XXX : We need to install header files into an include directory.
+# Otherwise, client C++ projects that include `testout::testout` will
+# get this error when they try to run the `cmake` command:
+#
+# CMake Error in CMakeLists.txt:
+#
+#     Imported target "testout::testout" includes non-existent path
+#
+#     "/home/selecaoone/projects/usd_experiments/examples/tricks/custom_schemas_with_python_bindings/compiling_the_schema/build/install/include"
+#
+#     in its INTERFACE_INCLUDE_DIRECTORIES.  Possible reasons include: ...
 #
 install(
     FILES
