@@ -14,11 +14,15 @@ add_library(${USDPLUGIN_NAME}
 
 target_include_directories(${USDPLUGIN_NAME}
     PRIVATE
+        ${PYTHON_INCLUDE_PATH}
         ${PXR_INCLUDE_DIRS}
 )
 
+set(USD_LIBRARY_DIRECTORY $ENV{USD_INSTALL_ROOT}/lib)
+find_library(USD_USD usd HINTS ${USD_LIBRARY_DIRECTORY})
+
 target_link_libraries(${USDPLUGIN_NAME}
-    usd
+    ${USD_USD}
 )
 
 set_target_properties(${USDPLUGIN_NAME} PROPERTIES PREFIX "")
@@ -49,6 +53,7 @@ set(INSTALL_CONFIGURATION_DIRECTORY lib/cmake/TestoutSchemas)
 # 5. Export a namespace for this library so other C++ projects can use it
 # Reference: https://pabloariasal.github.io/2018/02/19/its-time-to-do-cmake-right/
 #
+# TODO : Check if this block is needed
 install(
     TARGETS ${USDPLUGIN_NAME}
     EXPORT ${USDPLUGIN_TARGETS_NAME}
@@ -129,6 +134,7 @@ set_target_properties(${USDPLUGIN_PYTHON_NAME}
 
 target_include_directories(${USDPLUGIN_PYTHON_NAME}
     PRIVATE
+        ${PYTHON_INCLUDE_PATH}
         ${PXR_INCLUDE_DIRS}
 )
 

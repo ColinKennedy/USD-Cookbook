@@ -9,5 +9,6 @@ set(CMAKE_INSTALL_PREFIX "./install" CACHE PATH "..." FORCE)
 # 3. Boilerplate
 set(USDPLUGIN_NAME testout)
 find_package(USD REQUIRED)
+find_package(PythonLibs 2.7 REQUIRED)  # Needed for `PYTHON_INCLUDE_PATH`
 
 add_subdirectory(src)
