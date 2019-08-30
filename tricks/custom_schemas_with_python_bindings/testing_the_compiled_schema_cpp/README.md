@@ -21,6 +21,7 @@ the GCC version that you're using to run `make` with matches the GCC version
 that was used build the custom schemas.
 
 `gcc --version`  <-- Check the version
+
 `which gcc`  <-- Check the path on-disk, if needed
 
 
