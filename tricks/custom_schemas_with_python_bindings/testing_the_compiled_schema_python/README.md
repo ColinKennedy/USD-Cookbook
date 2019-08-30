@@ -13,3 +13,8 @@ PYTHONPATH=/wherever/you/installed/USD/lib/python:`dirname $PWD`/compiling_the_s
 # e.g.
 PYTHONPATH=/usr/local/USD-19.07/lib/python:`dirname $PWD`/compiling_the_schema/build/install/lib/python2.7/site-packages:$PYTHONPATH PXR_PLUGINPATH_NAME=`dirname $PWD`/compiling_the_schema/build/install/plugin/usd/testout/resources python custom_schema_include.py    
 ```
+
+
+## Extra Information
+The overall project is explained in the folder above this one. Read
+through it if you want more of an explanation of what's going on.

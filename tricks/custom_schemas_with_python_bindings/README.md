@@ -26,7 +26,6 @@ are there to show how to include and use custom schema classes in C++ and Python
 
 
 # TODO
-- Add the Python test project
 - Add the C++ test project
 - Link the documentation to every other documentation else
 
