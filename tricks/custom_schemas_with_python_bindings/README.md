@@ -12,21 +12,23 @@ You need to manually write a couple files that usdGenSchema doesn't create for y
 This project implements a "real-world setup" using Pixar's tutorial as its base.
 
 
+## How To Read Through This Project's Folders
+First, compile the plugin with the
+[compiling_the_schema](compiling_the_schema).
+[compiling_the_schema](compiling_the_schema) creates the SimplePrim,
+ComplexPrim, and ParamsAPI schemas. Technically after that, you're done.
+But it's a good idea to run your compiled code against a C++ / Python
+project to make sure everything is working okay.
+
+The other folders, [testing_the_compiled_schema_cpp](testing_the_compiled_schema_cpp)
+and [testing_the_compiled_schema_python](testing_the_compiled_schema_python),
+are there to show how to include and use custom schema classes in C++ and Python.
+
+
 # TODO
 - Add the Python test project
 - Add the C++ test project
 - Link the documentation to every other documentation else
-
-
-### What's Inside
-[compiling_the_schema](compiling_the_schema) creates the SimplePrim,
-ComplexPrim, and ParamsAPI schemas.
-
-[testing_the_compiled_schema_cpp](testing_the_compiled_schema_cpp) is an
-example C++ project that uses the created schemas.
-
-[testing_the_compiled_schema_python](testing_the_compiled_schema_python)
-is an example Python project that also uses the created schemas.
 
 
 ## References

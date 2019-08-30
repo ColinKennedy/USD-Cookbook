@@ -1,0 +1,18 @@
+#usda 1.0
+
+def ComplexPrim "Complex"
+{
+    string complexString = "a really complex string"
+    int intAttr = 10
+    add rel target = </Object>
+}
+
+def Xform "Object" (
+    prepend apiSchemas = ["ParamsAPI"]
+)
+{
+    custom double params:mass = 1
+    custom double params:velocity = 10
+    custom double params:volume = 4
+}
+
