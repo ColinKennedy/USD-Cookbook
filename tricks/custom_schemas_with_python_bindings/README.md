@@ -25,11 +25,6 @@ and [testing_the_compiled_schema_python](testing_the_compiled_schema_python),
 are there to show how to include and use custom schema classes in C++ and Python.
 
 
-# TODO
-- Add the C++ test project
-- Link the documentation to every other documentation else
-
-
 ## References
 [RodeoFX's Replace Resolver Plugin](https://github.com/rodeofx/rdo_replace_resolver)
 
