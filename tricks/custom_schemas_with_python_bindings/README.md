@@ -1,15 +1,16 @@
 ## Custom Schemas
 Pixar has a tutorial for [Generating New Schema Classes](https://graphics.pixar.com/usd/docs/Generating-New-Schema-Classes.html).
 The tutorial goes into great detail about the formatting and specifics
-about the schema.usda but the tutorial fails to mention 2 things:
+about the schema.usda but the tutorial fails to mention 2 important points:
 
 - Its instructions assume that you are building into the USD source
 tree. Pipelines rarely do this. The tutorial probably did this for
 simplicity but it leaves a lot to be desired.
 - The tutorial doesn't cover how Python bindings are created (spoiler:
-You need more than just the files that usdGenSchema creates)
+You need to manually write a couple files that usdGenSchema doesn't create for you!)
 
 This project implements a "real-world setup" using Pixar's tutorial as its base.
+
 
 # TODO
 - Add the Python test project
