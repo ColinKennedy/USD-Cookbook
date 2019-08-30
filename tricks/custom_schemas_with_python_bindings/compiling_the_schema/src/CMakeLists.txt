@@ -53,7 +53,6 @@ set(INSTALL_CONFIGURATION_DIRECTORY lib/cmake/TestoutSchemas)
 # 5. Export a namespace for this library so other C++ projects can use it
 # Reference: https://pabloariasal.github.io/2018/02/19/its-time-to-do-cmake-right/
 #
-# TODO : Check if this block is needed
 install(
     TARGETS ${USDPLUGIN_NAME}
     EXPORT ${USDPLUGIN_TARGETS_NAME}
