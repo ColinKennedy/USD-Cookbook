@@ -8,6 +8,7 @@ Use the same build + compile steps as any other project in this repository.
 
 In other words, this:
 ```bash
+cd ./build
 USD_INSTALL_ROOT=/wherever/you/installed/USD cmake3 ..
 # USD_INSTALL_ROOT=/usr/local/USD-19.07 cmake3 ..
 make
