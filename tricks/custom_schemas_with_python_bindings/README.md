@@ -37,4 +37,4 @@ are there to show how to include and use custom schema classes in C++ and Python
 
 [A helpful hint that usdGenSchema doesn't make every required file (module.cpp / moduleDeps.cpp)](https://groups.google.com/d/msg/usd-interest/r0j0l-aJ5Ok/hAdy-ZkWGQAJ)
 
-[USDResearch Repository](https://github.com/SFukuoka1227/USDResearch/tree/master/schema). It's in Japanese but was still useful
+[USDResearch Repository](https://github.com/SFukuoka1227/USDResearch/tree/master/schema). It's written in Japanese but was still useful
