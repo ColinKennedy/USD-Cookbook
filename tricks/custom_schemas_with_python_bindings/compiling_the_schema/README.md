@@ -120,3 +120,5 @@ STL library, like this if you use a later version of GCC.  For this project, it 
 
 # References
 [Explanation of the init function error](https://stackoverflow.com/a/24226039/3626104)
+
+[Building and exporting CMake projects](https://pabloariasal.github.io/2018/02/19/its-time-to-do-cmake-right)
