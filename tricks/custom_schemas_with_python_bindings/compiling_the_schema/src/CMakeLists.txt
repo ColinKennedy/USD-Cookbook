@@ -48,6 +48,7 @@ set(INSTALL_CONFIGURATION_DIRECTORY lib/cmake/TestoutSchemas)
 
 # 5. Export a namespace for this library so other C++ projects can use it
 # Reference: https://pabloariasal.github.io/2018/02/19/its-time-to-do-cmake-right/
+#
 install(
     TARGETS ${USDPLUGIN_NAME}
     EXPORT ${USDPLUGIN_TARGETS_NAME}
@@ -90,11 +91,11 @@ install(FILES
 #
 install(
     FILES
-        ${CMAKE_CURRENT_BINARY_DIR}/api.h
-        ${CMAKE_CURRENT_BINARY_DIR}/complex.h
-        ${CMAKE_CURRENT_BINARY_DIR}/paramsAPI.h
-        ${CMAKE_CURRENT_BINARY_DIR}/simple.h
-        ${CMAKE_CURRENT_BINARY_DIR}/tokens.h
+        api.h
+        complex.h
+        paramsAPI.h
+        simple.h
+        tokens.h
     DESTINATION
         include
 )
