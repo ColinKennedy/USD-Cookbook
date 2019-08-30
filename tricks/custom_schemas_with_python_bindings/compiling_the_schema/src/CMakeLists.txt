@@ -51,13 +51,13 @@ set(USDPLUGIN_PYTHON_NAME _${USDPLUGIN_NAME})
 set(MODULE_NAME Testout)
 
 add_library(${USDPLUGIN_PYTHON_NAME}
-	SHARED
-	module.cpp
-	moduleDeps.cpp
-	wrapTokens.cpp
-	wrapSimple.cpp
-	wrapComplex.cpp
-	wrapParamsAPI.cpp
+    SHARED
+        module.cpp
+        moduleDeps.cpp
+        wrapTokens.cpp
+        wrapSimple.cpp
+        wrapComplex.cpp
+        wrapParamsAPI.cpp
 )
 
 # XXX : This line is critical. Without it, the Python binding will not
@@ -74,8 +74,8 @@ set_target_properties(${USDPLUGIN_PYTHON_NAME}
 )
 
 target_include_directories(${USDPLUGIN_PYTHON_NAME}
-	PRIVATE
-		${PXR_INCLUDE_DIRS}
+    PRIVATE
+        ${PXR_INCLUDE_DIRS}
 )
 
 # On OSX "dylib" does not work to import python module
@@ -83,20 +83,20 @@ target_include_directories(${USDPLUGIN_PYTHON_NAME}
 set_target_properties(${USDPLUGIN_PYTHON_NAME} PROPERTIES SUFFIX ".so")
 
 set_target_properties(${USDPLUGIN_PYTHON_NAME}
-	PROPERTIES
-		PREFIX ""
+    PROPERTIES
+        PREFIX ""
 )
 
 # XXX : These lines "find" the Python package
 target_compile_definitions(${USDPLUGIN_PYTHON_NAME}
-  PRIVATE
-	MFB_PACKAGE_NAME=${USDPLUGIN_NAME}
-	MFB_ALT_PACKAGE_NAME=${USDPLUGIN_NAME}
-	MFB_PACKAGE_MODULE=testout.${MODULE_NAME}
+    PRIVATE
+        MFB_PACKAGE_NAME=${USDPLUGIN_NAME}
+        MFB_ALT_PACKAGE_NAME=${USDPLUGIN_NAME}
+        MFB_PACKAGE_MODULE=testout.${MODULE_NAME}
 )
 
 target_link_libraries(${USDPLUGIN_PYTHON_NAME}
-	${USDPLUGIN_NAME}
+    ${USDPLUGIN_NAME}
 )
 
 set(PYTHON_PACKAGE_RELATIVE_PATH lib/python2.7/site-packages/testout)
@@ -104,17 +104,17 @@ set(INSTALL_PYTHONPACKAGE_DIR  ${PYTHON_PACKAGE_RELATIVE_PATH})
 set(INSTALL_WRAPPER_DIR ${INSTALL_PYTHONPACKAGE_DIR}/${MODULE_NAME})
 
 install(
-	TARGETS ${USDPLUGIN_PYTHON_NAME}
-	DESTINATION ${INSTALL_WRAPPER_DIR}
+    TARGETS ${USDPLUGIN_PYTHON_NAME}
+    DESTINATION ${INSTALL_WRAPPER_DIR}
 )
 
 install(
-	FILES __packageinit__.py
-	DESTINATION ${INSTALL_PYTHONPACKAGE_DIR}
-	RENAME __init__.py
+    FILES __packageinit__.py
+    DESTINATION ${INSTALL_PYTHONPACKAGE_DIR}
+    RENAME __init__.py
 )
 
 install(
-	FILES __init__.py
-	DESTINATION ${INSTALL_WRAPPER_DIR}
+    FILES __init__.py
+    DESTINATION ${INSTALL_WRAPPER_DIR}
 )
