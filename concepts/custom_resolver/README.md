@@ -29,3 +29,9 @@ https://graphics.pixar.com/usd/docs/api/class_plug_registry.html#plug_plugInfo
 https://github.com/LumaPictures/usd-uri-resolver/tree/master/URIResolver
 
 https://groups.google.com/d/msg/usd-interest/BEHMJAnR3Wo/nhsbEXnoAQAJ
+
+https://groups.google.com/d/msg/usd-interest/rTebJeQQXVA/o09edgGaAgAJ
+
+https://groups.google.com/d/msg/usd-interest/9JrXGGbzBnQ/__u_eV9JBgAJ
+
+https://groups.google.com/d/msg/usd-interest/9JrXGGbzBnQ/_f3oaqBdAwAJ
