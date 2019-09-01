@@ -12,10 +12,12 @@ add_library(${USDPLUGIN_NAME}
         tokens.h
 )
 
+set(USD_INCLUDE_DIRECTORY $ENV{USD_INSTALL_ROOT}/include)
+
 target_include_directories(${USDPLUGIN_NAME}
     PRIVATE
         ${PYTHON_INCLUDE_PATH}
-        ${PXR_INCLUDE_DIRS}
+        ${USD_INCLUDE_DIRECTORY}
 )
 
 set(USD_LIBRARY_DIRECTORY $ENV{USD_INSTALL_ROOT}/lib)
@@ -145,7 +147,7 @@ set_target_properties(${USDPLUGIN_PYTHON_NAME}
 target_include_directories(${USDPLUGIN_PYTHON_NAME}
     PRIVATE
         ${PYTHON_INCLUDE_PATH}
-        ${PXR_INCLUDE_DIRS}
+        ${USD_INCLUDE_DIRECTORY}
 )
 
 # On OSX "dylib" does not work to import python module
