@@ -21,29 +21,36 @@ usdview usdview_style_stage.usda
 
 ## Prims
 ### Prim Text Colors
-Name|Description|Value|Location
-Normal|Neither an instance or a master|rgb(227, 227, 227)|/SomePrim
-Instance|An instanced Prim|rgb(135, 206, 250)|/InstancedItem
-Master|A Prim which is used by instances|rgb(118, 136, 217)|`/__Master_1`
-Has Arcs|A Prim that contains 1+ Composition Arc|rgb(222, 158, 46)|/Inherited
+
+|   Name   |               Description               |       Value        |    Location    |
+|----------|-----------------------------------------|--------------------|----------------|
+| Normal   | Neither an instance or a master         | rgb(227, 227, 227) | /SomePrim      |
+| Instance | An instanced Prim                       | rgb(135, 206, 250) | /InstancedItem |
+| Master   | A Prim which is used by instances       | rgb(118, 136, 217) | `/__Master_1`  |
+| Has Arcs | A Prim that contains 1+ Composition Arc | rgb(222, 158, 46)  | /Inherited     |
+
 
 
 ### Prim Fonts
-Name|Style|Description|Location
-Abstract|Normal|A class Prim. Enable "Show" > "Abstract Prims (Classes)"|/SomeClass
-Defined|Bold|A normal Prim that will be in default traversals|/SomePrim
-Inherited|Italic and smaller than normal|See [Property Type Column](#Property-Type-Column) for details|/Parent/Child.primvars:foo
-`over` Prim|Italics|An undefined Prim (an Orphaned Over). Enable "Show" > "Undefined Prims (Overs)"|/OrphanedOver
+
+|    Name     |  Style  |                                   Description                                   |   Location    |
+|-------------|---------|---------------------------------------------------------------------------------|---------------|
+| Abstract    | Normal  | A class Prim. Enable "Show" > "Abstract Prims (Classes)"                        | /SomeClass    |
+| Defined     | Bold    | A normal Prim that will be in default traversals                                | /SomePrim     |
+| `over` Prim | Italics | An undefined Prim (an Orphaned Over). Enable "Show" > "Undefined Prims (Overs)" | /OrphanedOver |
+
 
 
 ## Properties
 ### Property Text Colors
-Name|Description|Value|Location
-From Time Sample|The value comes from an authored time value|rgb(177, 207, 153)|/SomePrim.time_samples_property
-From Value Clip|The value resolved to a stitched clip layer|rgb(230, 150, 230)|/PrimWithValueClips.inManifestAndInClip
-From Type Fallback|No value was found so USD used the Prim's type as a fallback|rgb(222, 158, 46)|/SomePrim.visibility
-From Default|The property's default (non-time-sampled) value|rgb(135, 206, 250)|/SomePrim.default_property
-None|No value could be found|rgb(140, 140, 140)|/SomePrim.xformOpOrder
+
+|        Name        |                         Description                          |       Value        |                Location                 |
+|--------------------|--------------------------------------------------------------|--------------------|-----------------------------------------|
+| From Default       | The property's default (non-time-sampled) value              | rgb(135, 206, 250) | /SomePrim.default_property              |
+| From Time Sample   | The value comes from an authored time value                  | rgb(177, 207, 153) | /SomePrim.time_samples_property         |
+| From Type Fallback | No value was found so USD used the Prim's type as a fallback | rgb(222, 158, 46)  | /SomePrim.visibility                    |
+| From Value Clip    | The value resolved to a stitched clip layer                  | rgb(230, 150, 230) | /PrimWithValueClips.inManifestAndInClip |
+| None               | No value could be found                                      | rgb(140, 140, 140) | /SomePrim.xformOpOrder                  |
 
 
 ### Property Type Column
@@ -66,6 +73,15 @@ e.g.
 
 This "Property inheritance" is how USD adds different values onto
 instanced Prims without breaking their instancing.
+
+
+### Property Fonts
+Property fonts are always the same unless the Property is inherited from
+an ancestor Prim. If that happens, the Property is written in Italics and slightly
+smaller than usual.
+See [Property Type Column](#Property-Type-Column) for details.
+
+Example property: /Parent/Child.primvars:foo
 
 
 ### Icons
