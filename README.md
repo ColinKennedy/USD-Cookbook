@@ -83,6 +83,8 @@ a recommended viewing order:
 
 [userProperties](concepts/userProperties)
 
+[value_caching](concepts/value_caching)
+
 [world_bounding_box](concepts/world_bounding_box)
 
 [relationship_forwarding](concepts/relationship_forwarding)
