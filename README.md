@@ -109,6 +109,8 @@ a recommended viewing order:
 
 [orphaned_over](tricks/orphaned_over)
 
+[usd_resolve_info](concepts/usd_resolve_info)
+
 [variant_set_auto_selections](tricks/variant_set_auto_selections )
 
 [copy_variant_set_to_prim](concepts/copy_variant_set_to_prim)
