@@ -1,7 +1,7 @@
 # Quick Explanation
 What you ever wondered what all the text colors, fonts, and icons in
 usdview means? The different combinations of data can be pretty complex.
-This article will explain usdview's visuals, and how the USD API is used
+This page will explain usdview's visuals, and how the USD API is used
 to achieve them.
 
 This page contains everything you need to know.
@@ -13,7 +13,7 @@ displayed. To help make sense of it all, [This usdview_style_stage.usda
 file](usdview_style_stage.usda) contains a simple stage for every single
 color / font / icon that usdview uses.
 
-That stage can be used as a reference while viewing the rest of this section
+That stage can be used as a reference while viewing the rest of this page.
 
 ```bash
 usdview usdview_style_stage.usda
@@ -22,12 +22,12 @@ usdview usdview_style_stage.usda
 ## Prims
 ### Prim Text Colors
 
-|   Name   |               Description               |       Value        |    Location    |
-|----------|-----------------------------------------|--------------------|----------------|
-| Normal   | Neither an instance or a master         | rgb(227, 227, 227) | /SomePrim      |
-| Instance | An instanced Prim                       | rgb(135, 206, 250) | /InstancedItem |
-| Master   | A Prim which is used by instances       | rgb(118, 136, 217) | `/__Master_1`  |
-| Has Arcs | A Prim that contains 1+ Composition Arc | rgb(222, 158, 46)  | /Inherited     |
+|                                                       Name                                                        |               Description               |       Value        |    Location    |
+|-------------------------------------------------------------------------------------------------------------------|-----------------------------------------|--------------------|----------------|
+| ![Normal](https://user-images.githubusercontent.com/10103049/64095938-23caa080-cd15-11e9-9adf-338ea0175d6f.png)   | Neither an instance or a master         | rgb(227, 227, 227) | /SomePrim      |
+| ![Instance](https://user-images.githubusercontent.com/10103049/64096068-7e63fc80-cd15-11e9-800a-42fe04e59a98.png) | An instanced Prim                       | rgb(135, 206, 250) | /InstancedItem |
+| ![Master](https://user-images.githubusercontent.com/10103049/64096145-b10df500-cd15-11e9-9046-0a87b7fc36ec.png)   | A Prim which is used by instances       | rgb(118, 136, 217) | `/__Master_1`  |
+| ![Has Arcs](https://user-images.githubusercontent.com/10103049/64096004-4eb4f480-cd15-11e9-83b6-619bb7f18849.png) | A Prim that contains 1+ Composition Arc | rgb(222, 158, 46)  | /Inherited     |
 
 
 
@@ -44,13 +44,13 @@ usdview usdview_style_stage.usda
 ## Properties
 ### Property Text Colors
 
-|        Name        |                         Description                          |       Value        |                Location                 |
-|--------------------|--------------------------------------------------------------|--------------------|-----------------------------------------|
-| From Default       | The property's default (non-time-sampled) value              | rgb(135, 206, 250) | /SomePrim.default_property              |
-| From Time Sample   | The value comes from an authored time value                  | rgb(177, 207, 153) | /SomePrim.time_samples_property         |
-| From Type Fallback | No value was found so USD used the Prim's type as a fallback | rgb(222, 158, 46)  | /SomePrim.visibility                    |
-| From Value Clip    | The value resolved to a stitched clip layer                  | rgb(230, 150, 230) | /PrimWithValueClips.inManifestAndInClip |
-| None               | No value could be found                                      | rgb(140, 140, 140) | /SomePrim.xformOpOrder                  |
+|                                                            Name                                                             |                         Description                          |       Value        |                Location                 |
+|-----------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------|--------------------|-----------------------------------------|
+| ![From Default](https://user-images.githubusercontent.com/10103049/64096828-7efd9280-cd17-11e9-89ac-19d3a48d362e.png)       | The property's default (non-time-sampled) value              | rgb(135, 206, 250) | /SomePrim.default_property              |
+| ![From Time Sample](https://user-images.githubusercontent.com/10103049/64096862-93418f80-cd17-11e9-8ac2-e08dd94722a3.png)   | The value comes from an authored time value                  | rgb(177, 207, 153) | /SomePrim.time_samples_property         |
+| ![From Type Fallback](https://user-images.githubusercontent.com/10103049/64097222-840f1180-cd18-11e9-87d5-c4e05474aaf0.png) | No value was found so USD used the Prim's type as a fallback | rgb(222, 158, 46)  | /SomePrim.visibility                    |
+| ![From Value Clip](https://user-images.githubusercontent.com/10103049/64096895-b10ef480-cd17-11e9-901a-1570ed5f6dcf.png)    | The value resolved to a stitched clip layer                  | rgb(230, 150, 230) | /PrimWithValueClips.inManifestAndInClip |
+| ![None](https://user-images.githubusercontent.com/10103049/64097313-ca647080-cd18-11e9-8c3d-87e203f9e9cb.png)               | No value could be found                                      | rgb(140, 140, 140) | /SomePrim.xformOpOrder                  |
 
 
 ### Property Type Column
@@ -86,6 +86,7 @@ Example property: /Parent/Child.primvars:foo
 
 ### Icons
 TODO do all the icons
+
 Icon|Explanation|Location
 ![](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usdImaging/lib/usdviewq/icons/usd-cmp-icon.png)|This means "blah"
 
