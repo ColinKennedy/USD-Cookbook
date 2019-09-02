@@ -4,22 +4,24 @@ shows off a single feature or group of USD features.
 
 ## Structure summary
 
-```
-Folders
-- concepts/
- - {CONCEPT_NAME}
-  - README.md
-  - cpp/
-  - python/
-  - usda/
-- guides/
-- tricks/
-```
+This repository is split into six categories
 
-Each USD feature is in the "concepts" folder. Most features have a C++,
-python, and USDA project folder where you can see how to author that
-feature in each representation and how it actually looks when it gets
-written in USD.
+- Features
+- Concepts
+- Tricks
+- Plugins
+- Tools
+- References
+
+Features highlight a single class or set of functions for working in USD.
+Concepts take features explained in Features and extends them to real-world examples.
+Tricks are simple, isolated ideas using USD Features.
+Plugins show how to customize USD to suit your pipeline.
+Tools are miscellaneous scripts that are built to do a specific task, with USD.
+References are articles that show where to find more information.
+
+Every project in this repository will show how to work in Python, C++,
+and USDA wherever possible.
 
 
 ## How to view
@@ -52,31 +54,8 @@ See [USD's build documentation](https://github.com/PixarAnimationStudios/USD#3-r
 ### Python
 Python modules can always run using `python name_of_module.py`
 
-
-## Folder Explanation
-- `concepts` is where you'll find simple, single features shown by-example.
-It will have C++, Python, and USDA example projects (whenever possible).
-If you're the type that makes flashcards, you'll get the most mileage
-here.
-- `guides` contains articles of ideas and references that help a user
-learn USD.
-- `tricks` is a mixed bag of situations that come up in production and
-general proof-of-concepts on how to do certain operations in USD. This
-folder has projects that are too complex or niche to fit in `concepts`.
-There's no defined structure for this folder.
-
-
 ## Sections
-
-This repository is split into six categories
-
-- Features
-- Concepts
-- Tricks
-- Plugins
-- Tools
-- References
-
+Here are links of a recommended viewing order for every project in this repository.
 
 ### Features
 
