@@ -22,21 +22,62 @@ def Xform "SomePrim"
     }
 }
 
+def Mesh "card"
+{
+    float3[] extent = [(-430, -145, 0), (430, 145, 0)]
+    int[] faceVertexCounts = [4]
+    int[] faceVertexIndices = [0, 1, 2, 3]
+    rel material:binding = </card/boardMat>
+    point3f[] points = [(-430, -145, 0), (430, -145, 0), (430, 145, 0), (-430, 145, 0)]
+    texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1)] (
+        interpolation = "varying"
+    )
+
+    def Material "boardMat"
+    {
+        token inputs:frame:stPrimvarName = "st"
+        token outputs:surface.connect = </card/boardMat/PBRShader.outputs:surface>
+
+        def Shader "PBRShader"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor.connect = </card/boardMat/diffuseTexture.outputs:rgb>
+            float inputs:metallic = 0
+            float inputs:roughness = 0.4
+            token outputs:surface
+        }
+
+        def Shader "stReader"
+        {
+            uniform token info:id = "UsdPrimvarReader_float2"
+            token inputs:varname.connect = </card/boardMat.inputs:frame:stPrimvarName>
+            float2 outputs:result
+        }
+
+        def Shader "diffuseTexture"
+        {
+            uniform token info:id = "UsdUVTexture"
+            asset inputs:file = @./USDLogoLrg.png@
+            float2 inputs:st.connect = </card/boardMat/stReader.outputs:result>
+            float3 outputs:rgb
+        }
+    }
+}
+
 def Xform "PrimWithValueClips" (
     clips = {
         dictionary default = {
             double2[] active = [(0, 0), (2, 1)]
             asset[] assetPaths = [@./clip_1.usda@, @./clip_2.usda@]
+            asset manifestAssetPath = @./clip_manifest.usda@
             string primPath = "/Clip"
             double2[] times = [(0, 0), (1, 1), (2, 0), (3, 1)]
-            asset manifestAssetPath = @./clip_manifest.usda@
         }
     }
     references = @./ref.usda@</Ref>
 )
 {
 }
-
 
 def "InstancedItem" (
     instanceable = true
@@ -49,13 +90,15 @@ class "BaseClass"
 {
 }
 
-def Scope "Parent" {
+def Scope "Parent"
+{
     uniform token primvars:foo = "asdf"
 
-    def Xform "Child" {
-
+    def Xform "Child"
+    {
     }
 }
+
 def Xform "Inherited" (
     inherits = </BaseClass>
 )

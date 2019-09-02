@@ -54,9 +54,12 @@ usdview usdview_style_stage.usda
 
 
 ### Property Type Column
-In `usdview`, the "Type" Column can contain an icon and/or text. Most of
-the time, you'll only see an icon like (C), (A), (R) etc. TODO add icon
-links. But sometimes, you'll see text, too.
+In `usdview`, the "Type" Column can contain an icon and/or
+text. Most of the time, you'll only see an icon like
+![usd-cmp-icon.png](https://user-images.githubusercontent.com/10103049/64098197-1adccd80-cd1b-11e9-8464-4f726472ab47.png),
+![usd-attr-plain-icon.png](https://user-images.githubusercontent.com/10103049/64097798-064c0580-cd1a-11e9-8b6c-4d4d47ec3928.png), or
+![usd-rel-plain-icon.png](https://user-images.githubusercontent.com/10103049/64097833-1d8af300-cd1a-11e9-9086-1f373bfb52e9.png). But sometimes,
+you'll see text, too.
 
 If a Property is inherited, there's literally be a "(i)" written in the
 Type column. For example, /Parent/Child.primvars:foo.
@@ -76,36 +79,26 @@ instanced Prims without breaking their instancing.
 
 
 ### Property Fonts
-Property fonts are always the same unless the Property is inherited from
-an ancestor Prim. If that happens, the Property is written in Italics and slightly
-smaller than usual.
-See [Property Type Column](#Property-Type-Column) for details.
+Property fonts are always the same unless the Property is inherited
+from an ancestor Prim. If that happens, the Property is written
+in Italics and slightly smaller than usual. See [Property Type
+Column](#Property-Type-Column) for details.
 
 Example property: /Parent/Child.primvars:foo
 
 
 ### Icons
-TODO do all the icons
 
-Icon|Explanation|Location
-![](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usdImaging/lib/usdviewq/icons/usd-cmp-icon.png)|This means "blah"
+|                                                                 Icon                                                                  |                                             Explanation                                             |                Location                |
+|---------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|----------------------------------------|
+| ![usd-attr-plain-icon.png](https://user-images.githubusercontent.com/10103049/64097798-064c0580-cd1a-11e9-8b6c-4d4d47ec3928.png)      | A Plain Attribute. Nothing Special                                                                  | /SomePrim.purpose                      |
+| ![usd-attr-with-conn-icon.png](https://user-images.githubusercontent.com/10103049/64097752-ef0d1800-cd19-11e9-8986-ade76e5c0eee.png)  | A "terminal" Property that connects to a "port" Property                                            | /card/boardMat.outputs:surface         |
+| ![usd-cmp-icon.png](https://user-images.githubusercontent.com/10103049/64098197-1adccd80-cd1b-11e9-8464-4f726472ab47.png)             | A resolved value that was created in a Session Layer. For example: Missing Bounding box information | /SomePrim.World Bounding Box           |
+| ![usd-conn-icon.png](https://user-images.githubusercontent.com/10103049/64098151-fc76d200-cd1a-11e9-9ac8-76bd4e67ac71.png)            | A "port" Property that a "terminal" Property connects into                                          | /card/boardMat.outputs:surface         |
+| ![usd-rel-plain-icon.png](https://user-images.githubusercontent.com/10103049/64097833-1d8af300-cd1a-11e9-9086-1f373bfb52e9.png)       | A Relationship that has no targets                                                                  | /SomePrim.relationship_with_no_targets |
+| ![usd-rel-with-target-icon.png](https://user-images.githubusercontent.com/10103049/64097942-6478e880-cd1a-11e9-95df-9d8ead6a71f7.png) | A Relationship that has 1-or-more targets                                                           | /SomePrim.relationship_with_targets    |
+| ![usd-target-icon.png](https://user-images.githubusercontent.com/10103049/64098082-d3564180-cd1a-11e9-935e-c86a71db739e.png)          | A Relationship's destination Prim or Property Target                                                | /SomePrim.relationship_with_targets    |
 
-
-![](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usdImaging/lib/usdviewq/icons/usd-conn-icon.png)|TODO
-
-![](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usdImaging/lib/usdviewq/icons/usd-attr-plain-icon.png)
-
-![](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usdImaging/lib/usdviewq/icons/usd-attr-with-conn-icon.png)
-
-![](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usdImaging/lib/usdviewq/icons/usd-rel-plain-icon.png)|A relationship with no authored targets
-
-![](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usdImaging/lib/usdviewq/icons/usd-rel-with-target-icon.png)|A relationship that points to 1-or-more targets
-
-![](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usdImaging/lib/usdviewq/icons/usd-target-icon.png)|A Relationship's destination Prim / Property target
-
-![](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usdImaging/lib/usdviewq/icons/usd-conn-icon.png)
-
-![](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usdImaging/lib/usdviewq/icons/usd-cmp-icon.png)
 
 
 # References
