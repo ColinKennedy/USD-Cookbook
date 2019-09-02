@@ -103,6 +103,8 @@ Example property: /Parent/Child.primvars:foo
 
 # References
 
+[the main function that sets property style data](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usdImaging/lib/usdviewq/appController.py#L3341-L3456)
+
 [GetPropertyColor function](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usdImaging/lib/usdviewq/common.py#L284-L299)
 
 [UIPrimTypeColors](https://github.com/PixarAnimationStudios/USD/blob/32ca7df94c83ae19e6fd38f7928d07f0e4cf5040/pxr/usdImaging/lib/usdviewq/common.py#L50-L54)
