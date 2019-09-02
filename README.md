@@ -66,18 +66,25 @@ folder has projects that are too complex or niche to fit in `concepts`.
 There's no defined structure for this folder.
 
 
-## Studying
-This repository exists mainly as a reference for USD source-code. That
-said, if you want to treat as if this is a library of tutorials, here's
-a recommended viewing order:
+## Sections
+
+This repository is split into six categories
+
+- Features
+- Concepts
+- Tricks
+- Plugins
+- Tools
+- References
+
+
+### Features
 
 [add_comment](concepts/add_comment)
 
 [set_kind](concepts/set_kind)
 
 [specializes](concepts/specializes)
-
-[uniquify_an_instance](tricks/uniquify_an_instance)
 
 [asset_info](concepts/asset_info)
 
@@ -87,61 +94,17 @@ a recommended viewing order:
 
 [world_bounding_box](concepts/world_bounding_box)
 
-[relationship_forwarding](concepts/relationship_forwarding)
-
-[variant_set_in_stronger_layer](tricks/variant_set_in_stronger_layer)
-
-[variant_set_production_shot](tricks/variant_set_production_shot)
-
 [specializes_glossary_example](tricks/specializes_glossary_example)
-
-[specializes_a_practical_example](tricks/specializes_a_practical_example)
-
-[specializes_as_a_fallback_mechanism](tricks/specializes_as_a_fallback_mechanism)
 
 [purposes](concepts/purposes)
 
-[reference_into_prim](tricks/reference_into_prim)
-
-[stl_iteration](tricks/stl_iteration)
-
-[stl_iteration2](tricks/stl_iteration2)
-
-[orphaned_over](tricks/orphaned_over)
-
 [usd_resolve_info](concepts/usd_resolve_info)
-
-[variant_set_auto_selections](tricks/variant_set_auto_selections )
-
-[copy_variant_set_to_prim](concepts/copy_variant_set_to_prim)
 
 [enable_debugging](concepts/enable_debugging)
 
 [profiling](guides/profiling_usd.md)
 
-[usd_searcher](tricks/usd_searcher)
-
-[usdview_auto_reloader](tricks/usdview_auto_reloader)
-
-[usdview_root_loader](tricks/usdview_root_loader)
-
-[variant_fallbacks](concepts/variant_fallbacks)
-
-[registered_variant_selection_export_polices](guides/registered_variant_selection_export_polices)
-
-[plugin_metadata](concepts/plugin_metadata)
-
-[custom_resolver](concepts/custom_resolver)
-
-[bound_material_finder](concepts/bound_material_finder)
-
-[fast_export](tricks/fast_export)
-
-[flatten_layer_stack](tricks/flatten_layer_stack)
-
 [value_clips](concepts/value_clips)
-
-[mesh_with_materials](concepts/mesh_with_materials)
 
 [sdf_change_block](concepts/sdf_change_block)
 
@@ -149,27 +112,91 @@ a recommended viewing order:
 
 [caching](concepts/caching)
 
-[multi_payload](concepts/multi_payload)
-
-[asset_composition_arcs](guides/asset_composition_arcs.md)
-
-[usdview_style_documentation](guides/usdview_style_documentation)
-
-[export_usdskel_from_scratch](tricks/export_usdskel_from_scratch)
-
 [notices](concepts/notices)
 
 [notice_send](concepts/notice_send)
 
+
+### Concepts
+
+[uniquify_an_instance](tricks/uniquify_an_instance)
+
+[relationship_forwarding](concepts/relationship_forwarding)
+
+[variant_set_in_stronger_layer](tricks/variant_set_in_stronger_layer)
+
+[variant_set_production_shot](tricks/variant_set_production_shot)
+
+[specializes_a_practical_example](tricks/specializes_a_practical_example)
+
+[specializes_as_a_fallback_mechanism](tricks/specializes_as_a_fallback_mechanism)
+
+[reference_into_prim](tricks/reference_into_prim)
+
+[orphaned_over](tricks/orphaned_over)
+
+[mesh_with_materials](concepts/mesh_with_materials)
+
+[asset_composition_arcs](guides/asset_composition_arcs.md)
+
+
+### Tricks
+
+[stl_iteration](tricks/stl_iteration)
+
+[stl_iteration2](tricks/stl_iteration2)
+
+[variant_set_auto_selections](tricks/variant_set_auto_selections )
+
+[copy_variant_set_to_prim](concepts/copy_variant_set_to_prim)
+
+[bound_material_finder](concepts/bound_material_finder)
+
+[fast_export](tricks/fast_export)
+
+[flatten_layer_stack](tricks/flatten_layer_stack)
+
+[multi_payload](concepts/multi_payload)
+
+
+### Plugins
+
+[usdview_auto_reloader](tricks/usdview_auto_reloader)
+
+[usdview_root_loader](tricks/usdview_root_loader)
+
+[variant_fallbacks](concepts/variant_fallbacks)
+
+[registered_variant_selection_export_polices](guides/registered_variant_selection_export_policies)
+
+[plugin_metadata](concepts/plugin_metadata)
+
 [custom_schemas_with_python_bindings](tricks/custom_schemas_with_python_bindings)
+
+
+### Tools
+
+[custom_resolver](concepts/custom_resolver)
+
+[usd_searcher](tricks/usd_searcher)
+
+[export_usdskel_from_scratch](tricks/export_usdskel_from_scratch)
+
+
+### References
+
+[usdview_style_documentation](guides/usdview_style_documentation)
 
 [where_to_find_resources](guides/where_to_find_resources.md)
 
 [working_with_plugins](guides/working_with_plugins.md)
 
 
+## Studying
+
 There's also Anki deck for this repository, which you can download
 [by clicking here](https://drive.google.com/file/d/1qx8N9wwL2ufviuWcQrY3zT2S6GN6nrg7/view?usp=sharing)
+
 
 ## Roadmap
 See [This wiki page](https://github.com/ColinKennedy/USD-Cookbook/wiki)
