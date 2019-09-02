@@ -45,7 +45,7 @@ make
 ```
 
 `USD_INSTALL_ROOT` typically defaults to `/usr/local/USD`
-on Linux but your location may vary. 
+on Linux but your location may vary.
 See [USD's build documentation](https://github.com/PixarAnimationStudios/USD#3-run-the-script) for details.
 
 
@@ -197,4 +197,4 @@ Tested with:
 - USD 19.07
 - cmake version 3.13.4
 - make 3.82
-- g++ 8.3.0  
+- g++ 8.3.0
