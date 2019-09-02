@@ -54,69 +54,71 @@ See [USD's build documentation](https://github.com/PixarAnimationStudios/USD#3-r
 ### Python
 Python modules can always run using `python name_of_module.py`
 
+
 ## Sections
 Here are links of a recommended viewing order for every project in this repository.
 
+
 ### Features
 
-[add_comment](concepts/add_comment)
+[add_comment](features/add_comment)
 
-[set_kind](concepts/set_kind)
+[set_kind](features/set_kind)
 
-[specializes](concepts/specializes)
+[specializes](features/specializes)
 
-[asset_info](concepts/asset_info)
+[asset_info](features/asset_info)
 
-[userProperties](concepts/userProperties)
+[userProperties](features/userProperties)
 
-[value_caching](concepts/value_caching)
+[value_caching](features/value_caching)
 
-[world_bounding_box](concepts/world_bounding_box)
+[world_bounding_box](features/world_bounding_box)
 
-[specializes_glossary_example](tricks/specializes_glossary_example)
+[specializes_glossary_example](features/specializes_glossary_example)
 
-[purposes](concepts/purposes)
+[purposes](features/purposes)
 
-[usd_resolve_info](concepts/usd_resolve_info)
+[usd_resolve_info](features/usd_resolve_info)
 
-[enable_debugging](concepts/enable_debugging)
+[enable_debugging](features/enable_debugging)
 
-[profiling](guides/profiling_usd.md)
+[profiling](features/profiling_usd.md)
 
-[value_clips](concepts/value_clips)
+[value_clips](features/value_clips)
 
-[sdf_change_block](concepts/sdf_change_block)
+[sdf_change_block](features/sdf_change_block)
 
-[batch_namespace_edit](concepts/batch_namespace_edit)
+[batch_namespace_edit](features/batch_namespace_edit)
 
-[caching](concepts/caching)
+[caching](features/caching)
 
-[notices](concepts/notices)
+[notices](features/notices)
 
-[notice_send](concepts/notice_send)
+[notice_send](features/notice_send)
 
 
 ### Concepts
 
-[uniquify_an_instance](tricks/uniquify_an_instance)
+[uniquify_an_instance](concepts/uniquify_an_instance)
 
 [relationship_forwarding](concepts/relationship_forwarding)
 
-[variant_set_in_stronger_layer](tricks/variant_set_in_stronger_layer)
+[variant_set_in_stronger_layer](concepts/variant_set_in_stronger_layer)
 
-[variant_set_production_shot](tricks/variant_set_production_shot)
+[variant_set_production_shot](concepts/variant_set_production_shot)
 
-[specializes_a_practical_example](tricks/specializes_a_practical_example)
+[specializes_a_practical_example](concepts/specializes_a_practical_example)
 
-[specializes_as_a_fallback_mechanism](tricks/specializes_as_a_fallback_mechanism)
+[specializes_as_a_fallback_mechanism](concepts/specializes_as_a_fallback_mechanism)
 
-[reference_into_prim](tricks/reference_into_prim)
+[reference_into_prim](concepts/reference_into_prim)
 
-[orphaned_over](tricks/orphaned_over)
+[orphaned_over](concepts/orphaned_over)
 
 [mesh_with_materials](concepts/mesh_with_materials)
 
-[asset_composition_arcs](guides/asset_composition_arcs.md)
+[asset_composition_arcs](concepts/asset_composition_arcs.md)
 
 
 ### Tricks
@@ -127,48 +129,48 @@ Here are links of a recommended viewing order for every project in this reposito
 
 [variant_set_auto_selections](tricks/variant_set_auto_selections )
 
-[copy_variant_set_to_prim](concepts/copy_variant_set_to_prim)
+[copy_variant_set_to_prim](tricks/copy_variant_set_to_prim)
 
-[bound_material_finder](concepts/bound_material_finder)
+[bound_material_finder](tricks/bound_material_finder)
 
 [fast_export](tricks/fast_export)
 
 [flatten_layer_stack](tricks/flatten_layer_stack)
 
-[multi_payload](concepts/multi_payload)
+[multi_payload](tricks/multi_payload)
 
 
 ### Plugins
 
-[usdview_auto_reloader](tricks/usdview_auto_reloader)
+[usdview_auto_reloader](plugins/usdview_auto_reloader)
 
-[usdview_root_loader](tricks/usdview_root_loader)
+[usdview_root_loader](plugins/usdview_root_loader)
 
-[variant_fallbacks](concepts/variant_fallbacks)
+[variant_fallbacks](plugins/variant_fallbacks)
 
-[registered_variant_selection_export_polices](guides/registered_variant_selection_export_policies)
+[registered_variant_selection_export_polices](plugins/registered_variant_selection_export_policies)
 
-[plugin_metadata](concepts/plugin_metadata)
+[plugin_metadata](plugins/plugin_metadata)
 
-[custom_schemas_with_python_bindings](tricks/custom_schemas_with_python_bindings)
+[custom_schemas_with_python_bindings](plugins/custom_schemas_with_python_bindings)
 
 
 ### Tools
 
-[custom_resolver](concepts/custom_resolver)
+[custom_resolver](tools/custom_resolver)
 
-[usd_searcher](tricks/usd_searcher)
+[usd_searcher](tools/usd_searcher)
 
-[export_usdskel_from_scratch](tricks/export_usdskel_from_scratch)
+[export_usdskel_from_scratch](tools/export_usdskel_from_scratch)
 
 
 ### References
 
-[usdview_style_documentation](guides/usdview_style_documentation)
+[usdview_style_documentation](references/usdview_style_documentation)
 
-[where_to_find_resources](guides/where_to_find_resources.md)
+[where_to_find_resources](references/where_to_find_resources.md)
 
-[working_with_plugins](guides/working_with_plugins.md)
+[working_with_plugins](referenes/working_with_plugins.md)
 
 
 ## Studying
