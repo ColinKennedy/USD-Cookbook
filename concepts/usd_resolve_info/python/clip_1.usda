@@ -2,15 +2,9 @@
 
 def "Clip"
 {
-    double inManifestAndInClip.timeSamples = {
-        0: 0.0,
-        1: -1.0,
+    double value_clipped_property.timeSamples = {
+        0: 12,
+        1: 15,
     }
-
-    double notInManifestAndInClip.timeSamples = {
-        0: 0.0,
-        1: -1.0,
-    }
-
-    uniform double uniformInManifestAndInClip = 0.0
 }
+

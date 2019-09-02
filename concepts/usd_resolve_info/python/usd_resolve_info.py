@@ -11,6 +11,15 @@ def main():
     prim = stage.GetPrimAtPath("/SomePrim")
 
     print(
+        'value_clipped_property - Is value clip "{}".'.format(
+            stage.GetPrimAtPath("/PrimWithValueClips")
+            .GetAttribute("value_clipped_property")
+            .GetResolveInfo(1)
+            .GetSource()
+            == Usd.ResolveInfoSourceValueClips
+        )
+    )
+    print(
         'time_samples_property - Is time samples "{}".'.format(
             prim.GetAttribute("time_samples_property").GetResolveInfo().GetSource()
             == Usd.ResolveInfoSourceTimeSamples
@@ -37,9 +46,6 @@ def main():
             == Usd.ResolveInfoSourceNone
         )
     )
-    print('value_clipped_property - Is value clip "{}".'.format(
-        stage.GetPrimAtPath("/PrimWithValueClips").GetAttribute("inManifestAndInClip").GetResolveInfo(1).GetSource()
-    ))
 
 
 if __name__ == "__main__":

@@ -2,8 +2,5 @@
 
 def "Clip"
 {
-    double inManifestAndInClip
-    double inManifestNotInClip
-
-    uniform double uniformInManifestAndInClip
+    double value_clipped_property
 }

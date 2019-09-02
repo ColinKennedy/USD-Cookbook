@@ -4,10 +4,5 @@ def "Ref" (
     kind = "model"
 )
 {
-    double inManifestAndInClip = 1.0
-    double inManifestNotInClip = 2.0
-    double notInManifestAndInClip = 3.0
-    double notInManifestNotInClip = 4.0
-
-    uniform double uniformInManifestAndInClip = 5.0
+    double value_clipped_property = 20.0
 }
