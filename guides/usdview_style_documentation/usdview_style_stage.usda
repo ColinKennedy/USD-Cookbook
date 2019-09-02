@@ -16,19 +16,31 @@ def Xform "SomePrim"
 {
     double default_property = 1
     rel relationship_with_no_targets
-    rel relationship_with_targets = </SomeOtherPrim>
+    rel relationship_with_targets = </PrimWithValueClips>
     double time_samples_property.timeSamples = {
         1: 10,
     }
 }
 
-def Xform "SomeOtherPrim"
+def Xform "PrimWithValueClips" (
+    clips = {
+        dictionary default = {
+            double2[] active = [(0, 0), (2, 1)]
+            asset[] assetPaths = [@./clip_1.usda@, @./clip_2.usda@]
+            string primPath = "/Clip"
+            double2[] times = [(0, 0), (1, 1), (2, 0), (3, 1)]
+            asset manifestAssetPath = @./clip_manifest.usda@
+        }
+    }
+    references = @./ref.usda@</Ref>
+)
 {
 }
 
+
 def "InstancedItem" (
     instanceable = true
-    references = </SomeOtherPrim>
+    references = </PrimWithValueClips>
 )
 {
 }
@@ -37,6 +49,13 @@ class "BaseClass"
 {
 }
 
+def Scope "Parent" {
+    uniform token primvars:foo = "asdf"
+
+    def Xform "Child" {
+
+    }
+}
 def Xform "Inherited" (
     inherits = </BaseClass>
 )
