@@ -1,0 +1,45 @@
+#usda 1.0
+(
+    endTimeCode = 1
+    startTimeCode = 1
+)
+
+class "SomeClass"
+{
+}
+
+over "OrphanedOver"
+{
+}
+
+def Xform "SomePrim"
+{
+    double default_property = 1
+    rel relationship_with_no_targets
+    rel relationship_with_targets = </SomeOtherPrim>
+    double time_samples_property.timeSamples = {
+        1: 10,
+    }
+}
+
+def Xform "SomeOtherPrim"
+{
+}
+
+def "InstancedItem" (
+    instanceable = true
+    references = </SomeOtherPrim>
+)
+{
+}
+
+class "BaseClass"
+{
+}
+
+def Xform "Inherited" (
+    inherits = </BaseClass>
+)
+{
+}
+
