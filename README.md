@@ -151,6 +151,8 @@ a recommended viewing order:
 
 [asset_composition_arcs](guides/asset_composition_arcs.md)
 
+[usdview_style_documentation](guides/usdview_style_documentation)
+
 [export_usdskel_from_scratch](tricks/export_usdskel_from_scratch)
 
 [notices](concepts/notices)
