@@ -4,22 +4,24 @@ shows off a single feature or group of USD features.
 
 ## Structure summary
 
-```
-Folders
-- concepts/
- - {CONCEPT_NAME}
-  - README.md
-  - cpp/
-  - python/
-  - usda/
-- guides/
-- tricks/
-```
+This repository is split into six categories
 
-Each USD feature is in the "concepts" folder. Most features have a C++,
-python, and USDA project folder where you can see how to author that
-feature in each representation and how it actually looks when it gets
-written in USD.
+- Features
+- Concepts
+- Tricks
+- Plugins
+- Tools
+- References
+
+Features highlight a single class or set of functions for working in USD.
+Concepts take features explained in Features and extends them to real-world examples.
+Tricks are simple, isolated ideas using USD Features.
+Plugins show how to customize USD to suit your pipeline.
+Tools are miscellaneous scripts that are built to do a specific task, with USD.
+References are articles that show where to find more information.
+
+Every project in this repository will show how to work in Python, C++,
+and USDA wherever possible.
 
 
 ## How to view
@@ -53,123 +55,129 @@ See [USD's build documentation](https://github.com/PixarAnimationStudios/USD#3-r
 Python modules can always run using `python name_of_module.py`
 
 
-## Folder Explanation
-- `concepts` is where you'll find simple, single features shown by-example.
-It will have C++, Python, and USDA example projects (whenever possible).
-If you're the type that makes flashcards, you'll get the most mileage
-here.
-- `guides` contains articles of ideas and references that help a user
-learn USD.
-- `tricks` is a mixed bag of situations that come up in production and
-general proof-of-concepts on how to do certain operations in USD. This
-folder has projects that are too complex or niche to fit in `concepts`.
-There's no defined structure for this folder.
+## Sections
+Here are links of a recommended viewing order for every project in this repository.
+
+
+### Features
+
+[Adding comments to USD files](features/add_comment)
+
+[SetKind onto UsdPrim](features/set_kind)
+
+[specializes composition arc](features/specializes)
+
+[Using Prim AssetInfo](features/asset_info)
+
+[Defining customizable userProperties](features/userProperties)
+
+[Value resolution caching](features/value_caching)
+
+[Computing bounding boxes, using UsdGeomImageable and UsdGeomBBoxCache](features/world_bounding_box)
+
+[Pixar's specializes example](features/specializes_glossary_example)
+
+[Using "purposes" on UsdPrim objects](features/purposes)
+
+[UsdResolveInfo - Finding where opinions come from](features/usd_resolve_info)
+
+[Enable debugging messages and write your own](features/enable_debugging)
+
+[Profiling USD stages](features/profiling_usd.md)
+
+[How to use Value Clips](features/value_clips)
+
+[SdfChangeBlock - Efficient USD authoring](features/sdf_change_block)
+
+[SdfBatchNamespaceEdit and SdfNamespaceEdit - Efficient USD authoring](features/batch_namespace_edit)
+
+[UsdStageCache - caching USD stages](features/caching)
+
+[TfNotice - Run functions when a stage changes, using callbacks](features/notices)
+
+[TfNotice - Send your own custom callbacks](features/notice_send)
+
+
+### Concepts
+
+[Overriding VariantSets](concepts/variant_set_in_stronger_layer)
+
+[How to uniquify an instanced UsdPrim](concepts/uniquify_an_instance)
+
+[UsdRelationship Forwarding](concepts/relationship_forwarding)
+
+[Using VariantSets in a production scenario](concepts/variant_set_production_shot)
+
+[A practical example of the "specializes" composition arc](concepts/specializes_a_practical_example)
+
+[The "specializes" composition arc as a fallback mechanism](concepts/specializes_as_a_fallback_mechanism)
+
+[Reference a Prim in the current SdfLayer](concepts/reference_into_prim)
+
+[How to find "Orphaned" overs](concepts/orphaned_over)
+
+[A mesh with a material](concepts/mesh_with_materials)
+
+[Asset composition arcs - how subLayers, references, and payloads work together](concepts/asset_composition_arcs.md)
+
+
+### Tricks
+
+[Printing and modifiying prims using the C++ STL](tricks/stl_iteration)
+
+[Custom traversals with boost](tricks/stl_iteration2)
+
+[Variant auto-selections - Using VariantSets to modify other VariantSets](tricks/variant_set_auto_selections )
+
+[Copy opinions from a VariantSet onto another Prim](tricks/copy_variant_set_to_prim)
+
+[Find a Prim's bound material (includes collections API)](tricks/bound_material_finder)
+
+[2-pass exporting - Export USD stages 100x faster](tricks/fast_export)
+
+[Flatten a USD layer stack](tricks/flatten_layer_stack)
+
+[Multi-payloads - Yes, you can have more than one](tricks/multi_payload)
+
+
+### Plugins
+
+[usdview_auto_reloader - Update layers in usdview automatically](plugins/usdview_auto_reloader)
+
+[usdview_root_loader - Recursively load / unload Prim payloads](plugins/usdview_root_loader)
+
+[VariantSet fallback selections](plugins/variant_fallbacks)
+
+[VariantSet selection export polices](plugins/registered_variant_selection_export_policies)
+
+[Adding custom metadata](plugins/plugin_metadata)
+
+[Custom USD schemas](plugins/custom_schemas_with_python_bindings)
+
+
+### Tools
+
+[A custom ArResolver plugin](tools/custom_resolver)
+
+[usd_searcher - A command-line tool for searching USD files](tools/usd_searcher)
+
+[Exporting UsdSkel from scratch](tools/export_usdskel_from_scratch)
+
+
+### References
+
+[Understanding usdview](references/usdview_style_documentation)
+
+[The USD supported plugin mastersheet](references/working_with_plugins.md)
+
+[Where to find more resources](references/where_to_find_resources.md)
 
 
 ## Studying
-This repository exists mainly as a reference for USD source-code. That
-said, if you want to treat as if this is a library of tutorials, here's
-a recommended viewing order:
-
-[add_comment](concepts/add_comment)
-
-[set_kind](concepts/set_kind)
-
-[specializes](concepts/specializes)
-
-[uniquify_an_instance](tricks/uniquify_an_instance)
-
-[asset_info](concepts/asset_info)
-
-[userProperties](concepts/userProperties)
-
-[value_caching](concepts/value_caching)
-
-[world_bounding_box](concepts/world_bounding_box)
-
-[relationship_forwarding](concepts/relationship_forwarding)
-
-[variant_set_in_stronger_layer](tricks/variant_set_in_stronger_layer)
-
-[variant_set_production_shot](tricks/variant_set_production_shot)
-
-[specializes_glossary_example](tricks/specializes_glossary_example)
-
-[specializes_a_practical_example](tricks/specializes_a_practical_example)
-
-[specializes_as_a_fallback_mechanism](tricks/specializes_as_a_fallback_mechanism)
-
-[purposes](concepts/purposes)
-
-[reference_into_prim](tricks/reference_into_prim)
-
-[stl_iteration](tricks/stl_iteration)
-
-[stl_iteration2](tricks/stl_iteration2)
-
-[orphaned_over](tricks/orphaned_over)
-
-[usd_resolve_info](concepts/usd_resolve_info)
-
-[variant_set_auto_selections](tricks/variant_set_auto_selections )
-
-[copy_variant_set_to_prim](concepts/copy_variant_set_to_prim)
-
-[enable_debugging](concepts/enable_debugging)
-
-[profiling](guides/profiling_usd.md)
-
-[usd_searcher](tricks/usd_searcher)
-
-[usdview_auto_reloader](tricks/usdview_auto_reloader)
-
-[usdview_root_loader](tricks/usdview_root_loader)
-
-[variant_fallbacks](concepts/variant_fallbacks)
-
-[registered_variant_selection_export_polices](guides/registered_variant_selection_export_polices)
-
-[plugin_metadata](concepts/plugin_metadata)
-
-[custom_resolver](concepts/custom_resolver)
-
-[bound_material_finder](concepts/bound_material_finder)
-
-[fast_export](tricks/fast_export)
-
-[flatten_layer_stack](tricks/flatten_layer_stack)
-
-[value_clips](concepts/value_clips)
-
-[mesh_with_materials](concepts/mesh_with_materials)
-
-[sdf_change_block](concepts/sdf_change_block)
-
-[batch_namespace_edit](concepts/batch_namespace_edit)
-
-[caching](concepts/caching)
-
-[multi_payload](concepts/multi_payload)
-
-[asset_composition_arcs](guides/asset_composition_arcs.md)
-
-[usdview_style_documentation](guides/usdview_style_documentation)
-
-[export_usdskel_from_scratch](tricks/export_usdskel_from_scratch)
-
-[notices](concepts/notices)
-
-[notice_send](concepts/notice_send)
-
-[custom_schemas_with_python_bindings](tricks/custom_schemas_with_python_bindings)
-
-[where_to_find_resources](guides/where_to_find_resources.md)
-
-[working_with_plugins](guides/working_with_plugins.md)
-
 
 There's also Anki deck for this repository, which you can download
 [by clicking here](https://drive.google.com/file/d/1qx8N9wwL2ufviuWcQrY3zT2S6GN6nrg7/view?usp=sharing)
+
 
 ## Roadmap
 See [This wiki page](https://github.com/ColinKennedy/USD-Cookbook/wiki)
