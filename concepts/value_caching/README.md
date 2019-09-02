@@ -75,6 +75,9 @@ Function was called "1000" times and took 1452561 microseconds
 For both stages, it's about a 20% savings. That's pretty high,
 considering it took almost no effort to add in.
 
+From personal tests, the savings get close to 50% when a scene of
+reasonable complexity (with many layers) is loaded, as well!
+
 
 ## References
 
