@@ -47,7 +47,7 @@ make
 ```
 
 `USD_INSTALL_ROOT` typically defaults to `/usr/local/USD`
-on Linux but your location may vary. 
+on Linux but your location may vary.
 See [USD's build documentation](https://github.com/PixarAnimationStudios/USD#3-run-the-script) for details.
 
 
@@ -61,116 +61,116 @@ Here are links of a recommended viewing order for every project in this reposito
 
 ### Features
 
-[add_comment](features/add_comment)
+[Adding comments to USD files](features/add_comment)
 
-[set_kind](features/set_kind)
+[SetKind onto UsdPrim](features/set_kind)
 
-[specializes](features/specializes)
+[specializes composition arc](features/specializes)
 
-[asset_info](features/asset_info)
+[Using Prim AssetInfo](features/asset_info)
 
-[userProperties](features/userProperties)
+[Defining customizable userProperties](features/userProperties)
 
-[value_caching](features/value_caching)
+[Value resolution caching](features/value_caching)
 
-[world_bounding_box](features/world_bounding_box)
+[Computing bounding boxes, using UsdGeomImageable and UsdGeomBBoxCache](features/world_bounding_box)
 
-[specializes_glossary_example](features/specializes_glossary_example)
+[Pixar's specializes example](features/specializes_glossary_example)
 
-[purposes](features/purposes)
+[Using "purposes" on UsdPrim objects](features/purposes)
 
-[usd_resolve_info](features/usd_resolve_info)
+[UsdResolveInfo - Finding where opinions come from](features/usd_resolve_info)
 
-[enable_debugging](features/enable_debugging)
+[Enable debugging messages and write your own](features/enable_debugging)
 
-[profiling](features/profiling_usd.md)
+[Profiling USD stages](features/profiling_usd.md)
 
-[value_clips](features/value_clips)
+[How to use Value Clips](features/value_clips)
 
-[sdf_change_block](features/sdf_change_block)
+[SdfChangeBlock - Efficient USD authoring](features/sdf_change_block)
 
-[batch_namespace_edit](features/batch_namespace_edit)
+[SdfBatchNamespaceEdit and SdfNamespaceEdit - Efficient USD authoring](features/batch_namespace_edit)
 
-[caching](features/caching)
+[UsdStageCache - caching USD stages](features/caching)
 
-[notices](features/notices)
+[TfNotice - Run functions when a stage changes, using callbacks](features/notices)
 
-[notice_send](features/notice_send)
+[TfNotice - Send your own custom callbacks](features/notice_send)
 
 
 ### Concepts
 
-[uniquify_an_instance](concepts/uniquify_an_instance)
+[Overriding VariantSets](concepts/variant_set_in_stronger_layer)
 
-[relationship_forwarding](concepts/relationship_forwarding)
+[How to uniquify an instanced UsdPrim](concepts/uniquify_an_instance)
 
-[variant_set_in_stronger_layer](concepts/variant_set_in_stronger_layer)
+[UsdRelationship Forwarding](concepts/relationship_forwarding)
 
-[variant_set_production_shot](concepts/variant_set_production_shot)
+[Using VariantSets in a production scenario](concepts/variant_set_production_shot)
 
-[specializes_a_practical_example](concepts/specializes_a_practical_example)
+[A practical example of the "specializes" composition arc](concepts/specializes_a_practical_example)
 
-[specializes_as_a_fallback_mechanism](concepts/specializes_as_a_fallback_mechanism)
+[The "specializes" composition arc as a fallback mechanism](concepts/specializes_as_a_fallback_mechanism)
 
-[reference_into_prim](concepts/reference_into_prim)
+[Reference a Prim in the current SdfLayer](concepts/reference_into_prim)
 
-[orphaned_over](concepts/orphaned_over)
+[How to find "Orphaned" overs](concepts/orphaned_over)
 
-[mesh_with_materials](concepts/mesh_with_materials)
+[A mesh with a material](concepts/mesh_with_materials)
 
-[asset_composition_arcs](concepts/asset_composition_arcs.md)
+[Asset composition arcs - how subLayers, references, and payloads work together](concepts/asset_composition_arcs.md)
 
 
 ### Tricks
 
-[stl_iteration](tricks/stl_iteration)
+[Printing and modifiying prims using the C++ STL](tricks/stl_iteration)
 
-[stl_iteration2](tricks/stl_iteration2)
+[Custom traversals with boost](tricks/stl_iteration2)
 
-[variant_set_auto_selections](tricks/variant_set_auto_selections )
+[Variant auto-selections - Using VariantSets to modify other VariantSets](tricks/variant_set_auto_selections )
 
-[copy_variant_set_to_prim](tricks/copy_variant_set_to_prim)
+[Copy opinions from a VariantSet onto another Prim](tricks/copy_variant_set_to_prim)
 
-[bound_material_finder](tricks/bound_material_finder)
+[Find a Prim's bound material (includes collections API)](tricks/bound_material_finder)
 
-[fast_export](tricks/fast_export)
+[2-pass exporting - Export USD stages 100x faster](tricks/fast_export)
 
-[flatten_layer_stack](tricks/flatten_layer_stack)
+[Flatten a USD layer stack](tricks/flatten_layer_stack)
 
-[multi_payload](tricks/multi_payload)
+[Multi-payloads - Yes, you can have more than one](tricks/multi_payload)
 
 
 ### Plugins
 
-[usdview_auto_reloader](plugins/usdview_auto_reloader)
+[usdview_auto_reloader - Update layers in usdview automatically](plugins/usdview_auto_reloader)
 
-[usdview_root_loader](plugins/usdview_root_loader)
+[usdview_root_loader - Recursively load / unload Prim payloads](plugins/usdview_root_loader)
 
-[variant_fallbacks](plugins/variant_fallbacks)
+[VariantSet fallback selections](plugins/variant_fallbacks)
 
-[registered_variant_selection_export_polices](plugins/registered_variant_selection_export_policies)
+[VariantSet selection export polices](plugins/registered_variant_selection_export_policies)
 
-[plugin_metadata](plugins/plugin_metadata)
+[Adding custom metadata](plugins/plugin_metadata)
 
-[custom_schemas_with_python_bindings](plugins/custom_schemas_with_python_bindings)
+[Custom USD schemas](plugins/custom_schemas_with_python_bindings)
 
 
 ### Tools
 
-[custom_resolver](tools/custom_resolver)
+[A custom ArResolver plugin](tools/custom_resolver)
 
-[usd_searcher](tools/usd_searcher)
+[usd_searcher - A command-line tool for searching USD files](tools/usd_searcher)
 
-[export_usdskel_from_scratch](tools/export_usdskel_from_scratch)
+[Exporting UsdSkel from scratch](tools/export_usdskel_from_scratch)
 
 
 ### References
 
-[usdview_style_documentation](references/usdview_style_documentation)
+[Understanding usdview](references/usdview_style_documentation)
 
-[where_to_find_resources](references/where_to_find_resources.md)
+[The USD supported plugin mastersheet](references/working_with_plugins.md)
 
-[working_with_plugins](references/working_with_plugins.md)
+[Where to find more resources](references/where_to_find_resources.md)
 
 
 ## Studying
@@ -205,4 +205,4 @@ Tested with:
 - USD 19.07
 - cmake version 3.13.4
 - make 3.82
-- g++ 8.3.0  
+- g++ 8.3.0
