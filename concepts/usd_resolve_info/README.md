@@ -10,12 +10,14 @@ page.
 ## C++
 
 ```cpp
+stage->GetPrimAtPath(pxr::SdfPath{"/Foo"}).GetAttribute(pxr::TfToken{"bar"}).GetResolveInfo().GetSource()
 ```
 
 
 ## Python
 
 ```python
+stage.GetPrimAtPath("/Foo").GetAttribute("bar").GetResolveInfo().GetSource()
 ```
 
 
