@@ -170,7 +170,7 @@ Here are links of a recommended viewing order for every project in this reposito
 
 [where_to_find_resources](references/where_to_find_resources.md)
 
-[working_with_plugins](referenes/working_with_plugins.md)
+[working_with_plugins](references/working_with_plugins.md)
 
 
 ## Studying
