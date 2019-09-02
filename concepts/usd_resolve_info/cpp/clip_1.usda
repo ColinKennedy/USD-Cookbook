@@ -1,0 +1,10 @@
+#usda 1.0
+
+def "Clip"
+{
+    double value_clipped_property.timeSamples = {
+        0: 12,
+        1: 15,
+    }
+}
+

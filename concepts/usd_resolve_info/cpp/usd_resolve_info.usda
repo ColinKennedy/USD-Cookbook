@@ -1,0 +1,35 @@
+#usda 1.0
+
+def Xform "SomePrim"
+{
+    double default_property = 1
+    double time_samples_property = 20
+    double time_samples_property.timeSamples = {
+        1: 10,
+    }
+    double time_dependent_property.timeSamples = {
+        1: 10,
+        2: 20,
+    }
+}
+
+def Sphere "SomeSphere"
+{
+}
+
+
+def "PrimWithValueClips" (
+    clips = {
+        dictionary default = {
+            double2[] active = [(0, 0), (2, 1)]
+            asset[] assetPaths = [@./clip_1.usda@, @./clip_2.usda@]
+            string primPath = "/Clip"
+            double2[] times = [(0, 0), (1, 0)]
+            asset manifestAssetPath = @./clip_manifest.usda@
+        }
+    }
+    references = @./ref.usda@</Ref>
+)
+{
+}
+

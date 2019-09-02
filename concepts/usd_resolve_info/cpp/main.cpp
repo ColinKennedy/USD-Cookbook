@@ -12,6 +12,8 @@ int main() {
     auto stage = pxr::UsdStage::Open("../usd_resolve_info.usda");
     auto prim = stage->GetPrimAtPath(pxr::SdfPath{"/SomePrim"});
 
+    std::cout << std::boolalpha;
+
     std::cout <<
         "value_clipped_property - Is value clip \"" <<
             (stage->GetPrimAtPath(pxr::SdfPath{"/PrimWithValueClips"})
