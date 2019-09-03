@@ -14,10 +14,15 @@ This repository is split into six categories
 - References
 
 Features highlight a single class or set of functions for working in USD.
+
 Concepts take features explained in Features and extends them to real-world examples.
+
 Tricks are simple, isolated ideas using USD Features.
+
 Plugins show how to customize USD to suit your pipeline.
+
 Tools are miscellaneous scripts that are built to do a specific task, with USD.
+
 References are articles that show where to find more information.
 
 Every project in this repository will show how to work in Python, C++,
