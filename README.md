@@ -154,10 +154,10 @@ Here are links of a recommended viewing order for every project in this reposito
 
 [Custom USD schemas](plugins/custom_schemas_with_python_bindings)
 
+[A custom ArResolver plugin](tools/custom_resolver)
+
 
 ### Tools
-
-[A custom ArResolver plugin](tools/custom_resolver)
 
 [usd_searcher - A command-line tool for searching USD files](tools/usd_searcher)
 
