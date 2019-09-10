@@ -2,8 +2,8 @@ This code is copied from [USD's testUsdValueClips](https://github.com/PixarAnima
 
 
 ## How to read this section
-Open root.usda and read through [this page of USD's documentation](https://graphics.pixar.com/usd/docs/api/_usd__page__value
-_clips.html). That page refers to 2 styles of Value Clips, explicit
+Open root.usda and read through [this page of USD's documentation](https://graphics.pixar.com/usd/docs/api/_usd__page__value_clips.html). 
+That page refers to 2 styles of Value Clips, explicit
 metadata and templates. This folder is the explicit metadata.
 
 
@@ -78,8 +78,9 @@ Actual Value Clip resolution can be much more complex than
 this simple example though. For exmaple: Which clip is
 used if `active` doesn't specify a clip for some stage's
 time? This question and many others are explained in USD's
-documentation so, again, make sure to read [this page of USD's documentation](https://graphics.pixar.com/usd/docs/api/_usd__page__value
-_clips.html) for further information.
+documentation so, again, make sure to read 
+[this page of USD's documentation](https://graphics.pixar.com/usd/docs/api/_usd__page__value_clips.html)
+for further information.
 
 Important:
 
