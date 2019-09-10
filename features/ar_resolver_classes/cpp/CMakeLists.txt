@@ -15,6 +15,8 @@ set(USD_INCLUDE_DIRECTORY $ENV{USD_INSTALL_ROOT}/include)
 
 find_library(USD_AR ar HINTS ${USD_LIBRARY_DIRECTORY})
 find_library(USD_BOOST_PYTHON boost_python HINTS ${USD_LIBRARY_DIRECTORY})
+find_library(USD_SDF sdf HINTS ${USD_LIBRARY_DIRECTORY})
+find_library(USD_TF tf HINTS ${USD_LIBRARY_DIRECTORY})
 find_library(USD_USD usd HINTS ${USD_LIBRARY_DIRECTORY})
 find_library(USD_USDGEOM usdGeom HINTS ${USD_LIBRARY_DIRECTORY})
 find_library(USD_USDUTILS usdUtils HINTS ${USD_LIBRARY_DIRECTORY})
@@ -36,6 +38,8 @@ run_it
     ${PYTHON_LIBRARY}
     ${USD_AR}
     ${USD_BOOST_PYTHON}
+    ${USD_SDF}
+    ${USD_TF}
     ${USD_USDGEOM}
     ${USD_USDUTILS}
     ${USD_USD}

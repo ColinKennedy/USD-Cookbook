@@ -1,14 +1,61 @@
 // IMPORT STANDARD LIBRARIES
 #include <iostream>
+#include <vector>
+#include <string>
 
 // IMPORT THIRD-PARTY LIBRARIES
 #include <pxr/usd/ar/defaultResolverContext.h>
 #include <pxr/usd/ar/resolver.h>
 #include <pxr/usd/ar/resolverContextBinder.h>
+#include <pxr/usd/sdf/assetPath.h>
+#include <pxr/usd/sdf/layerUtils.h>
 #include <pxr/usd/usd/stage.h>
 #include <pxr/usd/usdGeom/sphere.h>
 #include <pxr/usd/usdUtils/dependencies.h>
 
+
+std::ostream& operator<<(
+    std::ostream& stream,
+    std::vector<std::string> const &strings
+)
+{
+    std::cout << "[";
+
+    if (strings.empty()) {
+        std::cout << "]";
+        return stream;
+    }
+
+    for (auto const string : strings) {
+        std::cout << string << ", ";
+    }
+
+    std::cout << "]";
+
+    return stream;
+}
+
+
+std::ostream& operator<<(
+    std::ostream& stream,
+    std::vector<pxr::SdfLayerRefPtr> const &layers
+)
+{
+    std::cout << "[";
+
+    if (layers.empty()) {
+        std::cout << "]";
+        return stream;
+    }
+
+    for (auto const layer : layers) {
+        std::cout << layer << ", ";
+    }
+
+    std::cout << "]";
+
+    return stream;
+}
 
 
 int main() {
@@ -16,7 +63,7 @@ int main() {
 
     auto path = "some_stage.usda";
     std::cout << "The path to find: \"" << path << "\".\n";
-    auto resolver = pxr::ArGetResolver();
+    auto& resolver = pxr::ArGetResolver();
     std::cout
         << "This path should be empty: \""
         << resolver.Resolve(path)
@@ -30,10 +77,14 @@ int main() {
             << "Now the path will actually resolve, \""
             << resolver.Resolve(path)
             << "\".\n";
+
+        std::vector<pxr::SdfLayerRefPtr> layers;
+        std::vector<std::string> assets;
+        std::vector<std::string> unresolved;
+        pxr::UsdUtilsComputeAllDependencies(pxr::SdfAssetPath{path}, &layers, &assets, &unresolved);
         std::cout
-            << "And we can even get dependency information"
-            << pxr::UsdUtilsComputeAllDependencies(path)
-            << "\n";
+            << "And we can even get dependency information "
+            << "(" << layers << "," << assets << "," << unresolved << ")\n";
 
         std::cout << '\n';
         std::cout << "XXX: We can resolve any of the below relative paths in this context\n";
