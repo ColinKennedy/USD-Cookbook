@@ -1,4 +1,5 @@
 // IMPORT STANDARD LIBRARIES
+#include <algorithm>
 #include <iostream>
 #include <stdio.h>
 #include <string>
@@ -21,18 +22,18 @@ std::ostream& operator<<(
     std::vector<std::string> const &strings
 )
 {
-    std::cout << "[";
+    stream << "[";
 
     if (strings.empty()) {
-        std::cout << "]";
+        stream << "]";
         return stream;
     }
 
     for (auto const string : strings) {
-        std::cout << string << ", ";
+        stream << '"' << string << "\", ";
     }
 
-    std::cout << "]";
+    stream << "]";
 
     return stream;
 }
@@ -43,18 +44,18 @@ std::ostream& operator<<(
     std::vector<pxr::SdfLayerRefPtr> const &layers
 )
 {
-    std::cout << "[";
+    stream << "[";
 
     if (layers.empty()) {
-        std::cout << "]";
+        stream << "]";
         return stream;
     }
 
     for (auto const layer : layers) {
-        std::cout << layer << ", ";
+        stream << '"' << layer->GetRealPath() << "\", ";
     }
 
-    std::cout << "]";
+    stream << "]";
 
     return stream;
 }
@@ -62,7 +63,7 @@ std::ostream& operator<<(
 
 int main() {
     auto directory = std::string{get_current_dir_name()};  // Reference: http://man7.org/linux/man-pages/man3/getcwd.3.html
-    auto project_folder = directory.substr(0, directory.find_last_of("/\\")) + "/project_folder";
+    auto project_folder = directory + "/project_folder";
     auto nested_folder = project_folder + "/nested";
     auto context = pxr::ArDefaultResolverContext({project_folder, nested_folder});
 
@@ -89,7 +90,7 @@ int main() {
         pxr::UsdUtilsComputeAllDependencies(pxr::SdfAssetPath{path}, &layers, &assets, &unresolved);
         std::cout
             << "And we can even get dependency information "
-            << "(" << layers << "," << assets << "," << unresolved << ")\n";
+            << "(" << layers << ", " << assets << ", " << unresolved << ")\n";
 
         std::cout << '\n';
         std::cout << "XXX: We can resolve any of the below relative paths in this context\n";
