@@ -1,0 +1,32 @@
+#usda 1.0
+
+def Sphere "Sphere1"
+{
+    double radius = 1
+}
+
+# XXX : Here, we try loading "a_dependent_layer.usda" using different
+# syntax to see if we can get a Prim radius to return a different
+# value. It won't work though. in both cases, </SomePrim.radius> and
+# <SomePrim2.radius both equal `20`.
+#
+def "SomePrim" (
+    add references = @a_dependent_layer.usda@
+)
+{
+}
+
+
+def "SomePrim2" (
+    add references = @./a_dependent_layer.usda@
+)
+{
+	asset thing = @./data.json@
+}
+
+def "SomePrim3" (
+    add references = @some_nested_layer.usda@
+)
+{
+}
+

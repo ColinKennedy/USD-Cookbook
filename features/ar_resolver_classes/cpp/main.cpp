@@ -1,7 +1,9 @@
 // IMPORT STANDARD LIBRARIES
 #include <iostream>
-#include <vector>
+#include <stdio.h>
 #include <string>
+#include <unistd.h>
+#include <vector>
 
 // IMPORT THIRD-PARTY LIBRARIES
 #include <pxr/usd/ar/defaultResolverContext.h>
@@ -59,7 +61,10 @@ std::ostream& operator<<(
 
 
 int main() {
-    auto context = pxr::ArDefaultResolverContext({"path"});
+    auto directory = std::string{get_current_dir_name()};  // Reference: http://man7.org/linux/man-pages/man3/getcwd.3.html
+    auto project_folder = directory.substr(0, directory.find_last_of("/\\")) + "/project_folder";
+    auto nested_folder = project_folder + "/nested";
+    auto context = pxr::ArDefaultResolverContext({project_folder, nested_folder});
 
     auto path = "some_stage.usda";
     std::cout << "The path to find: \"" << path << "\".\n";
@@ -95,7 +100,12 @@ int main() {
         std::cout << resolver.Resolve("some_nested_layer.usda") << '\n';
 
         std::cout << '\n';
-        stage = pxr::UsdStage::Open("some_stage.usda");
+        // This line will produce a warning about
+        // Th@some_nested_layer.usda@ e reason is because that relative
+        // Thpath is relative to the current USD layer and has nothing
+        // Thto do with our ArDefaultResolverContext.
+        //
+        stage = pxr::UsdStage::Open(path);
     }
 
     std::cout << '\n';
@@ -103,18 +113,19 @@ int main() {
         <<
             "XXX: But if we try to query information from the paths, that "
             "doesn't work. It's the same whether we're inside or outside "
-            "of the context.\n";
-    auto prim = pxr::UsdGeomSphere{stage->GetPrimAtPath(pxr::SdfPath{"/SomePrim"})};
+            "of the context. The values below will just be \"20\" instead "
+            "of \"30\" or any othe number\n";
+    auto sphere = pxr::UsdGeomSphere{stage->GetPrimAtPath(pxr::SdfPath{"/SomePrim"})};
     double radius;
-    prim.GetRadiusAttr().Get(&radius);
+    sphere.GetRadiusAttr().Get(&radius);
     std::cout << radius << '\n';
 
-    prim = pxr::UsdGeomSphere{stage->GetPrimAtPath(pxr::SdfPath{"/SomePrim2"})};
-    prim.GetRadiusAttr().Get(&radius);
+    sphere = pxr::UsdGeomSphere{stage->GetPrimAtPath(pxr::SdfPath{"/SomePrim2"})};
+    sphere.GetRadiusAttr().Get(&radius);
     std::cout << radius << '\n';
-    prim = pxr::UsdGeomSphere{stage->GetPrimAtPath(pxr::SdfPath{"/SomePrim3"})};
-    prim.GetRadiusAttr().Get(&radius);
-    std::cout << "This will be None, because @some_nested_layer.usda will not resolve: \"" << radius << "\".\n" << '\n';
+    sphere = pxr::UsdGeomSphere{stage->GetPrimAtPath(pxr::SdfPath{"/SomePrim3"})};
+    sphere.GetRadiusAttr().Get(&radius);
+    std::cout << "This will be None, because @some_nested_layer.usda does not resolve: \"" << radius << "\".\n" << '\n';
 
     return 0;
 }
