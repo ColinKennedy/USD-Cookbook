@@ -19,17 +19,17 @@ import time
 from pxr import Ar
 
 
-def timeit(function, repeats):
+def timeit(function, repeats, name):
     start = time.time()
 
     for _ in range(repeats):
-        result = function()
+        function()
 
     end = time.time()
 
     print(
-        'Function "{function}" was called "{repeats}" times and took "{total:.1f}" milliseconds.'.format(
-            function=function.__name__, repeats=repeats, total=(end - start) * 1000
+        'Function "{name}" was called "{repeats}" times and took "{total:.1f}" milliseconds.'.format(
+            name=name, repeats=repeats, total=(end - start) * 1000
         )
     )
 
@@ -38,14 +38,13 @@ def main():
     """Run the main execution of the current script."""
     resolver = Ar.GetResolver()
     function = functools.partial(resolver.Resolve, "foo")
-    function.__name__ = "Resolve"
 
     print("This first function run will be slowly because it isn't cached.")
-    timeit(function, 10000)
+    timeit(function, 10000, "Resolve without cache")
 
     print("Now run the same function, this time with caching.")
     with Ar.ResolverScopedCache():
-        timeit(function, 10000)
+        timeit(function, 10000, "Resolve with cache")
 
 
 if __name__ == "__main__":

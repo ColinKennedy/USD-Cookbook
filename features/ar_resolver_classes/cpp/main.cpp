@@ -106,15 +106,17 @@ int main() {
         // Thto do with our ArDefaultResolverContext.
         //
         stage = pxr::UsdStage::Open(path);
+        std::cout << "ID " << stage->GetRootLayer()->GetIdentifier() << '\n';
+        std::cout << "path " << stage->GetRootLayer()->GetRealPath() << '\n';
     }
 
     std::cout << '\n';
     std::cout
         <<
             "XXX: But if we try to query information from the paths, that "
-            "doesn't work. It's the same whether we're inside or outside "
-            "of the context. The values below will just be \"20\" instead "
-            "of \"30\" or any othe number\n";
+            "doesn't work. You might expect SomePrim and SomePrim2 to have different "
+            "radius values but they are both \"20\" because the asset paths in USD layers "
+            "resolve the path based on the USD layer's current position\n";
     auto sphere = pxr::UsdGeomSphere{stage->GetPrimAtPath(pxr::SdfPath{"/SomePrim"})};
     double radius;
     sphere.GetRadiusAttr().Get(&radius);

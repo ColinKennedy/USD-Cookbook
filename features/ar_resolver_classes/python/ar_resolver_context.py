@@ -67,26 +67,30 @@ def main():
         print(resolver.Resolve("data.json"))
         print("The next path will resolve because we added `nested_folder`")
         print(resolver.Resolve("some_nested_layer.usda"))
-        print()
 
-        stage = Usd.Stage.Open("some_stage.usda")
+        print()
+        stage = Usd.Stage.Open(path)
+        print('ID', stage.GetRootLayer().identifier)  # The relative path used
+        print('path', stage.GetRootLayer().realPath)  # The actual absolute path
 
     print()
     print(
         "XXX: But if we try to query information from the paths, that "
-        "doesn't work. It's the same whether we're inside or outside "
-        "of the context."
+        "doesn't work. You might expect SomePrim and SomePrim2 to have different "
+        "radius values but they are both \"20\" because the asset paths in USD layers "
+        "resolve the path based on the USD layer's current position"
     )
-    prim = UsdGeom.Sphere(stage.GetPrimAtPath("/SomePrim"))
-    print(prim.GetRadiusAttr().Get())
-    prim = UsdGeom.Sphere(stage.GetPrimAtPath("/SomePrim2"))
-    print(prim.GetRadiusAttr().Get())
-    prim = UsdGeom.Sphere(stage.GetPrimAtPath("/SomePrim3"))
+    sphere = UsdGeom.Sphere(stage.GetPrimAtPath("/SomePrim"))
+    print(sphere.GetRadiusAttr().Get())
+    sphere = UsdGeom.Sphere(stage.GetPrimAtPath("/SomePrim2"))
+    print(sphere.GetRadiusAttr().Get())
+    sphere = UsdGeom.Sphere(stage.GetPrimAtPath("/SomePrim3"))
     print(
-        'This will be None, because @some_nested_layer.usda will not resolve: "{value}"'.format(
-            value=prim.GetRadiusAttr().Get()
+        'This will be None, because @some_nested_layer.usda does not resolve: "{value}"'.format(
+            value=sphere.GetRadiusAttr().Get()
         )
     )
+    print('path', stage.GetRootLayer().realPath)  # The actual absolute path
 
 
 if __name__ == "__main__":
