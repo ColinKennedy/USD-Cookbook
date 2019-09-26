@@ -102,9 +102,9 @@ int main() {
 
         std::cout << '\n';
         // This line will produce a warning about
-        // Th@some_nested_layer.usda@ e reason is because that relative
-        // Thpath is relative to the current USD layer and has nothing
-        // Thto do with our ArDefaultResolverContext.
+        // @some_nested_layer.usda@ e reason is because that relative
+        // path is relative to the current USD layer and has nothing
+        // to do with our ArDefaultResolverContext.
         //
         stage = pxr::UsdStage::Open(path);
         std::cout << "ID " << stage->GetRootLayer()->GetIdentifier() << '\n';
@@ -119,7 +119,7 @@ int main() {
             "radius values but they are both \"20\" because the asset paths in USD layers "
             "resolve the path based on the USD layer's current position\n";
     auto sphere = pxr::UsdGeomSphere{stage->GetPrimAtPath(pxr::SdfPath{"/SomePrim"})};
-    double radius;
+    double radius = 0.0;
     sphere.GetRadiusAttr().Get(&radius);
     std::cout << radius << '\n';
 
@@ -127,7 +127,9 @@ int main() {
     sphere.GetRadiusAttr().Get(&radius);
     std::cout << radius << '\n';
     sphere = pxr::UsdGeomSphere{stage->GetPrimAtPath(pxr::SdfPath{"/SomePrim3"})};
-    sphere.GetRadiusAttr().Get(&radius);
+    auto result = sphere.GetRadiusAttr().Get(&radius);
+    std::cout << std::boolalpha;
+    std::cout << "SomePrim3 doesn't have a valid type so Get() should be false: " << result << '\n';
     std::cout << "This will be None, because @some_nested_layer.usda does not resolve: \"" << radius << "\".\n" << '\n';
 
     return 0;
