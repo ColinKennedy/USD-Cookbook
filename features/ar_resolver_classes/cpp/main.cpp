@@ -63,7 +63,7 @@ std::ostream& operator<<(
 
 int main() {
     auto directory = std::string{get_current_dir_name()};  // Reference: http://man7.org/linux/man-pages/man3/getcwd.3.html
-    auto project_folder = directory + "/project_folder";
+    auto project_folder = directory.substr(0, directory.find_last_of("/\\")) + "/project_folder";
     auto nested_folder = project_folder + "/nested";
     auto context = pxr::ArDefaultResolverContext({project_folder, nested_folder});
 
@@ -127,10 +127,11 @@ int main() {
     sphere.GetRadiusAttr().Get(&radius);
     std::cout << radius << '\n';
     sphere = pxr::UsdGeomSphere{stage->GetPrimAtPath(pxr::SdfPath{"/SomePrim3"})};
+    radius = 0.0;
     auto result = sphere.GetRadiusAttr().Get(&radius);
     std::cout << std::boolalpha;
     std::cout << "SomePrim3 doesn't have a valid type so Get() should be false: " << result << '\n';
-    std::cout << "This will be None, because @some_nested_layer.usda does not resolve: \"" << radius << "\".\n" << '\n';
+    std::cout << "This will be 0, because Get() failed: \"" << radius << "\".\n" << '\n';
 
     return 0;
 }
