@@ -72,7 +72,7 @@ reporter.ClearTree()
 - Add the report.json that this project comes with or load your own file
 - You should see a report on-screen that looks like this
 
-TODO add an image here
+![image](https://user-images.githubusercontent.com/10103049/66624613-ba587000-eba5-11e9-84f4-d895cb14b3ac.png)
 
 
 ## Scoping
