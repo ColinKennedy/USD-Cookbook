@@ -12,6 +12,7 @@ The code that this tests runs has been re-used from the
 from pxr import Trace, Sdf, Usd, UsdGeom
 
 
+@Trace.TraceFunction
 def create_sdf_primspecs_normally():
     """Create Sdf Primspecs."""
     layer = Sdf.Layer.CreateAnonymous()
@@ -41,6 +42,7 @@ def create_sdf_primspecs_normally():
         prim_spec.typeName = UsdGeom.Xform.__name__
 
 
+@Trace.TraceFunction
 def create_sdf_primspecs_using_change_block():
     """Create Sdf Primspecs in a single block of changes."""
     layer = Sdf.Layer.CreateAnonymous()
