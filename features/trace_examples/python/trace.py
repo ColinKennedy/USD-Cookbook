@@ -8,6 +8,7 @@ The code that this tests runs has been re-used from the
 
 """
 
+# IMPORT THIRD-PARTY LIBRARIES
 from pxr import Trace, Sdf, Usd, UsdGeom
 
 
@@ -78,7 +79,7 @@ def main():
     create_sdf_primspecs_using_change_block()
 
     print("This next report will be empty")
-    reporter = Trace.Reporter.globalReporter
+    reporter = Trace.Reporter.globalReporter  # This is a singleton object
     reporter.Report()
 
     print("This next report will have contents, because the collector is recorded")
@@ -87,7 +88,6 @@ def main():
     create_sdf_primspecs_normally()
     collector.enabled = False
 
-    reporter = Trace.Reporter.globalReporter  # This is a singleton object
     reporter.Report()
     # reporter.ReportTimes()  # XXX : A more concise ms timing view
 
