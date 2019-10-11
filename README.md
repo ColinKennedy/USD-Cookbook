@@ -90,6 +90,8 @@ Here are links of a recommended viewing order for every project in this reposito
 
 [Profiling USD stages](features/profiling_usd.md)
 
+[Trace Examples](features/trace_examples)
+
 [How to use Value Clips](features/value_clips)
 
 [SdfChangeBlock - Efficient USD authoring](features/sdf_change_block)
