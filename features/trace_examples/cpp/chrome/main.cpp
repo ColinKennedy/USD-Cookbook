@@ -1,4 +1,5 @@
 // IMPORT STANDARD LIBRARIES
+#include <fstream>
 #include <iostream>
 
 // IMPORT THIRD-PARTY LIBRARIES
@@ -107,7 +108,10 @@ int main() {
     std::cout << "This next report will be empty\n";
     auto reporter = pxr::TraceReporter::GetGlobalReporter();
 
-    reporter->Report(std::cout);
+    std::ofstream outfile("report.json");
+
+    // reporter->Report(std::cout);
+    reporter->ReportChromeTracing(outfile);
 
     std::cout << "This next report will have contents, because the collector is recorded\n";
     auto* collector = &pxr::TraceCollector::GetInstance();
@@ -115,7 +119,8 @@ int main() {
     create_sdf_primspecs_normally();
     collector->SetEnabled(false);
 
-    reporter->Report(std::cout);
+    // reporter->Report(std::cout);
+    reporter->ReportChromeTracing(outfile);
     // reporter->ReportTimes(std::cout);  // XXX : A more concise ms timing view
 
     std::cout << "This final exam uses an SdfChangeBlock - it should be much faster\n";
@@ -126,7 +131,8 @@ int main() {
     create_sdf_primspecs_using_change_block();
     collector->SetEnabled(false);
 
-    reporter->ReportChromeTracingToFile(std::cout);
+    // reporter->Report(std::cout);
+    reporter->ReportChromeTracing(outfile);
     // reporter->ReportTimes(std::cout);  // XXX : A more concise ms timing view
 
     return 0;
