@@ -44,6 +44,15 @@ void create_sdf_primspecs_normally()
             prim_spec->SetTypeName(xform_type);
         }
     }
+
+    {
+        TRACE_SCOPE("Inner Scope");
+
+        auto path = pxr::SdfPath{"/SomeSphere/Prim/Created/In/Inner/Scope"};
+        auto prim_spec = pxr::SdfCreatePrimInLayer(layer, path);
+        prim_spec->SetSpecifier(pxr::SdfSpecifierDef);
+        prim_spec->SetTypeName(xform_type);
+    }
 }
 
 
@@ -72,6 +81,15 @@ void create_sdf_primspecs_using_change_block()
     }
 
     for (auto const &path : paths) {
+        auto prim_spec = pxr::SdfCreatePrimInLayer(layer, path);
+        prim_spec->SetSpecifier(pxr::SdfSpecifierDef);
+        prim_spec->SetTypeName(xform_type);
+    }
+
+    {
+        TRACE_SCOPE("Inner Scope");
+
+        auto path = pxr::SdfPath{"/SomeSphere/Prim/Created/In/Inner/Scope"};
         auto prim_spec = pxr::SdfCreatePrimInLayer(layer, path);
         prim_spec->SetSpecifier(pxr::SdfSpecifierDef);
         prim_spec->SetTypeName(xform_type);
