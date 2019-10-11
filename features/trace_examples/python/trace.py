@@ -35,7 +35,7 @@ def create_sdf_primspecs_normally():
         prim_spec.typeName = UsdGeom.Xform.__name__
 
     with Trace.TraceScope("Inner Scope"):
-        Sdf.Path("/SomeSphere/Prim/Created/In/Inner/Scope")
+        path = Sdf.Path("/SomeSphere/Prim/Created/In/Inner/Scope")
         prim_spec = Sdf.CreatePrimInLayer(layer, path)
         prim_spec.specifier = Sdf.SpecifierDef
         prim_spec.typeName = UsdGeom.Xform.__name__
@@ -65,7 +65,7 @@ def create_sdf_primspecs_using_change_block():
             prim_spec.typeName = UsdGeom.Xform.__name__
 
     with Trace.TraceScope("Inner Scope"):
-        Sdf.Path("/SomeSphere/Prim/Created/In/Inner/Scope")
+        path = Sdf.Path("/SomeSphere/Prim/Created/In/Inner/Scope")
         prim_spec = Sdf.CreatePrimInLayer(layer, path)
         prim_spec.specifier = Sdf.SpecifierDef
         prim_spec.typeName = UsdGeom.Xform.__name__
