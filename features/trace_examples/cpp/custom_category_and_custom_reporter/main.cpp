@@ -49,12 +49,20 @@ public:
 
         std::string key = k.GetString();
         CounterTable::iterator it = counters.find(key);
+        auto value = e.GetCounterValue();
+
         if (it == counters.end()) {
-            counters.insert({key, e.GetCounterValue()});
+            if (value > 1) {
+                printf("Perf found value \"%f\" that is greater than one\n", value);
+            }
+            counters.insert({key, value});
         } else {
-            it->second += e.GetCounterValue();
+            if (value > 1) {
+                printf("Perf found value \"%f\" that is greater than one\n", value);
+            }
+            it->second += value;
         }
-        printf("Perf counter event: %s %f\n", key.c_str(), e.GetCounterValue());
+        printf("Perf counter event: %s %f\n", key.c_str(), value);
     }
 
     // Callbacks that are not used
