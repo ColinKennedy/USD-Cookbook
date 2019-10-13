@@ -35,8 +35,21 @@ public:
     using self = PerfReporter;
 
     PerfReporter() {
-        TfNotice::Register(TfCreateWeakPtr(this), &self::_OnCollection);
+        auto me = TfCreateWeakPtr(this);
+        TfNotice::Register(me, &self::_OnCollection);  // XXX : Access collection data through `OnEvent`
+        pxr::TfNotice::Register(me, &PerfReporter::some_function_to_run_on_create_collection);  // XXX : Manual access to the collection so you can do whatever you want
     }
+
+    void some_function_to_run_on_create_collection(TraceCollectionAvailable const &notice) {
+        std::cout << "Handle notice - This will get printed when `CreateCollection` is called\n";
+        auto collection = notice.GetCollection();
+        // XXX : Now we can do whatever we want to the collection.
+        // Though it's not recommended to do `Iterate`, for example,
+        // because it will have an effect on how often `OnEvent` gets
+        // called. But you get the point - there's more than one way to
+        // call and retrieve a `TraceCollectionAvailable` notice.
+    }
+
     virtual bool AcceptsCategory(TraceCategoryId id) override {
         return id == PerfCategory::GetId();
     }
@@ -133,64 +146,3 @@ int main()
     std::cout << second_counter << " - has counter: " << reporter->HasCounter(second_counter) << '\n';
     std::cout << second_counter << ": " << reporter->GetCounterValue(second_counter) << '\n';
 }
-
-
-// IMPORT THIRD-PARTY LIBRARIES
-#include <pxr/base/tf/notice.h>
-
-
-class Callback : public pxr::TfWeakBase {
-    public:
-        Callback (int identity, pxr::TfNotice const &notice) : identity(identity), notice(notice) {}
-
-        void ProcessNotice(
-            const pxr::TfNotice &notice,
-            pxr::TfWeakPtr<Callback> const &sender
-
-        ) {
-            std::cout << std::boolalpha;
-            std::cout << "Got sender? " << (sender->identity == this->identity) << '\n';
-            this->counter += 1;
-        }
-
-        int counter = 0;
-
-    private:
-        int identity;
-        pxr::TfNotice notice;
-};
-
-
-int main() {
-    auto notice = pxr::TfNotice {};
-    auto callback1 = new Callback {1, notice};
-    pxr::TfWeakPtr<Callback> sender {callback1};
-    auto key = pxr::TfNotice::Register(sender, &Callback::ProcessNotice, sender);
-
-    auto callback2 = new Callback {2, notice};
-    pxr::TfWeakPtr<Callback> sender2 {callback2};
-    pxr::TfNotice::Register(sender, &Callback::ProcessNotice, sender2);
-
-    std::cout << "Custom count " << callback1->counter << '\n';
-
-    // Note, the sender actually matters here. It has to be whatever was
-    // provided to `Tf.Notice.Register`. Otherwise, the `callback1` method
-    // will never be run.
-    //
-    notice.Send(sender);  // XXX : This will print true
-    notice.Send(sender2);  // XXX : This will print false
-
-    pxr::TfNotice::Revoke(key);
-    notice.Send(sender);
-
-    std::cout << "Custom count " << callback1->counter << '\n';
-
-    // pointer clean-up // TODO: replace with unique_ptr?
-    delete callback1;
-    callback1 = nullptr;
-    delete callback2;
-    callback2 = nullptr;
-
-    return 0;
-}
-
