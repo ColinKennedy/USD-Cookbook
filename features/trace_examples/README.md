@@ -46,6 +46,7 @@ def create_sdf_primspecs_normally():
 	# ...
 ```
 
+
 #### Collecting / Reporting
 ```python
 reporter = Trace.Reporter.globalReporter  # This is a singleton object
