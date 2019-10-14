@@ -79,6 +79,7 @@ public:
     }
 
 private:
+    // XXX : This method lets you process `TraceCollectionAvailable` through this class's interface
     void _OnCollection(const TraceCollectionAvailable& notice) {
         notice.GetCollection()->Iterate(*this);
     }
