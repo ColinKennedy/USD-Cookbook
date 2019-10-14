@@ -82,23 +82,37 @@ other effect on tracing (aside its overhead).
 
 
 ## Things To Remember
-TraceReporter is a singleton. You can use it to create reports anywhere
-in your code. It also accumulates collected data. So if you want to
+- TraceReporter is a singleton. You can use it to create reports anywhere
+in your code. 
+- TraceReporter accumulates collected data. So if you want to
 get the report of an individual function, it's best to clear out the
 data before collecting any more. Otherwise, the report will show timing
 information that doesn't come from the function that you're trying to
 test.
-
-`TraceReporter::Report` and `TraceReporter::ReportTimes` both get timing
+- `TraceReporter::Report` and `TraceReporter::ReportTimes` both get timing
 information. `TraceReporter::ReportChromeTracing` is used to view
 detailed, per-thread information about the called functions.
 
+### About TraceCollectionAvailable
+- TraceCollectionAvailable is a regular TfNotice. You can get and
+process each of its individual events by subclassing and using
+`TraceCollection::Visitor`. But you also can register it just like a
+notice.
+    - [See cpp/notice for a project example](cpp/notice)
+    - [Review of calling / registering TfNotice](../notice_send/cpp/notice_send_custom)
 
+
+TODO : Add GitHub line information
+```cpp
+    TraceCollectionAvailable notice(std::move(collection));
+    notice.Send();
+}
 ```
 
-Each TraceEvent contains a TraceCategoryId. These ids allow for the events to be filtered. Events recorded by TRACE_ macros have their TraceCategoryId set to TraceCategory::Default.
-
-
-Access to recorded TraceEvent objects is available through the TraceCollection class and TraceCollectionAvailable notice. When the TraceCollector produces data through the TraceCollector::CreateCollection() method, it will send a TraceCollectionAvailable notice. To access individual events in a TraceCollection instance, the TraceCollection::Visitor interface can be used. The TraceReporterBase class encapsulates logic for handling TraceCollectionAvailable notices.
-
-```
+- The TraceReporterBase class encapsulates logic for handling TraceCollectionAvailable notices.
+    - Reference: file:///usr/local/USD-19.07/docs/doxy_html/trace_page_detail.html#trace_data
+    - TODO - replace with a URL
+- To access individual events in a TraceCollection instance, the TraceCollection::Visitor interface can be used.
+    - Reference: file:///usr/local/USD-19.07/docs/doxy_html/trace_page_detail.html#trace_data
+    - TODO - replace with a URL
+- The reason why you can use it like a regular notice is because of these lines:
