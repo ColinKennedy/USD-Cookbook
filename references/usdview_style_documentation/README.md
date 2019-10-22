@@ -1,6 +1,6 @@
 # Quick Explanation
-What you ever wondered what all the text colors, fonts, and icons in
-usdview means? The different combinations of data can be pretty complex.
+Have you ever wondered what all the text colors, fonts, and icons in
+usdview mean? The different combinations of data can be pretty complex.
 This page will explain usdview's visuals, and how the USD API is used
 to achieve them.
 
@@ -61,8 +61,8 @@ text. Most of the time, you'll only see an icon like
 ![usd-rel-plain-icon.png](https://user-images.githubusercontent.com/10103049/64097833-1d8af300-cd1a-11e9-9086-1f373bfb52e9.png). But sometimes,
 you'll see text, too.
 
-If a Property is inherited, there's literally be a "(i)" written in the
-Type column. For example, /Parent/Child.primvars:foo.
+If a Property is inherited, there's literally an "(i)" written in the
+Type column. For example, `/Parent/Child.primvars:foo`.
 
 It's important to note that when we say "inherited" with Properties,
 that isn't referring to the "inherits" Composition Arc. In USD, certain
@@ -84,7 +84,7 @@ from an ancestor Prim. If that happens, the Property is written
 in Italics and slightly smaller than usual. See [Property Type
 Column](#Property-Type-Column) for details.
 
-Example property: /Parent/Child.primvars:foo
+Example property: `/Parent/Child.primvars:foo`
 
 
 ### Icons
