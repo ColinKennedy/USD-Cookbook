@@ -1,0 +1,32 @@
+#usda 1.0
+(
+	startTimeCode = 0
+	endTimeCode = 10
+)
+
+def Xform "transform" (
+    add references = [
+        @model.usda@,
+        @surfacing.usda@,
+    ]
+    prepend variantSets = "state"
+)
+{
+    variantSet "state" = {
+        "blue" (
+            add references = @surfacing_blue.usda@
+        ) {
+        }
+        "motion" (
+            add references = @animation.usda@
+        ) {
+
+        }
+        "sphere" (
+            add references = @sphere.usda@
+        ) {
+
+        }
+    }
+}
+

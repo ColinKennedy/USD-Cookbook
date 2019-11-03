@@ -1,0 +1,12 @@
+#usda 1.0
+(
+    defaultPrim = "root"
+)
+
+class "root"
+{
+    def Sphere "model"
+    {
+    }
+}
+

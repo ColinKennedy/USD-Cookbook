@@ -1,0 +1,10 @@
+#usda 1.0
+(
+    defaultPrim = "surfacing"
+)
+
+class "surfacing"
+{
+    color3f[] primvars:displayColor = [(1, 0, 0)]
+}
+

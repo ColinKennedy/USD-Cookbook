@@ -1,0 +1,18 @@
+#usda 1.0
+
+def Xform "root" (
+    prepend variantSets = "something"
+)
+{
+    variantSet "something" = {
+        "option_a" (
+            some_metadata = "foo"
+        ) {
+
+        }
+        "option_b" {
+
+        }
+    }
+}
+

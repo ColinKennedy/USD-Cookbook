@@ -1,0 +1,14 @@
+#usda 1.0
+(
+    defaultPrim = "root"
+)
+
+class "root"
+{
+    double3 xformOp:translate:move.timeSamples = {
+        0: (0, 0, 0),
+        10: (0, 0, 20),
+    }
+    uniform token[] xformOpOrder = ["xformOp:translate:move"]
+}
+
