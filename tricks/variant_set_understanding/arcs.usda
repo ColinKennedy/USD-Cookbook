@@ -6,24 +6,24 @@
 
 def Xform "transform" (
     add references = [
-        @model.usda@,
-        @surfacing.usda@,
+        @sources/model.usda@,
+        @sources/surfacing.usda@,
     ]
     prepend variantSets = "state"
 )
 {
     variantSet "state" = {
         "blue" (
-            add references = @surfacing_blue.usda@
+            add references = @sources/surfacing_blue.usda@
         ) {
         }
         "motion" (
-            add references = @animation.usda@
+            add references = @sources/animation.usda@
         ) {
 
         }
         "sphere" (
-            add references = @sphere.usda@
+            add references = @sources/sphere.usda@
         ) {
 
         }
