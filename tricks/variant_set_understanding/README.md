@@ -42,6 +42,9 @@ def Xform "root" (
 
 ## Example
 
+- Open [metadata_swap.usda](metadata_swap.usda) in usdview to see the above example, live.
+- Open [arcs.usda](arcs.usda) to see an example of how to use variants to control composition arcs.
+
 
 When there's no variant selection, `</root>` has no "some_metadata"
 authored. Metadata is missing for "option_b", too. But if it's '"option_a",
