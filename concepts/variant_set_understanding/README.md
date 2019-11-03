@@ -1,6 +1,6 @@
 # Quick Explanation
 If your background is from a C or C-like background, this next tip may
-come as a bit of a surprise. 
+come as a bit of a surprise.
 
 ```usda
 #usda 1.0
