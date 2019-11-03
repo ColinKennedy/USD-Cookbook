@@ -1,13 +1,13 @@
 #usda 1.0
 (
-	startTimeCode = 0
-	endTimeCode = 10
+    endTimeCode = 10
+    startTimeCode = 0
 )
 
 def Xform "transform" (
     add references = [
         @sources/model.usda@,
-        @sources/surfacing.usda@,
+        @sources/surfacing.usda@
     ]
     prepend variantSets = "state"
 )
@@ -16,6 +16,7 @@ def Xform "transform" (
         "blue" (
             add references = @sources/surfacing_blue.usda@
         ) {
+
         }
         "motion" (
             add references = @sources/animation.usda@
