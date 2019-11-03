@@ -105,6 +105,8 @@ Here are links of a recommended viewing order for every project in this reposito
 
 ### Concepts
 
+[Understading VariantSets](concepts/variant_set_understanding)
+
 [Overriding VariantSets](concepts/variant_set_in_stronger_layer)
 
 [How to uniquify an instanced UsdPrim](concepts/uniquify_an_instance)
