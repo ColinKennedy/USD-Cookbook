@@ -17,21 +17,24 @@ over "GLOBAL" (
 }
 
 class Star "Star" (
-    inherits = </Gprim>
+    customData = {
+        dictionary extraPlugInfo = {
+            bool implementsComputeExtent = 1
+        }
+    }
     doc = """Defines a primitive star shape, centered at the origin.
 
     Note: `extraPlugInfo` and `implementsComputeExtent` are both optional.
-    They aren't actually needed to write a "hello-world" style schema.
+    They aren't actually needed to write a \"hello-world\" style schema.
     """
-    customData = {
-        dictionary extraPlugInfo = {
-            bool implementsComputeExtent = true
-        }
-    }
-) {
-    int points = 5 ( doc = "The number of tips to the star.")
-
-    float3[] extent = [(-1.0, -1.0, -1.0), (1.0, 1.0, 1.0)] (
+    inherits = </Gprim>
+)
+{
+    float3[] extent = [(-1, -1, -1), (1, 1, 1)] (
         doc = "Extent is re-defined on Star only to provide a fallback value."
     )
+    int points = 5 (
+        doc = "The number of tips to the star."
+    )
 }
+
