@@ -29,6 +29,18 @@ target_link_libraries(${USDPLUGIN_NAME}
 
 set_target_properties(${USDPLUGIN_NAME} PROPERTIES PREFIX "")
 
+# XXX : From experimentation, this is needed for older GCC version (e.g.
+# 4.8) which don't fully support the C++11 standard. If this section is
+# excluded, you may get linker errors when calling your schema from its
+# Python binding.
+#
+# Reference: https://github.com/ColinKennedy/USD-Cookbook/tree/master/plugins/custom_schemas_with_python_bindings/compiling_the_schema#troubleshooting-build-issues
+#
+target_compile_features(${USDPLUGIN_NAME}
+    PUBLIC
+        cxx_auto_type
+)
+
 configure_file(
     plugInfo.json
     ${CMAKE_BINARY_DIR}/plugInfo.json
