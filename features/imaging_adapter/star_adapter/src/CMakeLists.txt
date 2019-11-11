@@ -3,14 +3,6 @@ add_library(${USDPLUGIN_NAME}
     SHARED
         star.h
         star.cpp
-        complex.cpp
-        complex.h
-        paramsAPI.cpp
-        paramsAPI.h
-        simple.cpp
-        simple.h
-        tokens.cpp
-        tokens.h
 )
 
 set(USD_INCLUDE_DIRECTORY $ENV{USD_INSTALL_ROOT}/include)
@@ -22,18 +14,18 @@ target_include_directories(${USDPLUGIN_NAME}
 )
 
 set(USD_LIBRARY_DIRECTORY $ENV{USD_INSTALL_ROOT}/lib)
-find_library(USD_USD usd HINTS ${USD_LIBRARY_DIRECTORY})
-
-target_link_libraries(${USDPLUGIN_NAME}
-    ${USD_USD}
-)
+# find_library(USD_USD usd HINTS ${USD_LIBRARY_DIRECTORY})
+#
+# target_link_libraries(${USDPLUGIN_NAME}
+#     ${USD_USD}
+# )
 
 set_target_properties(${USDPLUGIN_NAME} PROPERTIES PREFIX "")
 
-target_compile_features(${USDPLUGIN_NAME}
-    PUBLIC
-        cxx_auto_type
-)
+# target_compile_features(${USDPLUGIN_NAME}
+#     PUBLIC
+#         cxx_auto_type
+# )
 
 configure_file(
     plugInfo.json
@@ -50,8 +42,8 @@ install(
     DESTINATION plugin/usd/${USDPLUGIN_NAME}/resources
 )
 
-set(USDPLUGIN_TARGETS_NAME TestoutTargets)
-set(INSTALL_CONFIGURATION_DIRECTORY lib/cmake/TestoutSchemas)
+set(USDPLUGIN_TARGETS_NAME StarTargets)
+set(INSTALL_CONFIGURATION_DIRECTORY lib/cmake/StarSchemas)
 
 # 5. Export a namespace for this library so other C++ projects can use it
 # Reference: https://pabloariasal.github.io/2018/02/19/its-time-to-do-cmake-right/
@@ -66,7 +58,7 @@ install(
 install(
     EXPORT ${USDPLUGIN_TARGETS_NAME}
     FILE ${USDPLUGIN_TARGETS_NAME}.cmake
-    NAMESPACE testout::
+    NAMESPACE star::
     DESTINATION ${INSTALL_CONFIGURATION_DIRECTORY}
 )
 
@@ -77,42 +69,19 @@ install(
 #
 include(CMakePackageConfigHelpers)
 
-configure_package_config_file(${CMAKE_CURRENT_LIST_DIR}/cmake/TestoutConfig.cmake
-    ${CMAKE_CURRENT_BINARY_DIR}/TestoutConfig.cmake
+configure_package_config_file(${CMAKE_CURRENT_LIST_DIR}/cmake/StarConfig.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/StarConfig.cmake
     INSTALL_DESTINATION ${INSTALL_CONFIGURATION_DIRECTORY}
 )
 
 install(FILES
-    ${CMAKE_CURRENT_BINARY_DIR}/TestoutConfig.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/StarConfig.cmake
     DESTINATION ${INSTALL_CONFIGURATION_DIRECTORY}
 )
 
-# XXX : We don't need to create a ConfigVersion.cmake
-# file for this example. But if we did, we could use
-# `write_basic_package_version_file` to do it, here.
-#
-# Reference: https://github.com/pabloariasal/modern-cmake-sample/blob/master/libjsonutils/CMakeLists.txt#L70-L74
-
-# 7. Copy the schema header files so that other C++ projects can include them
-#
-# XXX : We need to install header files into an include directory.
-# Otherwise, client C++ projects that include `testout::testout` will
-# get this error when they try to run the `cmake` command:
-#
-# CMake Error in CMakeLists.txt:
-#
-#     Imported target "testout::testout" includes non-existent path
-#
-#     "/home/selecaoone/projects/usd_experiments/examples/tricks/custom_schemas_with_python_bindings/compiling_the_schema/build/install/include"
-#
-#     in its INTERFACE_INCLUDE_DIRECTORIES.  Possible reasons include: ...
-#
 install(
     FILES
-        api.h
-        complex.h
-        paramsAPI.h
-        simple.h
+        star.h
         tokens.h
     DESTINATION
         include
@@ -120,23 +89,21 @@ install(
 
 # 6. Add Python bindings for the schema plugin
 set(USDPLUGIN_PYTHON_NAME _${USDPLUGIN_NAME})
-set(MODULE_NAME Testout)
+set(MODULE_NAME Star)
 
 add_library(${USDPLUGIN_PYTHON_NAME}
     SHARED
         module.cpp
         moduleDeps.cpp
         wrapTokens.cpp
-        wrapSimple.cpp
-        wrapComplex.cpp
-        wrapParamsAPI.cpp
+		wrapStar.cpp
 )
 
 # XXX : This line is critical. Without it, the Python binding will not
-# see testout.so and you'll get an ImportError when you try to import
-# _testout.so, like this:
+# see star.so and you'll get an ImportError when you try to import
+# _star.so, like this:
 #
-# `ImportError: testout.so: cannot open shared object file: No such file or directory`
+# `ImportError: star.so: cannot open shared object file: No such file or directory`
 #
 # Make sure this path is always correct when building
 #
@@ -165,14 +132,14 @@ target_compile_definitions(${USDPLUGIN_PYTHON_NAME}
     PRIVATE
         MFB_PACKAGE_NAME=${USDPLUGIN_NAME}
         MFB_ALT_PACKAGE_NAME=${USDPLUGIN_NAME}
-        MFB_PACKAGE_MODULE=testout.${MODULE_NAME}
+        MFB_PACKAGE_MODULE=star.${MODULE_NAME}
 )
 
 target_link_libraries(${USDPLUGIN_PYTHON_NAME}
     ${USDPLUGIN_NAME}
 )
 
-set(PYTHON_PACKAGE_RELATIVE_PATH lib/python2.7/site-packages/testout)
+set(PYTHON_PACKAGE_RELATIVE_PATH lib/python2.7/site-packages/star)
 set(INSTALL_PYTHONPACKAGE_DIR  ${PYTHON_PACKAGE_RELATIVE_PATH})
 set(INSTALL_WRAPPER_DIR ${INSTALL_PYTHONPACKAGE_DIR}/${MODULE_NAME})
 
