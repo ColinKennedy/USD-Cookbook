@@ -25,11 +25,6 @@ set(USD_LIBRARY_DIRECTORY $ENV{USD_INSTALL_ROOT}/lib)
 
 set_target_properties(${USDPLUGIN_NAME} PROPERTIES PREFIX "")
 
-# target_compile_features(${USDPLUGIN_NAME}
-#     PUBLIC
-#         cxx_auto_type
-# )
-
 configure_file(
     plugInfo.json
     ${CMAKE_BINARY_DIR}/plugInfo.json
