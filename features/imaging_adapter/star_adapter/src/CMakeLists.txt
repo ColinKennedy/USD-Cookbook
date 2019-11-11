@@ -1,6 +1,7 @@
 # 4. Include/Link Everything
 add_library(${USDPLUGIN_NAME}
     SHARED
+        api.h
         star.cpp
         star.h
         tokens.cpp
