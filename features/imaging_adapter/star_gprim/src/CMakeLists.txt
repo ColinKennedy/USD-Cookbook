@@ -17,11 +17,11 @@ target_include_directories(${USDPLUGIN_NAME}
 )
 
 set(USD_LIBRARY_DIRECTORY $ENV{USD_INSTALL_ROOT}/lib)
-# find_library(USD_USD usd HINTS ${USD_LIBRARY_DIRECTORY})
-#
-# target_link_libraries(${USDPLUGIN_NAME}
-#     ${USD_USD}
-# )
+find_library(USD_USD usd HINTS ${USD_LIBRARY_DIRECTORY})
+
+target_link_libraries(${USDPLUGIN_NAME}
+    ${USD_USD}
+)
 
 set_target_properties(${USDPLUGIN_NAME} PROPERTIES PREFIX "")
 
