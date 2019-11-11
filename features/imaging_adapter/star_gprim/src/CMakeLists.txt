@@ -17,9 +17,13 @@ target_include_directories(${USDPLUGIN_NAME}
 )
 
 set(USD_LIBRARY_DIRECTORY $ENV{USD_INSTALL_ROOT}/lib)
+find_library(USD_TF tf HINTS ${USD_LIBRARY_DIRECTORY})
 find_library(USD_USD usd HINTS ${USD_LIBRARY_DIRECTORY})
+find_library(USD_USDGEOM usdGeom HINTS ${USD_LIBRARY_DIRECTORY})
 
 target_link_libraries(${USDPLUGIN_NAME}
+    ${USD_TF}
+    ${USD_USDGEOM}
     ${USD_USD}
 )
 
