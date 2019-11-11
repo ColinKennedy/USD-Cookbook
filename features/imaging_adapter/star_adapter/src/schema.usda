@@ -1,8 +1,11 @@
 #usda 1.0
 (
-    "This file describes the USD Star schemata."
+    """This file describes the USD Star schemata.
+
+    TODO: Remove this absolute path and replace it with something more composable."""
     subLayers = [
-        @usd/schema.usda@
+        @usd/schema.usda@,
+        @/usr/local/USD/lib/usd/usdGeom/resources/usdGeom/schema.usda@
     ]
 )
 
