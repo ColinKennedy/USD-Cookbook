@@ -1,8 +1,10 @@
 # 4. Include/Link Everything
 add_library(${USDPLUGIN_NAME}
     SHARED
-        star.h
         star.cpp
+        star.h
+        tokens.cpp
+        tokens.h
 )
 
 set(USD_INCLUDE_DIRECTORY $ENV{USD_INSTALL_ROOT}/include)
