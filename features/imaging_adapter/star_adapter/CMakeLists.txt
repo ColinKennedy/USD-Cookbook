@@ -1,0 +1,12 @@
+# 1. Requirements
+cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
+project(star_gprim VERSION 0.1.0 LANGUAGES CXX)
+
+# 2.Configuration
+set(CMAKE_INSTALL_PREFIX "./install" CACHE PATH "..." FORCE)
+
+# 3. Boilerplate
+set(USDPLUGIN_NAME star)
+find_package(PythonLibs 2.7 REQUIRED)  # Needed for `PYTHON_INCLUDE_PATH`
+
+add_subdirectory(src)
