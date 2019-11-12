@@ -96,6 +96,7 @@ install(FILES
 
 install(
     FILES
+        api.h
         star.h
         tokens.h
     DESTINATION
