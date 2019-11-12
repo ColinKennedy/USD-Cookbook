@@ -1,4 +1,1 @@
-## Testing The Schema
-```bash
-usdview test.usda
-```
+TODO write a description
