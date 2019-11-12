@@ -7,3 +7,5 @@
 "Root": "@PLUG_INFO_ROOT@",
 "Type": "library"
 ```
+
+TODO Make note about needing to set CC and CXX to explicit 4.8 versions.
