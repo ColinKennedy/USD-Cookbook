@@ -6,7 +6,7 @@ batch the changes into a single operation, which you can do using
 `SdfChangeBlock`.
 
 Because `SdfChangeBlock` is easy to use poorly, check out the
-documentation listed in [See Also](See-Also) before using it in your own
+documentation listed in [See Also](#See-Also) before using it in your own
 tools.
 
 
