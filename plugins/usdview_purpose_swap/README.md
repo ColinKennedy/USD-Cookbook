@@ -7,6 +7,8 @@ actually take some time. Even usdview's GUI can be slow so this button
 minimizes the menus you must click through to just a single button
 press.
 
+![usdview_purpose_swap_demonstration](https://user-images.githubusercontent.com/10103049/77233673-3c41c180-6b66-11ea-85e3-6de9d50e0158.gif)
+
 
 # How To Run
 1. Run this command in the terminal:
