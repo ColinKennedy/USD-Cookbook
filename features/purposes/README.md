@@ -1,7 +1,7 @@
 # Quick Reference
 ### C++
 ```cpp
-purpose = sphere.CreatePurposeAttr();
+purpose = pxr::UsdGeomImageable(prim).CreatePurposeAttr();
 purpose.Set(pxr::UsdGeomTokens->proxy);
 purpose.Set(pxr::UsdGeomTokens->default_);
 purpose.Set(pxr::UsdGeomTokens->render);
@@ -11,7 +11,7 @@ purpose.Set(pxr::UsdGeomTokens->guide);
 
 ### Python
 ```python
-purpose = sphere.CreatePurposeAttr()
+purpose = UsdGeom.Imageable(prim).CreatePurposeAttr()
 purpose.Set(UsdGeom.Tokens.default_)
 purpose.Set(UsdGeom.Tokens.guide)
 purpose.Set(UsdGeom.Tokens.proxy)
