@@ -153,6 +153,8 @@ Here are links of a recommended viewing order for every project in this reposito
 
 [usdview_root_loader - Recursively load / unload Prim payloads](plugins/usdview_root_loader)
 
+[usdview_purpose_swap - Change between proxy and render purposes with a single button](plugins/usdview_purpose_swap)
+
 [VariantSet fallback selections](plugins/variant_fallbacks)
 
 [VariantSet selection export polices](plugins/registered_variant_selection_export_policies)
