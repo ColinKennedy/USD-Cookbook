@@ -1,0 +1,15 @@
+#usda 1.0
+
+def Scope "root"
+{
+    def Cube "cube_render"
+    {
+        uniform token purpose = "render"
+    }
+
+    def Sphere "sphere_proxy"
+    {
+        uniform token purpose = "proxy"
+    }
+}
+

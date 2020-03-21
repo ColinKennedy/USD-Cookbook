@@ -1,0 +1,16 @@
+{
+    "Plugins": [
+        {
+            "Type": "python",
+            "Name": "purpose_swap",
+            "Info": {
+                "Types": {
+                    "purpose_swap.PurposeSwapContainer": {
+                        "bases": ["pxr.Usdviewq.plugin.PluginContainer"],
+                        "displayName": "Swap USD Purposes"
+                    }
+                }
+            }
+        }
+    ]
+}
