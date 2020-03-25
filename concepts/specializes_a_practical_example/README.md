@@ -36,7 +36,7 @@ in settings.usda makes it all the way into layout.usda even though the
 modelling.usda Layer tried to override `focalLength` in between.
 
 If the same situation happened and </_class_CameraSettingsSpecialized>
-used `inherits` instead of `specializes`, the value for `focaLength`
+used `inherits` instead of `specializes`, the value for `focalLength`
 would have been overridden in modelling.usda.
 
 
