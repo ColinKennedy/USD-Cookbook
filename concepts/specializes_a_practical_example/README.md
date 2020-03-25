@@ -12,9 +12,9 @@ edits from other, stronger layers.
 
 There's 3 layers:
 
-settings.usda
-modelling.usda
-layout.usda
+- settings.usda
+- modelling.usda
+- layout.usda
 
 settings.usda has some camera settings that layout.usda is expected to
 use. They do this by referencing the camera and changing its settings,
