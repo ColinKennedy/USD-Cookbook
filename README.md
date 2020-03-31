@@ -105,7 +105,7 @@ Here are links of a recommended viewing order for every project in this reposito
 
 ### Concepts
 
-[Understading VariantSets](concepts/variant_set_understanding)
+[Understanding VariantSets](concepts/variant_set_understanding)
 
 [Overriding VariantSets](concepts/variant_set_in_stronger_layer)
 
