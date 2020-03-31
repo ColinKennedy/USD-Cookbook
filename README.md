@@ -146,6 +146,8 @@ Here are links of a recommended viewing order for every project in this reposito
 
 [Multi-payloads - Yes, you can have more than one](tricks/multi_payload)
 
+[Getting Prims through VariantSets](tricks/get_sdf_prim_path)
+
 
 ### Plugins
 
