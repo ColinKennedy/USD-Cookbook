@@ -46,7 +46,7 @@ std::vector<VariantData> _gather_variant_selection(pxr::SdfPath const &path)
         auto variant_set = data.first;
         auto selection = data.second;
 
-        if (!variant_set.empty() || !selection.empty())
+        if (variant_set.empty() || selection.empty())
         {
             continue;
         }
@@ -86,8 +86,7 @@ pxr::UsdPrim get_prim_at_path(pxr::UsdStagePtr const &stage, pxr::SdfPath const 
 int main() {
     auto stage = pxr::UsdStage::CreateInMemory();
     stage->GetRootLayer()->ImportFromString(
-        R""""(
-        #usda 1.0
+        R""""(#usda 1.0
 
         def Scope "root" (
             variantSets = ["foo"]
@@ -119,18 +118,27 @@ int main() {
                 }
             }
         }
-        """
         )""""
     );
 
-    get_prim_at_path(stage, pxr::SdfPath{"/root{foo=base}prim1/a_sphere"});
-    auto variant_sphere = pxr::UsdGeomSphere(get_prim_at_path(stage, pxr::SdfPath{"/root{foo=base}prim1/a_sphere"}));
+    auto variant_sphere = pxr::UsdGeomSphere(
+        get_prim_at_path(
+            stage,
+            pxr::SdfPath{"/root{foo=base}prim1/a_sphere"}
+        )
+    );
     double radius;
     variant_sphere.GetRadiusAttr().Get(&radius);
-    std::cout << "This value should be 3.0: \"" << radius << "\"\n";
+    std::cout << "This value should be 3: \"" << radius << "\"\n";
 
-    auto nested_variant_sphere = pxr::UsdGeomSphere(get_prim_at_path(stage, {"/root{foo=another}prim2{bar=one}sphere"}));
-    std::cout << "This value should be 2.0: \"" << nested_variant_sphere.GetRadiusAttr().Get() << "\"\n";
+    auto nested_variant_sphere = pxr::UsdGeomSphere(
+        get_prim_at_path(
+            stage,
+            pxr::SdfPath{"/root{foo=another}prim2{bar=one}sphere"}
+        )
+    );
+    nested_variant_sphere.GetRadiusAttr().Get(&radius);
+    std::cout << "This value should be 2: \"" << radius << "\"\n";
 
     return 0;
 }
