@@ -12,4 +12,6 @@ The basic steps goes like this
 
 
 # See Also
-TODO
+[Variants Tutorial](https://graphics.pixar.com/usd/docs/Authoring-Variants.html)
+[pxr::SdfPath::StripAllVariantSelections](https://graphics.pixar.com/usd/docs/api/class_sdf_path.html#af66d081e4ec164f04c3fb1805cfcfa4f)
+[pxr::UsdObject::IsValid](https://graphics.pixar.com/usd/docs/api/class_usd_object.html#afa8720abaf6972d6dac22a8cd1a67225)
