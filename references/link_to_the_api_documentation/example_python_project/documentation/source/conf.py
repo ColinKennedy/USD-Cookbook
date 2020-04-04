@@ -4,6 +4,8 @@
 # list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
+import os
+
 # -- Path setup --------------------------------------------------------------
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -28,6 +30,9 @@ author = 'Colin Kennedy'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.napoleon',
+    'sphinxcontrib.doxylink',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -50,3 +55,10 @@ html_theme = 'alabaster'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+doxylink = {
+    'usd': (
+        os.path.join(os.environ['USD_INSTALL_ROOT'], 'build', 'USD', 'docs', 'api_documentation.tag'),
+        os.path.join(os.environ['USD_INSTALL_ROOT'], 'docs', 'doxy_html'),
+    ),
+}

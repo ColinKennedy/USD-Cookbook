@@ -10,9 +10,18 @@ projects.
 ## How To Build And View The Documentation
 
 ```sh
-sphinx-build documentation/source documentation/build
+USD_INSTALL_ROOT=/usr/local/USD sphinx-build documentation/source documentation/build
 firefox documentation/build/index.html
 ```
+
+### Extra Install Requirements
+This example shows 2 different documentation styles.
+Sphinx's built-in style and Google Style. Google
+Style Python docstrings require the
+[Napoleon extension](https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html).
+
+Since many people write with this style, it's included in this example.
+But it's not required.
 
 
 ## How It Works
