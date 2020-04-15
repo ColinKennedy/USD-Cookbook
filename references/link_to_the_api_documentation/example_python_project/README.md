@@ -12,6 +12,7 @@ projects.
 - point USD_INSTALL_ROOT to your root USD install location
 
 ```sh
+mkdir documentation/build
 PYTHONPATH=$PWD/python:$PYTHONPATH USD_INSTALL_ROOT=/usr/local/USD sphinx-build documentation/source documentation/build
 firefox documentation/build/index.html
 ```
