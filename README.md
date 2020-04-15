@@ -23,7 +23,7 @@ This repository is split into six categories
 
 **Tools** are miscellaneous scripts that are built to do a specific task, with USD.
 
-**References** are articles that show where to find more information.
+**References** are useful pages for finding more information about USD and how to interact with it in your projects.
 
 Every project in this repository will show how to work in Python, C++,
 and USDA wherever possible.
