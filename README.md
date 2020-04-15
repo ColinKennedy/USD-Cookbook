@@ -177,6 +177,8 @@ Here are links of a recommended viewing order for every project in this reposito
 
 ### References
 
+[Link Python Documentation To USD's Documentation](references/link_to_the_api_documentation)
+
 [Understanding usdview](references/usdview_style_documentation)
 
 [The USD supported plugin mastersheet](references/working_with_plugins.md)

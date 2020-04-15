@@ -32,7 +32,7 @@ author = 'Colin Kennedy'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
-    'sphinxcontrib.doxylink',
+    'sphinxcontrib.doxylink',  # XXX : This was manually added
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -56,6 +56,7 @@ html_theme = 'alabaster'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
+# XXX : Reference: https://pythonhosted.org/sphinxcontrib-doxylink/#configuration-values
 doxylink = {
     'usd': (
         os.path.join(os.environ['USD_INSTALL_ROOT'], 'build', 'USD', 'docs', 'api_documentation.tag'),

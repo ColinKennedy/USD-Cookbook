@@ -8,16 +8,19 @@ projects.
 
 
 ## How To Build And View The Documentation
+- Make sure your Python modules are importable (if you plan to have Python docstrings rendered by Sphinx)
+- point USD_INSTALL_ROOT to your root USD install location
 
 ```sh
-USD_INSTALL_ROOT=/usr/local/USD sphinx-build documentation/source documentation/build
+PYTHONPATH=$PWD/python:$PYTHONPATH USD_INSTALL_ROOT=/usr/local/USD sphinx-build documentation/source documentation/build
 firefox documentation/build/index.html
 ```
 
 ### Extra Install Requirements
-This example shows 2 different documentation styles.
-Sphinx's built-in style and Google Style. Google
-Style Python docstrings require the
+The [example_file.py module](python/example_file.py) shows how to
+document with 2 different documentation styles: Sphinx's built-in style and Google Style.
+
+Google Style Python docstrings require the
 [Napoleon extension](https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html).
 
 Since many people write with this style, it's included in this example.
@@ -25,11 +28,7 @@ But it's not required.
 
 
 ## How It Works
-To understand what's going on, you need to know how 2 Sphinx extensions,
-[autodoc](http://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html)
-and
-[doxylink](https://sphinxcontrib-doxylink.readthedocs.io/en/stable).
-
-autodoc builds Python documentation as Sphinx HTML pages. Whereas
-doxylink is what makes those HTML pages linkable to the USD
-documentation.
+Docstrings in Python are rendered by Sphinx using the
+[autodoc extension](http://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html)
+and linking between Python and the Doxygen documentation is handled by the
+[doxylink extension](https://sphinxcontrib-doxylink.readthedocs.io/en/stable).

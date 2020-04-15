@@ -5,13 +5,19 @@
 
 Let's try linking to the USD API documentation's stage class.
 
-:usd:`pxr::UsdStage`.
+:usd:`UsdStage`.
 
 ^^^ That link should be clickable
 
 Also you can alias links. e.g.
 
-:usd:`A method of some class <pxr::SdfPath::GetParentPath>`.
+:usd:`A method of some class <SdfPath::GetParentPath>`.
+
+:usd:`ArDefaultResolver`.
+
+Method access - :usd:`ArDefaultResolver::GetExtension`.
+
+Pointing to a header file - :usd:`defaultResolver.h`.
 
 """
 
@@ -25,10 +31,10 @@ def get_prim_path1(prim):
         napoleon plugin to render correctly.
 
     Args:
-        prim (:usd:`pxr::UsdPrim`): Some USD object.
+        prim (:usd:`UsdPrim`): Some USD object.
 
     Returns:
-        :usd:`pxr::SdfPath`: The namespace where `prim` lives.
+        :usd:`SdfPath`: The namespace where `prim` lives.
 
     """
     return prim.GetPath()
@@ -42,10 +48,10 @@ def get_prim_path2(prim):
         This docstring does not require any plugins to render with Sphinx.
 
     :param prim: Some USD object.
-    :type prim: :usd:`pxr::UsdPrim`
+    :type prim: :usd:`UsdPrim`
 
     :return: The namespace where `prim` lives.
-    :rtype: :usd:`pxr::SdfPath`
+    :rtype: :usd:`SdfPath`
 
     """
     return prim.GetPath()
