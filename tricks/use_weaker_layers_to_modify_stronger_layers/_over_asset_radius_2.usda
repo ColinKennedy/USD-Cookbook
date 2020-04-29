@@ -1,0 +1,27 @@
+#usda 1.0
+(
+	defaultPrim = "root"
+)
+
+over "root" (
+	add variantSets = "size"
+	variants = {
+		string size = "small"
+	}
+)
+{
+	variantSet "size" = {
+		"small" {
+			over "my_sphere"
+			{
+				double radius = 2
+			}
+		}
+		"another_option" {
+			over "my_sphere"
+			{
+				double radius = 0.5
+			}
+		}
+	}
+}
