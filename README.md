@@ -109,6 +109,8 @@ Here are links of a recommended viewing order for every project in this reposito
 
 [Overriding VariantSets](concepts/variant_set_in_stronger_layer)
 
+[Use weaker layers to modify stronger layers](concepts/use_weaker_layers_to_modify_stronger_layers)
+
 [How to uniquify an instanced UsdPrim](concepts/uniquify_an_instance)
 
 [UsdRelationship Forwarding](concepts/relationship_forwarding)
