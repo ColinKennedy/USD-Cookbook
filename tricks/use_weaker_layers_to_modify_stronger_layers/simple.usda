@@ -1,0 +1,44 @@
+#usda 1.0
+
+def Sphere "prim_1" (
+    references = </controller_prim>
+    variantSets = "geo"
+)
+{
+    variantSet "geo" = {
+        "big" {
+            double radius = 3
+
+        }
+        "small" {
+            double radius = 2
+
+        }
+    }
+}
+
+class "controller_prim" (
+    doc = "This Prim can be a class or def or over. Though class or def is preferred."
+    variantSets = "another"
+)
+{
+    variantSet "another" = {
+        "selection_1" (
+            doc = "Switch to this variant to force </prim_1{geo=small}>"
+            variants = {
+                string geo = "small"
+            }
+        ) {
+
+        }
+        "selection_2" (
+            doc = "Switch to this variant to force </prim_1{geo=big}>"
+            variants = {
+                string geo = "big"
+            }
+        ) {
+
+        }
+    }
+}
+
