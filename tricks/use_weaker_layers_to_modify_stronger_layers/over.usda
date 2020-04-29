@@ -12,11 +12,13 @@ def Scope "some_container" (
     }
     variantSet "geo" = {
         "selection_1" (
+            doc = "We add a reference which adds a variant set which overs the </some_container/my_sphere>"
             add references = @./_over_asset_radius_2.usda@
         ) {
 
         }
         "selection_2" (
+            doc = "We add a reference which adds a variant set which overs the </some_container/my_sphere>"
             add references = @./_over_asset_radius_3.usda@
         ) {
 
