@@ -1,0 +1,43 @@
+#usda 1.0
+(
+    doc = "A variant set in a weaker layer sets variants in this layer which modify a class object."
+)
+
+class "_container" (
+    doc = "Changes to this class object will cause all who inherit it to auto-update."
+    references = @./_state_switch_reference.usda@
+    add variantSets = "geo"
+)
+{
+    variantSet "geo" = {
+        "selection_1" {
+            custom int my_attribute = 8
+
+        }
+        "selection_2" {
+            custom int my_attribute = 16
+
+        }
+    }
+}
+
+def Scope "item_1" (
+    inherits = </_container>
+)
+{
+}
+
+def Scope "item_2" (
+    inherits = </_container>
+)
+{
+}
+
+def Scope "selection_1" (
+    "This Prim has a selection so changes to </_container> don't affect it."
+    doc = "Though honestly if you want this behavior, consider `specializes` instead."
+    inherits = </_container>
+)
+{
+}
+
