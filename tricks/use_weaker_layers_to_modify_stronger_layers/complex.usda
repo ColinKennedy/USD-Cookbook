@@ -1,32 +1,33 @@
 #usda 1.0
 
-class "_receiver" (
-    references = @./_complex_class.usda@
+def Scope "root" (
+    variantSets = "geo"
 )
 {
-}
-
-def Scope "some_container" (
-    variants = {
-        string geo = "selection_1"
+    def Scope "common_container"
+    {
+        double radius = 2
     }
-    add variantSets = "geo"
-)
-{
+
+    def Scope "common_container2"
+    {
+        double radius = 3
+    }
+
     def Sphere "my_sphere" (
-        references = </_receiver>
+        references = </root/common_container2>
     )
     {
     }
+
     variantSet "geo" = {
-        "selection_1" (
-            add references = @./_complex_kill.usda@
-        ) {
+        "selection_1" {
 
         }
-        "selection_2" {
+        "selection_2" (
+            add references = @./_complex_deactivate.usda@
+        ) {
 
         }
     }
 }
-
