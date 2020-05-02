@@ -1,10 +1,10 @@
 #usda 1.0
 
 def Scope "root" (
+    variants = {
+        string geo = "selection_1"
+    }
     prepend variantSets = "geo"
-	variants = {
-		string geo = "selection_1"
-	}
 )
 {
     variantSet "geo" = {

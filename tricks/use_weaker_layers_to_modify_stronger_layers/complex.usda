@@ -19,7 +19,6 @@ def Scope "root" (
     )
     {
     }
-
     variantSet "geo" = {
         "selection_1" {
 
@@ -31,3 +30,4 @@ def Scope "root" (
         }
     }
 }
+

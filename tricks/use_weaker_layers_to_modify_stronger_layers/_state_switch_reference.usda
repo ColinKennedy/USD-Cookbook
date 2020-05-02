@@ -1,21 +1,23 @@
 #usda 1.0
 (
-	defaultPrim = "root"
-	)
+    defaultPrim = "root"
+)
 
 def "root" (
-	add variantSets = "some_other_variant"
+    add variantSets = "some_other_variant"
 )
 {
-	variantSet "some_other_variant" = {
-		"do_nothing" {
-		}
+    variantSet "some_other_variant" = {
+        "do_nothing" {
 
-		"force_selection_1_in_the_geo_variant_set" (
-			variants = {
-				string geo = "selection_1"
-			}
-		) {
-		}
-	}
+        }
+        "force_selection_1_in_the_geo_variant_set" (
+            variants = {
+                string geo = "selection_1"
+            }
+        ) {
+
+        }
+    }
 }
+
