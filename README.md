@@ -76,6 +76,8 @@ Here are links of a recommended viewing order for every project in this reposito
 
 [Defining customizable userProperties](features/userProperties)
 
+[Edit Targets](features/edit_targets)
+
 [Value resolution caching](features/value_caching)
 
 [Computing bounding boxes, using UsdGeomImageable and UsdGeomBBoxCache](features/world_bounding_box)
