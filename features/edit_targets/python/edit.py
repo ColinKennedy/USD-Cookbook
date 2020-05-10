@@ -35,7 +35,6 @@ def main():
     print(inner_stage.GetRootLayer().ExportToString())
 
     main_stage.SetEditTarget(Usd.EditTarget(inner_stage.GetRootLayer()))
-
     sphere = UsdGeom.Sphere(main_stage.GetPrimAtPath("/root/sphere"))
     sphere.GetRadiusAttr().Set(5)
 
