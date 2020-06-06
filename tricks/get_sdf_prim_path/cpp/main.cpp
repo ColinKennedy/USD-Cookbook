@@ -79,7 +79,7 @@ pxr::UsdPrim get_prim_at_path(pxr::UsdStagePtr const &stage, pxr::SdfPath const 
 
     auto composed_path = path.StripAllVariantSelections();
 
-    return stage->GetPrimAtPath(composed_path);
+    return stage->GetPrimAtPath(composed_path.GetPrimPath());
 }
 
 

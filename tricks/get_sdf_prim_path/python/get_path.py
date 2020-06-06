@@ -103,7 +103,7 @@ def get_prim_at_path(stage, path):
     #
     composed_path = path.StripAllVariantSelections()
 
-    return stage.GetPrimAtPath(composed_path)
+    return stage.GetPrimAtPath(composed_path.GetPrimPath())
 
 
 def main():
