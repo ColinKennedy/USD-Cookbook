@@ -1,0 +1,16 @@
+{
+    "Plugins": [
+        {
+            "Type": "python",
+            "Name": "copy_camera",
+            "Info": {
+                "Types": {
+                    "copy_camera.CopyCameraContainer": {
+                        "bases": ["pxr.Usdviewq.plugin.PluginContainer"],
+                        "displayName": "Copy The User's Current Camera"
+                    }
+                }
+            }
+        }
+    ]
+}
