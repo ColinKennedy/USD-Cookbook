@@ -161,6 +161,8 @@ Here are links of a recommended viewing order for every project in this reposito
 
 [usdview_purpose_swap - Change between proxy and render purposes with a single button](plugins/usdview_purpose_swap)
 
+[usdview_copy_camera - Make a prim in usdview to represent the current view](plugins/usdview_copy_camera)
+
 [VariantSet fallback selections](plugins/variant_fallbacks)
 
 [VariantSet selection export polices](plugins/registered_variant_selection_export_policies)

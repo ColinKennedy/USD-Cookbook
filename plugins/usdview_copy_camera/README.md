@@ -3,6 +3,10 @@ Have you ever been in usdview and wanted to save your current camera
 view for later? This quick little plugin does this for you.
 
 
+# Demonstration
+![usdview_copy_camera_demonstration](https://user-images.githubusercontent.com/10103049/95707321-0a7d6e80-0c0e-11eb-9930-acf10ae7dde1.gif)
+
+
 # How To Run
 1. Run this in the terminal
 
