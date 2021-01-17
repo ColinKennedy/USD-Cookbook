@@ -1,3 +1,18 @@
+**Update**
+This page used to explain all the font / icons / etc of usdview. But
+this page is unnecessary because usdview already has a way to show what
+everything means.
+
+To find out what a specific color or icon means, simply press the "?"
+button in the lower-left corner of the widgets in usdview.
+
+![usdview_legend](https://user-images.githubusercontent.com/10103049/104829527-a4664000-5829-11eb-80d9-d46d5afd4f49.gif)
+
+After the "?", usdview will expand to show a legend which explains everything.
+
+Prefer everything shown in usdview over anything you see here.
+
+
 # Quick Explanation
 Have you ever wondered what all the text colors, fonts, and icons in
 usdview mean? The different combinations of data can be pretty complex.
