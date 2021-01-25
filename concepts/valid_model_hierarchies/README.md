@@ -61,8 +61,8 @@ Here's some examples of valid Model hierarchies
 
 
 ### "Invalids" Breakdown
+#### invalid_1.usda
 
-invalid_1.usda
 ```usda
 #usda 1.0
 
@@ -78,7 +78,8 @@ def Scope "root" (
 **Fix**: Define a kind. "assembly", "group", or "component" are all options.
 
 
-invalid_2.usda
+#### invalid_2.usda
+
 ```usda
 #usda 1.0
 
@@ -111,7 +112,8 @@ kind. The Prim being "inside" of a valid Model hierarchy doesn't make
 Model hierarchy, add "assembly", "group", or "component"
 
 
-invalid_2b.usda
+#### invalid_2b.usda
+
 ```usda
 #usda 1.0
 
@@ -142,7 +144,8 @@ def Scope "root"
 
 **Fix**: Add "assembly" or "group" kind to </root> or get rid of </root> completely.
 
-invalid_2c.usda
+#### invalid_2c.usda
+
 ```usda
 #usda 1.0
 
@@ -176,7 +179,8 @@ def Scope "root" (
 **Fix**: Add either "assembly" or "group" kind to </root/inner>
 
 
-invalid_2d.usda
+#### invalid_2d.usda
+
 ```usda
 #usda 1.0
 
