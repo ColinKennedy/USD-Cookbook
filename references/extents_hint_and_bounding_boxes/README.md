@@ -1,7 +1,10 @@
-extentsHint and how they relate to bounding boxes in USD is a somewhat
-misunderstood concept. As always, we'll start with the conclusion and
-explain, in detail, how each part works if you want a more thorough
-explanation.
+The USD extentsHint attribute is a bit special compared to others. You
+can author them easily and on most Prims but, to author it well, there
+are certain rules which USD expects you to follow.
+
+As always, we'll start with the conclusion first if you're just looking
+for the key take-aways. Read the full page if you want the nitty-gritty
+details.
 
 
 ## Writing extentsHint Values
@@ -10,8 +13,10 @@ explanation.
 A big reason why people like extentsHint is so that they can be used to
 display pre-computed bounding boxes.
 
-Technically, you can author an extentsHint on any [UsdGeomBoundable](https://graphics.pixar.com/usd/docs/api/class_usd_geom_boundable.html) Prim.
-But if you want extentsHint specifically for bounding boxes, you must follow these rules:
+Technically, you can author an extentsHint on any
+[UsdGeomBoundable](https://graphics.pixar.com/usd/docs/api/class_usd_geom_boundable.html)
+Prim. But if you want extentsHint specifically for bounding boxes, you
+must follow these rules:
 
 all_in_one.usda
 ```usda
@@ -33,8 +38,32 @@ These are the rules - On a single Prim:
 2. You need a composition arc
 3. You need an extentsHint authored on the Prim
 
-All 3 points must be authored on the **same** Prim. In other words, you
-can't split it up across Prims, like this
+All 3 points must be authored on the **same** Prim. 
+
+More or less, that's what you'd want to do when authoring extentsHint data.
+
+
+### Other Key Things To Mention
+
+The USD documentation recommends to author extentsHint **above**
+payloads and only directly on the Prim of payloaded data. It recommends
+this because extentsHint expects all Prims and child Prims to be fully
+encapsulated. If a Prim in a Layer changes, extentsHint values in
+stronger Layers will need to be recalculated or they become out of date.
+
+In practice though, if your pipeline has locks in place to prevent that
+from happening, it's fine (in my experience).
+
+Also, use timeSamples on extentsHint for animated geometry / animated
+rigged assets. That way, when a character's extentsHint is not in
+view of the camera, hydra can cull the character without calculating
+skinning.
+
+
+## extentsHint Definition Details
+
+To expand a bit on the previous section, specifically, you can't split
+it up the information across Prims, like this:
 
 does_not_work.usda
 ```usda
@@ -79,24 +108,28 @@ The reason: All of the values are on one Prim, which is great, but
 needs to define a "group" or "assembly" kind.
 
 One last note about rule #2 (composition arcs)
-Sublayers won't work since they are authored on a Layer, not a Prim. But
-any other L**IVRPS** arcs are okay. 99.99%, you'll want to use **payload**.
+Sublayers won't work since they are authored on a Layer, not a Prim.
+But any other L**IVRPS** arcs are okay. 99.99%, you'll want to use
+**payload**. The reason: because usually when people want accurate
+bounding boxes, it's because they are loading a lot of USD data and they
+don't want to load any payloads.
 
 
-### How Do I Know extentsHint Is Properly Authored?
+## How Do I Know extentsHint Is Properly Authored?
 
 **Important** - If you don't see bounding boxes in your usdview, make sure you
 have the bounding box setting enabled.
 
-TODO image here
+![usdview_bounding_box_settings](https://user-images.githubusercontent.com/10103049/105656137-6a72ea80-5e76-11eb-8d6c-b22f9da85f43.png)
 
-The easiest way to know if you wrote extentsHint properly is to open your stage in `usdview`.
+The easiest way to know if you wrote extentsHint properly is to open
+your stage in `usdview`.
 
 ```sh
 usdview simple.usda
 ```
 
-TODO image here
+![usdview_extexts_hint_loaded](https://user-images.githubusercontent.com/10103049/105655989-1962f680-5e76-11eb-91c9-2358be730bb2.png)
 
 The effect is even more obvious when you load without payloads
 
@@ -104,9 +137,48 @@ The effect is even more obvious when you load without payloads
 usdview simple.usda --unloaded
 ```
 
-TODO image here
+![usdview_extexts_hint_unloaded](https://user-images.githubusercontent.com/10103049/105655966-0d773480-5e76-11eb-8abd-ab15fc691e69.png)
+
+Note: The extentsHint in this file is intentionally too large for the
+sake of demonstration. Normally, you'd want it to hug the geometry as
+tightly as possible.
 
 
-### Concluding This Summary
+## extents, extentsHint, and USD Purposes
 
-If all you want is to know how to write extentsHint, no need to read further. The rest of this page is for people who want to know extentsHint as **extents**-ively as possible.
+extentsHint is an array attribute. Many people assume it defines 2
+points of a bounding box. That explanation is half right. It actually
+defines 2 local positions per-purpose!
+
+This extentsHint will define bounds for the default purpose (and all
+other purposes) of a Prim.
+
+```usda
+float3[] extentsHint = [(-1, -1, -1), (1, 2.5, 1)]
+```
+
+This extentsHint defines separate values for each USD purpose
+guide purposes.
+
+```usda
+float3[] extentsHint = [
+	(3.4028235e38, 3.4028235e38, 3.4028235e38), (-3.4028235e38, -3.4028235e38, -3.4028235e38),  # default
+	(-2.5, -3, -2.5), (-1.5, -1, -1.5),  # render
+	(-5.5, -5.5, -5.5), (-4.5, -4.5, -4.5),  # proxy
+	(4, 5.5, 4), (8, 6.5, 8)  # guide
+]
+```
+
+You can see the results of this in usdview
+
+```sh
+usdview multiple_purposes.usda --unloaded
+```
+
+When you switch between each purpose, you'll see each authored box. When
+you have multiple purposes on at once, an aggregate extentsHint is drawn
+on-screen.
+
+See the GIF below for a demonstration
+
+![extents_hint_demonstration](https://user-images.githubusercontent.com/10103049/105666062-45d63d00-5e8d-11eb-8fd1-05d7f846ea56.gif)

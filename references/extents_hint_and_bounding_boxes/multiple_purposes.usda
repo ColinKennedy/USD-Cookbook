@@ -1,0 +1,14 @@
+#usda 1.0
+
+def Scope "root" (
+    payload = @something.usda@
+    kind = "component"
+)
+{
+    float3[] extentsHint = [
+        (3.4028235e38, 3.4028235e38, 3.4028235e38), (-3.4028235e38, -3.4028235e38, -3.4028235e38),  # default
+        (-2.5, -3, -2.5), (-1.5, -1, -1.5),  # render
+        (-5.5, -5.5, -5.5), (-4.5, -4.5, -4.5),  # proxy
+        (4, 5.5, 4), (8, 6.5, 8)  # guide
+    ]
+}
