@@ -183,6 +183,8 @@ Here are links of a recommended viewing order for every project in this reposito
 
 ### References
 
+[extentsHint and bounding boxes](references/extents_hint_and_bounding_boxes)
+
 [Link Python Documentation To USD's Documentation](references/link_to_the_api_documentation)
 
 [Understanding usdview](references/usdview_style_documentation)
