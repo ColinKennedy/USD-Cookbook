@@ -107,12 +107,15 @@ The reason: All of the values are on one Prim, which is great, but
 </root/bounding_box_here> isn't a valid "component" kind because </root>
 needs to define a "group" or "assembly" kind.
 
-One last note about rule #2 (composition arcs)
-Sublayers won't work since they are authored on a Layer, not a Prim.
-But any other L**IVRPS** arcs are okay. 99.99%, you'll want to use
-**payload**. The reason: because usually when people want accurate
-bounding boxes, it's because they are loading a lot of USD data and they
-don't want to load any payloads.
+For more information on how to set up good Model kinds, see:
+[Valid Model Hierarchies](../../concepts/valid_model_hierarchies)
+
+One last note about rule #2 (composition arcs) Sublayers won't work
+since they are authored on a Layer, not a Prim. But any other L**IVRPS**
+arcs are okay. 99.99%, you'll want to use **payload**. The reason:
+because usually when people want accurate bounding boxes, it's because
+they are loading a lot of USD data and they don't want to load any
+payloads.
 
 
 ## How Do I Know extentsHint Is Properly Authored?
@@ -182,3 +185,8 @@ on-screen.
 See the GIF below for a demonstration
 
 ![extents_hint_demonstration](https://user-images.githubusercontent.com/10103049/105666062-45d63d00-5e8d-11eb-8fd1-05d7f846ea56.gif)
+
+
+## See Also
+
+[Valid Model Hierarchies](../../concepts/valid_model_hierarchies)

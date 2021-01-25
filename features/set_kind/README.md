@@ -51,6 +51,9 @@ def Sphere "Sphere4" (
 
 
 # See Also
+
+[Valid Model Hierarchies](../../concepts/valid_model_hierarchies)
+
 https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGlossary-Kind
 
 https://graphics.pixar.com/usd/docs/api/class_kind_registry.html

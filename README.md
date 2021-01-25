@@ -107,6 +107,8 @@ Here are links of a recommended viewing order for every project in this reposito
 
 ### Concepts
 
+[Valid Model Hierarchies](concepts/valid_model_hierarchies)
+
 [Understanding VariantSets](concepts/variant_set_understanding)
 
 [Overriding VariantSets](concepts/variant_set_in_stronger_layer)
