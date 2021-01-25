@@ -1,0 +1,9 @@
+#usda 1.0
+
+def "bounding_box_here" (
+    kind = "component"
+    payload = @a_payload.usda@
+)
+{
+    float3[] extentsHint = [(-1, -1, -1), (1, 2.5, 1)]
+}
