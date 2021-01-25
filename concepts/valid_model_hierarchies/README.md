@@ -11,7 +11,7 @@ So what does that actually mean in practice though?
 
 It means your model hierarchy must look like this and only this
 
-{assembly|group}(/{component/(subcomponent)})
+{assembly|group}/{component/subcomponent}
 
 That syntax is a bit weird so let's list out the rules
 
