@@ -34,7 +34,7 @@ def Cube "bounding_box_here" (
 These are the rules - On a single Prim:
 
 1. You need a valid model kind hierarchy
-    - To learn more about that, [read this page](../model_hierarchy_validity)
+    - To learn more about that, [Valid Model Hierarchies](../../concepts/valid_model_hierarchies)
 2. You need a composition arc
 3. You need an extentsHint authored on the Prim
 
