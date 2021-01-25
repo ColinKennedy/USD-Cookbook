@@ -1,11 +1,10 @@
 ## Summary
 
-According to the [USD
-Glossary](https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGloss
-ary-ModelHierarchy), USD kinds make up a "model hierarchy". Contracy
-to the name, "model" in this case just means a "table of contents of
-important Prims". "model" doesn't mean "only geometry Prims". The Prims
-can be anything.
+According to the
+[USD Glossary](https://graphics.pixar.com/usd/docs/USD-Glossary.html#USDGlossary-ModelHierarchy)
+USD kinds make up a "model hierarchy". Contrary to the name, "model" in
+this case just means a "table of contents of important Prims". "model"
+doesn't mean "only geometry Prims". The Prims can be anything.
 
 So what does that actually mean in practice though?
 
