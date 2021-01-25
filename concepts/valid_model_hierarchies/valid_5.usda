@@ -1,0 +1,17 @@
+#usda 1.0
+
+def Scope "root1" (
+    kind = "assembly"
+)
+{
+}
+
+
+def Scope "root2" (
+    kind = "assembly"
+)
+{
+    def Scope "child"
+    {
+    }
+}

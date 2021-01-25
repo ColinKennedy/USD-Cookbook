@@ -1,0 +1,22 @@
+#usda 1.0
+
+def Scope "root" (
+    kind = "assembly"
+)
+{
+    def Scope "some_group" (
+        kind = "group"
+    )
+    {
+        def Scope "another_assembly" (
+            kind = "assembly"
+        )
+        {
+            def Scope "last_one" (
+                kind = "component"
+            )
+            {
+            }
+        }
+    }
+}

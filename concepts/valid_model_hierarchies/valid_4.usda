@@ -1,0 +1,12 @@
+#usda 1.0
+
+def Scope "root" (
+    kind = "component"
+)
+{
+    def Scope "child" (
+        kind = "subcomponent"
+    )
+    {
+    }
+}

@@ -1,0 +1,27 @@
+#usda 1.0
+
+def Scope "root" (
+    doc = "This is valid"
+    kind = "assembly"
+)
+{
+    def Scope "some_group" (
+        doc = "This is valid"
+        kind = "group"
+    )
+    {
+        def Scope "some_component" (
+            doc = "This is valid"
+            kind = "component"
+        )
+        {
+            def Scope "inner_invalid_group" (
+                doc = "This one isn't valid"
+                kind = "group"
+            )
+            {
+            }
+        }
+    }
+}
+

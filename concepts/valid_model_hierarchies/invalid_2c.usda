@@ -1,0 +1,26 @@
+#usda 1.0
+
+def Scope "root" (
+    doc = "This is a valid Model kind"
+    kind = "assembly"
+)
+{
+    def Scope "inner" (
+        doc = "Because this has no kind, all child Prims are an invalid Model"
+    )
+    {
+        def Scope "some_group" (
+            doc = "This is not a Model kind"
+            kind = "group"
+        )
+        {
+            def Scope "last_one" (
+                doc = "This is not a Model kind"
+                kind = "component"
+            )
+            {
+            }
+        }
+    }
+}
+

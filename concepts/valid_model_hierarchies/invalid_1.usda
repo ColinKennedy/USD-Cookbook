@@ -1,0 +1,7 @@
+#usda 1.0
+
+def Scope "root" (
+    doc = "This has no kind defined. So it isn't a Model"
+)
+{
+}

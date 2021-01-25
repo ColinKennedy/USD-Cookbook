@@ -1,0 +1,20 @@
+#usda 1.0
+
+def Scope "root" (
+    doc = "This has a valid Model kind"
+    kind = "assembly"
+)
+{
+    def Scope "some_group" (
+        doc = "This has a valid Model kind"
+        kind = "group"
+    )
+    {
+        def Scope "child" (
+            doc = "But don't expect this to be a valid Model kind"
+        )
+        {
+        }
+    }
+}
+
