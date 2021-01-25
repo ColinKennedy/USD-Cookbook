@@ -75,7 +75,7 @@ def Cube "bounding_box_here" (
 )
 {
     def Scope "inner" (
-		doc = "The extentsHint is authored on a child, but that's not good!"
+        doc = "The extentsHint is authored on a child, but that's not good!"
         kind = "component"
     )
     {
@@ -93,13 +93,13 @@ all_in_one_broken.usda
 
 def Scope "root"
 {
-	def Cube "bounding_box_here" (
-		kind = "component"
-		payload = @something.usda@
-	)
-	{
-		float3[] extentsHint = [(-1, -1, -1), (1, 2.5, 1)]
-	}
+    def Cube "bounding_box_here" (
+        kind = "component"
+        payload = @something.usda@
+    )
+    {
+        float3[] extentsHint = [(-1, -1, -1), (1, 2.5, 1)]
+    }
 }
 ```
 
@@ -162,10 +162,10 @@ guide purposes.
 
 ```usda
 float3[] extentsHint = [
-	(3.4028235e38, 3.4028235e38, 3.4028235e38), (-3.4028235e38, -3.4028235e38, -3.4028235e38),  # default
-	(-2.5, -3, -2.5), (-1.5, -1, -1.5),  # render
-	(-5.5, -5.5, -5.5), (-4.5, -4.5, -4.5),  # proxy
-	(4, 5.5, 4), (8, 6.5, 8)  # guide
+    (3.4028235e38, 3.4028235e38, 3.4028235e38), (-3.4028235e38, -3.4028235e38, -3.4028235e38),  # default
+    (-2.5, -3, -2.5), (-1.5, -1, -1.5),  # render
+    (-5.5, -5.5, -5.5), (-4.5, -4.5, -4.5),  # proxy
+    (4, 5.5, 4), (8, 6.5, 8)  # guide
 ]
 ```
 
