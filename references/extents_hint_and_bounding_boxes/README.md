@@ -35,10 +35,9 @@ These are the rules - On a single Prim:
 
 1. You need a valid model kind hierarchy
     - To learn more about that, [Valid Model Hierarchies](../../concepts/valid_model_hierarchies)
-2. You need a composition arc
-3. You need an extentsHint authored on the Prim
+2. You need an extentsHint authored on the Prim
 
-All 3 points must be authored on the **same** Prim. 
+These 2 points must be authored on the **same** Prim.
 
 More or less, that's what you'd want to do when authoring extentsHint data.
 
@@ -109,13 +108,6 @@ needs to define a "group" or "assembly" kind.
 
 For more information on how to set up good Model kinds, see:
 [Valid Model Hierarchies](../../concepts/valid_model_hierarchies)
-
-One last note about rule #2 (composition arcs) Sublayers won't work
-since they are authored on a Layer, not a Prim. But any other L**IVRPS**
-arcs are okay. 99.99%, you'll want to use **payload**. The reason:
-because usually when people want accurate bounding boxes, it's because
-they are loading a lot of USD data and they don't want to load any
-payloads.
 
 
 ## How Do I Know extentsHint Is Properly Authored?
