@@ -17,27 +17,27 @@ find_library(USD_BOOST_PYTHON boost_python HINTS ${USD_LIBRARY_DIRECTORY})
 find_library(USD_SDF sdf HINTS ${USD_LIBRARY_DIRECTORY})
 find_library(USD_TF tf HINTS ${USD_LIBRARY_DIRECTORY})
 find_library(USD_USD usd HINTS ${USD_LIBRARY_DIRECTORY})
-find_library(USD_USDSHADE usdShade HINTS ${USD_LIBRARY_DIRECTORY})
+find_library(USD_USDGEOM usdGeom HINTS ${USD_LIBRARY_DIRECTORY})
 
 find_package(PythonLibs REQUIRED)
 
 # 4. Include/Link Everything
 add_executable(run_it
-	main.cpp
+    main.cpp
 )
 
 target_include_directories(run_it
 PUBLIC
-	${PYTHON_INCLUDE_PATH}
-	${USD_INCLUDE_DIRECTORY}
+    ${PYTHON_INCLUDE_PATH}
+    ${USD_INCLUDE_DIRECTORY}
 )
 
 target_link_libraries(
 run_it
-	${PYTHON_LIBRARY}
-	${USD_BOOST_PYTHON}
-	${USD_SDF}
-	${USD_TF}
-	${USD_USD}
-    ${USD_USDSHADE}
+    ${PYTHON_LIBRARY}
+    ${USD_BOOST_PYTHON}
+    ${USD_SDF}
+    ${USD_TF}
+    ${USD_USD}
+    ${USD_USDGEOM}
 )
