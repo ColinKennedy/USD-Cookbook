@@ -5,18 +5,21 @@
 #include <vector>
 
 // IMPORT THIRD-PARTY LIBRARIES
+#include <pxr/base/tf/stringUtils.h>
 #include <pxr/usd/sdf/layerOffset.h>
 #include <pxr/usd/sdf/path.h>
 #include <pxr/usd/sdf/reference.h>
 #include <pxr/usd/usd/attribute.h>
+#include <pxr/usd/usd/resolveInfo.h>
 #include <pxr/usd/usd/stage.h>
 #include <pxr/usd/usdGeom/sphere.h>
 
 
-struct _Times
+struct _Time
 {
     int time_code;
     double expected_value;
+    pxr::UsdResolveInfoSource expected_resolve;
 };
 
 
@@ -91,33 +94,52 @@ void _run_resolution_test()
     auto sphere = pxr::UsdGeomSphere(referencer->GetPrimAtPath(pxr::SdfPath {"/root/sphere"}));
     auto radius = sphere.GetRadiusAttr();
 
-    std::vector<_Times> times {
-        {10, 10.0},
-        {20, 10.0},
-        {25, 10.0},
-        {30, 12.5},
-        {55, 25.0},
-        {85, 40.0}
+    std::vector<_Time> times {
+        {10, 10.0, pxr::UsdResolveInfoSourceTimeSamples},
+        {20, 10.0, pxr::UsdResolveInfoSourceTimeSamples},
+        {25, 10.0, pxr::UsdResolveInfoSourceTimeSamples},
+        {30, 12.5, pxr::UsdResolveInfoSourceTimeSamples},
+        {55, 25.0, pxr::UsdResolveInfoSourceTimeSamples},
+        {85, 40.0, pxr::UsdResolveInfoSourceTimeSamples},
     };
 
     std::string template_ = \
-R"(Expected Value: "%d"
-Actual Value: "%f")";
+R"(Expected Value: "%f"
+Actual Value: "%f"
+Expected Resolve: "%s"
+Actual Resolve: "%s")";
 
     for (auto const &entry : times)
     {
         std::cout << "Time Start: \"" << entry.time_code << "\"\n";
+
         double actual_value;
         radius.Get(&actual_value, entry.time_code);
+        auto expected_resolve = pxr::TfStringify(entry.expected_resolve);
+        auto actual_resolve = radius.GetResolveInfo(entry.time_code).GetSource();
+        auto actual_resolve_text = pxr::TfStringify(actual_resolve);
+
         auto size = template_.size() \
             + _get_digits_count(entry.expected_value)
             + _get_digits_count(actual_value)
+            + expected_resolve.size()
+            + actual_resolve_text.size()
         ;
         char *buffer = new char[size];
-        snprintf(buffer, size, template_.c_str(), entry.expected_value, actual_value);
+
+        snprintf(
+            buffer,
+            size,
+            template_.c_str(),
+            entry.expected_value,
+            actual_value,
+            expected_resolve.c_str(),
+            actual_resolve_text.c_str()
+        );
         std::cout << buffer << "\n";
         delete[] buffer;
         buffer = nullptr;
+
         std::cout << "Time End: \"" << entry.time_code << "\"\n";
     }
 }
@@ -168,17 +190,17 @@ int main() {
     _run_linear_interpolation_test();
     std::cout << "XXX : Ending interpolation test\n";
 
-    std::cout << "Radius will print 1.0 and Usd.ResolveInfoSourceFallback\n";
+    std::cout << "Radius will print ~1.0 and UsdResolveInfoSourceFallback\n";
     double value;
     radius.Get(&value);
     printf("%f", value);
-    std::cout << radius.GetResolveInfo().GetSource() << "\n";
-    std::cout << "Radius will print 5.0 and Usd.ResolveInfoSourceDefault\n";
+    std::cout << pxr::TfStringify(radius.GetResolveInfo().GetSource()) << "\n";
+    std::cout << "Radius will print ~5.0 and UsdResolveInfoSourceDefault\n";
     radius.Set(5.0);
     radius.Get(&value);
     printf("%f", value);
     std::cout << value << "\n";
-    std::cout << radius.GetResolveInfo().GetSource() << "\n";
+    std::cout << pxr::TfStringify(radius.GetResolveInfo().GetSource()) << "\n";
 
     return 0;
 }
