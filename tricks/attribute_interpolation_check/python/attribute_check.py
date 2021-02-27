@@ -65,7 +65,6 @@ def _run_resolution_test():
         print('Time Start: "{time_code}"'.format(time_code=time_code))
         print(
             template.format(
-                time_code=time_code,
                 expected_value=expected_value,
                 actual_value=radius.Get(time_code),
                 expected_resolve=expected_resolve,
