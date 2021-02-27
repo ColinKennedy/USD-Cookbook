@@ -13,6 +13,20 @@ value was resolved.
 
 ### C++
 ```cpp
+bool is_interpolated(pxr::UsdAttribute const &attribute, double frame)
+{
+
+    double lower;
+    double upper;
+    bool has_time_samples;
+
+    attribute.GetBracketingTimeSamples(frame, &lower, &upper, &has_time_samples);
+
+    // XXX : `lower != upper` means "you cannot be interpolating
+    // between two values if there is only one value.
+    //
+    return (has_time_samples && lower != upper && lower != frame);
+}
 ```
 
 
@@ -42,7 +56,7 @@ def is_interpolated(attribute, frame):
 ```
 
 
-### Resolution Source Enums
+## Resolution Source Enums
 A reference for what each USD source enum means
 
 Usd.ResolveInfoSourceFallback: No other value found, so using the schema fallback value (e.g. Sphere.radius fallback is 1.0)
@@ -52,3 +66,6 @@ Usd.ResolveInfoSourceTimeSamples: A time-varying value (does not specify interpo
 Usd.ResolveInfoSourceNone: The attribute's value is not defined and no schema fallback exists.
 
 
+## References
+This section's trick was copied
+[from usdview](https://github.com/PixarAnimationStudios/USD/blob/d8a405a1344480f859f025c4f97085143efacb53/pxr/usdImaging/usdviewq/common.py#L318-L331)
