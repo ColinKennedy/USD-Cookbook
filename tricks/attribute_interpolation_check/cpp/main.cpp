@@ -57,8 +57,7 @@ void _run_resolution_test()
     auto referencee = pxr::UsdStage::CreateInMemory();
     referencee->GetRootLayer()->ImportFromString(
         {
-            R"(
-            #usda 1.0
+            R"(#usda 1.0
             (
                 defaultPrim = "root"
             )
@@ -96,26 +95,26 @@ void _run_resolution_test()
         {10, 10.0},
         {20, 10.0},
         {25, 10.0},
-        {30, 10.0},
-        {55, 10.0},
-        {85, 10.0}
+        {30, 12.5},
+        {55, 25.0},
+        {85, 40.0}
     };
 
     std::string template_ = \
-R"(
-Expected Value: "%d"
-Actual Value: "%f"
-)";
+R"(Expected Value: "%d"
+Actual Value: "%f")";
 
     for (auto const &entry : times)
     {
         std::cout << "Time Start: \"" << entry.time_code << "\"\n";
+        double actual_value;
+        radius.Get(&actual_value, entry.time_code);
         auto size = template_.size() \
-            + _get_digits_count(entry.time_code)
             + _get_digits_count(entry.expected_value)
+            + _get_digits_count(actual_value)
         ;
         char *buffer = new char[size];
-        snprintf(buffer, size, template_.c_str(), entry.time_code, entry.expected_value);
+        snprintf(buffer, size, template_.c_str(), entry.expected_value, actual_value);
         std::cout << buffer << "\n";
         delete[] buffer;
         buffer = nullptr;
@@ -165,6 +164,7 @@ int main() {
     std::cout << "XXX : Ending resolution test\n";
 
     std::cout << "XXX : Starting interpolation test\n";
+    std::cout << std::boolalpha;
     _run_linear_interpolation_test();
     std::cout << "XXX : Ending interpolation test\n";
 
