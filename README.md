@@ -94,6 +94,8 @@ Here are links of a recommended viewing order for every project in this reposito
 
 [How to use Value Clips](features/value_clips)
 
+[Setting Time Varying Attributes With Sdf](features/time_varying_attributes_sdf)
+
 [SdfChangeBlock - Efficient USD authoring](features/sdf_change_block)
 
 [SdfBatchNamespaceEdit and SdfNamespaceEdit - Efficient USD authoring](features/batch_namespace_edit)
