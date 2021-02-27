@@ -146,6 +146,8 @@ Here are links of a recommended viewing order for every project in this reposito
 
 [Copy opinions from a VariantSet onto another Prim](tricks/copy_variant_set_to_prim)
 
+[Find An Attribute's Source](tricks/attribute_source_check)
+
 [Find a Prim's bound material (includes collections API)](tricks/bound_material_finder)
 
 [2-pass exporting - Export USD stages 100x faster](tricks/fast_export)

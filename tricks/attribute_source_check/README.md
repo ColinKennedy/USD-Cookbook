@@ -2,13 +2,13 @@
 Attributes in USD can have values from multiple sources such as
 
 - time-samples
-- linear interpolation (between two time-samples)
+- linear interpolation (a value between two time-samples)
 - default values
 - schema fallback values
 
 Because time-sampled Attributes can be offset and scaled when referenced
-/ payloaded into another Layer, how does one know how a composed value
-was created?
+/ payloaded into another Layer, it can get tough to know how a composed
+value was resolved.
 
 
 ### C++

@@ -32,8 +32,10 @@ bool is_interpolated(pxr::UsdAttribute const &attribute, double frame)
 
     attribute.GetBracketingTimeSamples(frame, &lower, &upper, &has_time_samples);
 
-    // TODO : Check the logic of this
-    return (has_time_samples && (lower != frame));
+    // XXX : `lower != upper` means "you cannot be interpolating
+    // between two values if there is only one value.
+    //
+    return (has_time_samples && lower != upper && lower != frame);
 }
 
 
@@ -193,13 +195,12 @@ int main() {
     std::cout << "Radius will print ~1.0 and UsdResolveInfoSourceFallback\n";
     double value;
     radius.Get(&value);
-    printf("%f", value);
+    printf("%f\n", value);
     std::cout << pxr::TfStringify(radius.GetResolveInfo().GetSource()) << "\n";
     std::cout << "Radius will print ~5.0 and UsdResolveInfoSourceDefault\n";
     radius.Set(5.0);
     radius.Get(&value);
-    printf("%f", value);
-    std::cout << value << "\n";
+    printf("%f\n", value);
     std::cout << pxr::TfStringify(radius.GetResolveInfo().GetSource()) << "\n";
 
     return 0;
