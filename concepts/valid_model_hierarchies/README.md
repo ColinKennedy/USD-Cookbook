@@ -103,12 +103,12 @@ def Scope "root" (
 
 ```
 
-**Reason**: </root> and </root/some_group> are perfectly valid. But
-</root/some_group/child> is not a Model because it doesn't define a
+**Reason**: ``</root>`` and ``</root/some_group>`` are perfectly valid. But
+``</root/some_group/child>`` is not a Model because it doesn't define a
 kind. The Prim being "inside" of a valid Model hierarchy doesn't make
-</root/some_group/child> itself valid.
+``</root/some_group/child>`` itself valid.
 
-**Fix**: If the intent is for </root/some_group/child> to be part of the
+**Fix**: If the intent is for ``</root/some_group/child>`` to be part of the
 Model hierarchy, add "assembly", "group", or "component"
 
 
@@ -140,9 +140,9 @@ def Scope "root"
 }
 ```
 
-**Reason**: Normally this Model hierarchy would be valid but because </root> has no kind, the whole chain is not valid.
+**Reason**: Normally this Model hierarchy would be valid but because ``</root>`` has no kind, the whole chain is not valid.
 
-**Fix**: Add "assembly" or "group" kind to </root> or get rid of </root> completely.
+**Fix**: Add "assembly" or "group" kind to ``</root>`` or get rid of ``</root>`` completely.
 
 #### invalid_2c.usda
 
@@ -174,9 +174,9 @@ def Scope "root" (
 }
 ```
 
-**Reason**: The Model hierarchy is broken by </root/inner>, which has no kind defined.
+**Reason**: The Model hierarchy is broken by ``</root/inner>``, which has no kind defined.
 
-**Fix**: Add either "assembly" or "group" kind to </root/inner>
+**Fix**: Add either "assembly" or "group" kind to ``</root/inner>``
 
 
 #### invalid_2d.usda
@@ -210,11 +210,11 @@ def Scope "root" (
 }
 ```
 
-**Reason**: </root/some_group/some_component/inner_invalid_group> is a
+**Reason**: ``</root/some_group/some_component/inner_invalid_group>`` is a
 "group" but its parent Prim is "component". You cannot nest "assembly",
 "group", or "component" under another "component"
 
 **Fix**: Either make
-</root/some_group/some_component/inner_invalid_group> a "subcomponent"
+``</root/some_group/some_component/inner_invalid_group>`` a "subcomponent"
 or remove its kind entirely. Either way, that Prim is not going to be a
 Model because it's underneath a "component"
