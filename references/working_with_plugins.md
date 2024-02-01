@@ -334,7 +334,7 @@ UsdUtils.GetMaterialsScopeName()
 
 ### Set Up Variant Selection Fallbacks
 There's already an example project for this plugin, located at
-[concepts/variant_fallbacks](../plugins/variant_fallbacks). But, for
+[plugins/variant_fallbacks](../plugins/variant_fallbacks). But, for
 completion, let's also summarize the information here, too.
 
 **Summary**: If a VariantSet has no selection, this plugin can control
@@ -491,7 +491,7 @@ UsdPrimRange::UsdPrimRange(Usd_PrimDataConstPtr begin, Usd_PrimDataConstPtr end,
 
 ### Extend Metadata
 There's already an example project for this plugin, located at
-[concepts/plugin_metadata](../plugins/plugin_metadata). But, for
+[plugins/plugin_metadata](../plugins/plugin_metadata). But, for
 completion, let's also summarize the information here, too.
 
 **Summary**: Registry new metadata types so you can add your own custom metadata onto layers, attributes, prims, and more.
