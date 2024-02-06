@@ -115,8 +115,6 @@ Here are links of a recommended viewing order for every project in this reposito
 
 [Overriding VariantSets](concepts/variant_set_in_stronger_layer)
 
-[Use weaker layers to modify stronger layers](concepts/use_weaker_layers_to_modify_stronger_layers)
-
 [How to uniquify an instanced UsdPrim](concepts/uniquify_an_instance)
 
 [UsdRelationship Forwarding](concepts/relationship_forwarding)
@@ -142,7 +140,9 @@ Here are links of a recommended viewing order for every project in this reposito
 
 [Custom traversals with boost](tricks/stl_iteration2)
 
-[Variant auto-selections - Using VariantSets to modify other VariantSets](tricks/variant_set_auto_selections )
+[Traversing instanced prims](tricks/traverse_instanced_prims)
+
+[Variant auto-selections - Using VariantSets to modify other VariantSets](tricks/variant_set_auto_selections)
 
 [Copy opinions from a VariantSet onto another Prim](tricks/copy_variant_set_to_prim)
 
@@ -153,6 +153,8 @@ Here are links of a recommended viewing order for every project in this reposito
 [2-pass exporting - Export USD stages 100x faster](tricks/fast_export)
 
 [Flatten a USD layer stack](tricks/flatten_layer_stack)
+
+[Use weaker layers to modify stronger layers](tricks/use_weaker_layers_to_modify_stronger_layers)
 
 [Multi-payloads - Yes, you can have more than one](tricks/multi_payload)
 
@@ -177,7 +179,7 @@ Here are links of a recommended viewing order for every project in this reposito
 
 [Custom USD schemas](plugins/custom_schemas_with_python_bindings)
 
-[A custom ArResolver plugin](tools/custom_resolver)
+[A custom ArResolver plugin](plugins/custom_resolver)
 
 
 ### Tools
