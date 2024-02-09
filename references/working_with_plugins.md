@@ -101,11 +101,11 @@ file needs to be named `plugInfo.json` and its directory should be found
 in the PXR_PLUGINPATH_NAME environment variable.
 
 If you don't know what this means, check out
-[The Variant Selection Fallback Plugin](../concepts/variant_fallbacks/README.md)
+[The Variant Selection Fallback Plugin](../plugins/variant_fallbacks/README.md)
 or
-[The Plugin Metadata Plugin](../concepts/plugin_metadata/README.md)
+[The Plugin Metadata Plugin](../plugins/plugin_metadata/README.md)
 or
-[The Custom Resolver Plugin](../concepts/custom_resolver/README.md)
+[The Custom Resolver Plugin](../plugins/custom_resolver/README.md)
 projects to find out more information.
 Also, there's [the USD PluginRegistry
 documentation](https://graphics.pixar.com/usd/docs/api/class_plug_registry.html)
@@ -334,7 +334,7 @@ UsdUtils.GetMaterialsScopeName()
 
 ### Set Up Variant Selection Fallbacks
 There's already an example project for this plugin, located at
-[concepts/variant_fallbacks](../concepts/variant_fallbacks). But, for
+[plugins/variant_fallbacks](../plugins/variant_fallbacks). But, for
 completion, let's also summarize the information here, too.
 
 **Summary**: If a VariantSet has no selection, this plugin can control
@@ -491,7 +491,7 @@ UsdPrimRange::UsdPrimRange(Usd_PrimDataConstPtr begin, Usd_PrimDataConstPtr end,
 
 ### Extend Metadata
 There's already an example project for this plugin, located at
-[concepts/plugin_metadata](../concepts/plugin_metadata). But, for
+[plugins/plugin_metadata](../plugins/plugin_metadata). But, for
 completion, let's also summarize the information here, too.
 
 **Summary**: Registry new metadata types so you can add your own custom metadata onto layers, attributes, prims, and more.
@@ -621,7 +621,7 @@ converted into? All of the examples online that I see convert to either
 
 ### Adding A Custom Resolver
 This plugin has been covered by the
-[custom_resolver](../concepts/custom_resolver) project in this
+[custom_resolver](../plugins/custom_resolver) project in this
 repository. But, for completion, let's also summarize the information
 here, too.
 
@@ -643,7 +643,7 @@ resolver's job is to convert that string into a path on-disk like
 
 **Plugin Sample Text**:
 
-`plugInfo.json` (Copied file from the generated results of [this custom resolver project](../concepts/custom_resolver))
+`plugInfo.json` (Copied file from the generated results of [this custom resolver project](../plugins/custom_resolver))
 ```json
 {
     "Plugins": [
