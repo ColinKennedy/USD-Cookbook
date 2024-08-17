@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 
 # IMPORT FUTURE LIBRARIES
-from __future__ import print_function
+from __future__ import print_function, annotations
 
 # IMPORT THIRD-PARTY LIBRARIES
 from pxr import Tf, Usd
 
 
-def update(notice, sender):
+def update(notice: Usd.Notice.ObjectsChanged, sender: Usd.Stage):
     """Print example data that you can get from the callback."""
     print("The triggered sender", notice.GetStage())
     print("Resynced paths", notice.GetResyncedPaths())
@@ -38,7 +38,7 @@ def main():
     # You must assign `Register` to a variable (even if you don't run
     # `del` on it later) or the callback goes out of scope and does nothing.
     #
-    updated = Tf.Notice.Register(Usd.Notice.ObjectsChanged, update, stage)
+    updated: Tf.Notice.Listener = Tf.Notice.Register(Usd.Notice.ObjectsChanged, update, stage)
     stage.DefinePrim("/SomeSphere")
     stage.GetPrimAtPath("/SomeSphere").SetMetadata("comment", "")
 
@@ -54,13 +54,13 @@ def main():
     # `Usd.Notice.StageContentsChanged`
     # `Usd.Notice.StageEditTargetChanged`
     #
-    contents = Tf.Notice.RegisterGlobally(
+    contents: Tf.Notice.Listener = Tf.Notice.RegisterGlobally(
         Usd.Notice.StageContentsChanged, stage_changed
     )
 
-    objects = Tf.Notice.RegisterGlobally(Usd.Notice.ObjectsChanged, objects_changed)
+    objects: Tf.Notice.Listener = Tf.Notice.RegisterGlobally(Usd.Notice.ObjectsChanged, objects_changed)
 
-    targets = Tf.Notice.RegisterGlobally(
+    targets: Tf.Notice.Listener = Tf.Notice.RegisterGlobally(
         Usd.Notice.StageEditTargetChanged, target_changed
     )
 

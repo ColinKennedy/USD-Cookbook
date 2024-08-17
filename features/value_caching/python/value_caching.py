@@ -7,6 +7,7 @@ from __future__ import print_function
 # IMPORT STANDARD LIBRARIES
 import functools
 import time
+from typing import Iterable
 
 # IMPORT THIRD-PARTY LIBRARIES
 from pxr import Usd, UsdGeom
@@ -30,7 +31,7 @@ def timeit(function, repeats):
     return result
 
 
-def _create_basic_scene():
+def _create_basic_scene() -> Usd.Stage:
     stage = Usd.Stage.CreateInMemory()
     sphere = UsdGeom.Sphere.Define(stage, "/Some/Prim")
     sphere.GetRadiusAttr().Set(10.0)
@@ -43,7 +44,7 @@ def _create_basic_scene():
     return another
 
 
-def _create_basic_scene_with_more_values():
+def _create_basic_scene_with_more_values() -> Usd.Stage:
     stage = _create_basic_scene()
     override = UsdGeom.Sphere(stage.OverridePrim("/Some/Prim"))
 
@@ -53,7 +54,7 @@ def _create_basic_scene_with_more_values():
     return stage
 
 
-def _get_time_samples(attributes):
+def _get_time_samples(attributes: Iterable[Usd.Attribute]):
     for attribute in attributes:
         attribute.GetTimeSamples()
 
@@ -79,7 +80,7 @@ def main():
     timeit(radius.GetTimeSamples, REPEATS)
 
     function = functools.partial(query.GetUnionedTimeSamples, [query])
-    function.__name__ = "GetUnionedTimeSamples"
+    function.__name__ = "GetUnionedTimeSamples"  # type: ignore
     print("Testing GetTimeSamples(), using a union")
     timeit(function, REPEATS)
     print()
@@ -87,14 +88,14 @@ def main():
     visibility = sphere.GetVisibilityAttr()
 
     function = functools.partial(_get_time_samples, (radius, visibility))
-    function.__name__ = "_get_time_samples - with radius and visibility"
+    function.__name__ = "_get_time_samples - with radius and visibility"  # type: ignore
     print("Testing GetTimeSamples() for multiple attributes, normally")
     timeit(function, REPEATS)
 
     function = functools.partial(
         query.GetUnionedTimeSamples, [query, Usd.AttributeQuery(visibility)]
     )
-    function.__name__ = "GetUnionedTimeSamples - with radius and visibility"
+    function.__name__ = "GetUnionedTimeSamples - with radius and visibility"  # type: ignore
     print("Testing GetTimeSamples() for multiple attributes, using a union")
     timeit(function, REPEATS)
     print()
@@ -106,14 +107,14 @@ def main():
     visibility = sphere.GetVisibilityAttr()
     query = Usd.AttributeQuery(radius)
     function = functools.partial(_get_time_samples, (radius, visibility))
-    function.__name__ = "_get_time_samples - with radius and visibility"
+    function.__name__ = "_get_time_samples - with radius and visibility"  # type: ignore
     print("Testing GetTimeSamples() for multiple attributes, normally")
     timeit(function, REPEATS)
 
     function = functools.partial(
         query.GetUnionedTimeSamples, [query, Usd.AttributeQuery(visibility)]
     )
-    function.__name__ = "GetUnionedTimeSamples - with radius and visibility"
+    function.__name__ = "GetUnionedTimeSamples - with radius and visibility"  # type: ignore
     print("Testing GetTimeSamples() for multiple attributes, using a union")
     timeit(function, REPEATS)
 

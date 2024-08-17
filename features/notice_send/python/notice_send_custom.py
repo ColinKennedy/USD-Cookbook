@@ -17,13 +17,13 @@ class Sender(object):
 
     """
 
-    def __init__(self, stage):
+    def __init__(self, stage: Usd.Stage):
         """Store some stage so that it can be retrieved, later."""
         super(Sender, self).__init__()
 
         self._stage = stage
 
-    def get_stage(self):
+    def get_stage(self) -> Usd.Stage:
         """`pxr.Usd.Stage`: The stored object that was added to this instance."""
         return self._stage
 
@@ -38,7 +38,7 @@ class Callback(object):
 
     """
 
-    def __init__(self, registered_type, notice, sender):
+    def __init__(self, registered_type: type[Tf.Notice], notice: Tf.Notice, sender: Sender):
         """Keep track of the given information."""
         super(Callback, self).__init__()
 
@@ -47,7 +47,7 @@ class Callback(object):
         self.notice = notice
         self.sender = sender
 
-    def callback(self, notice, sender):
+    def callback(self, notice: Tf.Notice, sender: Sender):
         """Print out the notice / sender that triggered this notice.
 
         In many cases you'd want `notice` and `sender` to be whatever

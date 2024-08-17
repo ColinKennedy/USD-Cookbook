@@ -4,16 +4,16 @@
 """Use the Value Clip API's explicit syntax to author Value Clips."""
 
 # IMPORT THIRD-PARTY LIBRARIES
-from pxr import Sdf, Usd
+from pxr import Sdf, Usd, Vt
 
 
 def main():
     """Run the main execution of this module."""
-    stage = Usd.Stage.CreateInMemory()
+    stage: Usd.Stage = Usd.Stage.CreateInMemory()
     stage.SetStartTimeCode(0)
     stage.SetEndTimeCode(12)
 
-    prim = stage.DefinePrim("/Prim")
+    prim: Usd.Prim = stage.DefinePrim("/Prim")
     model = Usd.ClipsAPI(prim)
     model.SetClipActive([(0, 0), (2, 1)])
     model.SetClipAssetPaths(

@@ -6,7 +6,8 @@
 #include <pxr/usd/usd/clipsAPI.h>
 #include <pxr/usd/sdf/types.h>
 #include <pxr/usd/usd/stage.h>
-
+#include <pxr/base/vt/array.h>
+#include <pxr/base/gf/vec2d.h>
 
 int main() {
     auto stage = pxr::UsdStage::CreateInMemory();
@@ -29,6 +30,11 @@ int main() {
     model.SetClipTemplateStartTime(0);
     model.SetClipTemplateStride(1, template_set_name);
     model.SetClipPrimPath("/Template", template_set_name);
+
+    pxr::VtArray<pxr::SdfAssetPath> assetPaths;
+    model.GetClipAssetPaths(&assetPaths, non_template_set_name);
+    pxr::VtVec2dArray active;
+    model.GetClipActive(&active);
 
     prim.GetReferences().AddReference(
         "./ref.usda",

@@ -24,7 +24,7 @@ import textwrap
 from pxr import Usd, UsdGeom
 
 
-def create_asset():
+def create_asset() -> Usd.Stage:
     """Create some asset to add into a sequence of shots."""
     stage = Usd.Stage.CreateInMemory()
     stage.GetRootLayer().documentation = (
@@ -36,7 +36,7 @@ def create_asset():
     return stage
 
 
-def create_sequence(asset):
+def create_sequence(asset: str) -> Usd.Stage:
     """Create a collection that shots will include and add some character to it."""
     stage = Usd.Stage.CreateInMemory()
     root = stage.GetRootLayer()
@@ -59,7 +59,7 @@ def create_sequence(asset):
     return stage
 
 
-def create_shot(sequence):
+def create_shot(sequence: str) -> Usd.Stage:
     """Get the settings from some `sequence` and modify its assets."""
     stage = Usd.Stage.CreateInMemory()
     stage.GetRootLayer().subLayerPaths.append(sequence)

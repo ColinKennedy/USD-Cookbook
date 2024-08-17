@@ -5,15 +5,15 @@
 
 # IMPORT THIRD-PARTY LIBRARIES
 from pxr import Tf
-
+from typing import Any
 
 
 def main():
     """Run the main execution of the current script."""
-    def handle_notice(notice, sender):
-        print("Handling notice")
+    def handle_notice(notice: Tf.Notice, sender: Any):
+        print("Handling notice", type(notice), sender)
 
-    listener = Tf.Notice.RegisterGlobally("TfNotice", handle_notice)
+    listener = Tf.Notice.RegisterGlobally(Tf.Notice, handle_notice)
     Tf.Notice().SendGlobally()  # This will print the contents in `handle_notice`
     del listener  # You can also run `listener.Revoke()`
     Tf.Notice().SendGlobally()  # This won't print anything

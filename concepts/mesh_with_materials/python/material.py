@@ -17,7 +17,7 @@ from pxr import Kind, Sdf, Usd, UsdGeom, UsdShade
 ASSETS_DIRECTORY = os.path.dirname(os.path.realpath(__file__))
 
 
-def attach_billboard(stage, root, name="card"):
+def attach_billboard(stage: Usd.Stage, root: UsdGeom.Xform, name="card") -> UsdGeom.Mesh:
     billboard = UsdGeom.Mesh.Define(stage, str(root.GetPath()) + "/" + name)
     billboard.CreatePointsAttr(
         [(-430, -145, 0), (430, -145, 0), (430, 145, 0), (-430, 145, 0)]
@@ -25,27 +25,27 @@ def attach_billboard(stage, root, name="card"):
     billboard.CreateFaceVertexCountsAttr([4])
     billboard.CreateFaceVertexIndicesAttr([0, 1, 2, 3])
     billboard.CreateExtentAttr([(-430, -145, 0), (430, 145, 0)])
-    texCoords = billboard.CreatePrimvar(
+    texCoords = UsdGeom.PrimvarsAPI(billboard).CreatePrimvar(
         "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
     )
     texCoords.Set([(0, 0), (1, 0), (1, 1), (0, 1)])
     return billboard
 
 
-def attach_surface_shader(stage, material, path):
+def attach_surface_shader(stage: Usd.Stage, material: UsdShade.Material, path: str) -> UsdShade.Shader:
     shader = UsdShade.Shader.Define(stage, path)
     shader.CreateIdAttr("UsdPreviewSurface")
     shader.CreateInput("roughness", Sdf.ValueTypeNames.Float).Set(0.4)
     shader.CreateInput("metallic", Sdf.ValueTypeNames.Float).Set(0.0)
 
-    material.CreateSurfaceOutput().ConnectToSource(shader, "surface")
+    material.CreateSurfaceOutput().ConnectToSource(shader.CreateInput("surface",  Sdf.ValueTypeNames.Color3f))
 
     return shader
 
 
 def attach_texture(
-    stage, shader, material_path, reader_name="stReader", shader_name="diffuseTexture"
-):
+    stage: Usd.Stage, shader: UsdShade.Shader, material_path, reader_name="stReader", shader_name="diffuseTexture"
+) -> UsdShade.Shader:
     reader = UsdShade.Shader.Define(stage, material_path + "/" + reader_name)
     reader.CreateIdAttr("UsdPrimvarReader_float2")
 
@@ -57,11 +57,11 @@ def attach_texture(
         os.path.join(ASSETS_DIRECTORY, "USDLogoLrg.png")
     )
     diffuseTextureSampler.CreateInput("st", Sdf.ValueTypeNames.Float2).ConnectToSource(
-        reader, "result"
+        reader.CreateInput("result", Sdf.ValueTypeNames.Float2)
     )
     diffuseTextureSampler.CreateOutput("rgb", Sdf.ValueTypeNames.Float3)
     shader.CreateInput("diffuseColor", Sdf.ValueTypeNames.Color3f).ConnectToSource(
-        diffuseTextureSampler, "rgb"
+        diffuseTextureSampler.CreateInput("rgb", Sdf.ValueTypeNames.Color3f)
     )
 
     return reader

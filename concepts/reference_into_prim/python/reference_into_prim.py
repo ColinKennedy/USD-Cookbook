@@ -57,7 +57,7 @@ def create_basic_stage():
     )
 
     with tempfile.NamedTemporaryFile(suffix=".usda", delete=False) as handler:
-        handler.write(code)
+        handler.write(code.encode())
 
     stage = Usd.Stage.Open(handler.name)
 

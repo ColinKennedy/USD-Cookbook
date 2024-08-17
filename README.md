@@ -59,6 +59,14 @@ See [USD's build documentation](https://github.com/PixarAnimationStudios/USD#3-r
 ### Python
 Python modules can always run using `python name_of_module.py`
 
+To automatically run all of the python examples:
+
+```bash
+python -m venv .venv
+. .venv/bin/activate
+pip install -r requirements.txt
+pytest
+```
 
 ## Sections
 Here are links of a recommended viewing order for every project in this repository.

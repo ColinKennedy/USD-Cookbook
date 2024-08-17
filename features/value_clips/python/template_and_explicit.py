@@ -2,18 +2,19 @@
 # -*- coding: utf-8 -*-
 
 """Use the Value Clip API's template syntax to author Value Clips."""
+from __future__ import annotations
 
 # IMPORT THIRD-PARTY LIBRARIES
-from pxr import Sdf, Usd
+from pxr import Sdf, Usd, Vt
 
 
 def main():
     """Run the main execution of this module."""
-    stage = Usd.Stage.CreateInMemory()
+    stage: Usd.Stage = Usd.Stage.CreateInMemory()
     stage.SetStartTimeCode(0)
     stage.SetEndTimeCode(2)
 
-    prim = stage.DefinePrim("/Set")
+    prim: Usd.Prim = stage.DefinePrim("/Set")
     non_template_set_name = "non_template_clips"
     model = Usd.ClipsAPI(prim)
     model.SetClipActive([(0.0, 0)], non_template_set_name)
@@ -28,6 +29,12 @@ def main():
     model.SetClipTemplateStartTime(0, template_set_name)
     model.SetClipTemplateStride(1, template_set_name)
     model.SetClipPrimPath("/Template", template_set_name)
+
+    paths: list[Sdf.AssetPath] = model.GetClipAssetPaths(non_template_set_name)
+    assert paths == [Sdf.AssetPath("./non_template_clip.usda")]
+
+    active: Vt.Vec2dArray = model.GetClipActive()
+    assert isinstance(active, Vt.Vec2dArray)
 
     prim.GetReferences().AddReference(assetPath="./set.usda", primPath="/Set")
 

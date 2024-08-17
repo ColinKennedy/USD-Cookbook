@@ -16,7 +16,7 @@ Important:
 from pxr import Usd, UsdGeom
 
 
-def create_basic_stage():
+def create_basic_stage() -> Usd.Stage:
     stage = Usd.Stage.CreateInMemory()
     sphere = UsdGeom.Sphere.Define(stage, "/SomeSphere")
 
@@ -42,7 +42,7 @@ def create_basic_stage():
     return stage
 
 
-def create_override_stage(identifier):
+def create_override_stage(identifier: str) -> Usd.Stage:
     stage = Usd.Stage.CreateInMemory()
     stage.GetPrimAtPath("/SomeSphere")
     root = stage.GetRootLayer()
