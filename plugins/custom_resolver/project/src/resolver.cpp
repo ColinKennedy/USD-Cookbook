@@ -14,16 +14,13 @@ URIResolver::URIResolver() : ArDefaultResolver() {}
 
 URIResolver::~URIResolver() = default;
 
-bool URIResolver::IsRelativePath(const std::string& path) {
-    return false;
-}
 
-std::string URIResolver::Resolve(const std::string& path) {
+ArResolvedPath URIResolver::_Resolve(const std::string& path) {
     if (path == "/foo") {
-        return "/bar";
+        return ArResolvedPath("/bar");
     }
 
-    return "";
+    return {};
 }
 
 PXR_NAMESPACE_CLOSE_SCOPE

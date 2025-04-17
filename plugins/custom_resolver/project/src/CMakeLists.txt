@@ -20,7 +20,7 @@ target_link_libraries(${PLUGIN_NAME}
     PUBLIC
 
 		libboost_python.so
-		libar.so
+		libusd_ar.so
 )
 
 target_include_directories(

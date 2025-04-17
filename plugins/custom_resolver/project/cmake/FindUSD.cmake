@@ -8,7 +8,7 @@ find_path(USD_INCLUDE_DIR pxr/pxr.h
           PATHS ${USD_INSTALL_ROOT}/include
           DOC "USD Include directory")
 
-find_path(USD_LIBRARY_DIR libusd.so
+find_path(USD_LIBRARY_DIR libusd_usd.so
           PATHS ${USD_INSTALL_ROOT}/lib
           DOC "USD Libraries directory")
 

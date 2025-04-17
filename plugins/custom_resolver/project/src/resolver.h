@@ -10,9 +10,7 @@ public:
     URIResolver();
     ~URIResolver();
 
-    bool IsRelativePath(const std::string& path) override;
-
-    std::string Resolve(const std::string& path) override;
+    ArResolvedPath _Resolve(const std::string& path);
 
     // std::string ResolveWithAssetInfo(
     //     const std::string& path, ArAssetInfo* assetInfo) override;
